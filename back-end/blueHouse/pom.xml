@@ -135,6 +135,11 @@
             <artifactId>javax.json</artifactId>
             <version>1.0-b02</version>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
 
 </project>
