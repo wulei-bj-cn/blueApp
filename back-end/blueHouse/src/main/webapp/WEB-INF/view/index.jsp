@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: wulei
@@ -9,28 +10,24 @@
 <html>
 <head>
     <title>欢迎进入蓝房子</title>
-    <link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
-    <script src="../../resources/js/bootstrap.min.js"></script>
+    <link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
+    <script src="<%=request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 <div class="jumbotron alert-info">
-    <tr>
-        requestScope: ${users}
-    </tr>
-
-    <c:forEach var="user" items="${users}">
-        <table>
+    <table>
+        <tr>
+            <th>大神ID</th>
+            <th>大神-名字</th>
+        </tr>
+        <c:forEach var="user" items="${users}">
             <tr>
-                <th>大神ID</th>
-                <th>大神-名字</th>
-            </tr>
-            <tr>
-                <td>${user}</td>
+                <td>${user.id}</td>
                 <td>${user.name}</td>
             </tr>
-        </table>
-    </c:forEach>
+        </c:forEach>
+    </table>
 </div>
 
 </body>
