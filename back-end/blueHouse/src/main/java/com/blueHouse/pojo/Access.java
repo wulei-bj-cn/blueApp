@@ -9,6 +9,7 @@ public class Access {
     private Integer id;
     private Timestamp start_time;
     private Timestamp end_time;
+    private Integer sojourn;
 
     public int getId() {
         return this.id;
@@ -25,5 +26,9 @@ public class Access {
     public Timestamp getEnd_time() { return this.end_time; }
 
     public void setEnd_time(Timestamp ts) { this.end_time = ts; }
+
+    public int getSojourn() { return this.sojourn; }
+
+    public void setSojourn(int sojourn) { this.sojourn = sojourn; }
 }
 

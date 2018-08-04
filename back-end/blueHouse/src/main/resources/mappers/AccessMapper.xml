@@ -5,18 +5,19 @@
 
 <mapper namespace="com.blueHouse.mapper.AccessMapper">
     <select id="findAccessById" parameterType="int" resultType="com.blueHouse.pojo.Access">
-        select id, start_time, end_time from t_access where id = #{id}
+        select id, start_time, end_time, sojourn from t_access where id = #{id}
     </select>
     <select id="findAccessByPartialId" parameterType="int" resultType="com.blueHouse.pojo.Access">
-        select id, start_time, end_time from t_access where id LIKE  CONCAT(CONCAT('%',#{id},'%'))
+        select id, start_time, end_time, sojourn from t_access where id LIKE  CONCAT(CONCAT('%',#{id},'%'))
     </select>
     <select id="findAllAccesss" resultType="com.blueHouse.pojo.Access">
-        select id, start_time, end_time from t_access
+        select id, start_time, end_time, sojourn from t_access
     </select>
     <insert id="insertAccess" parameterType="com.blueHouse.pojo.Access">
-        insert into t_access(id, start_time, end_time) values(#{id}, #{start_time}, #{end_time})
+        insert into t_access(id, start_time, end_time, sojourn) values(#{id}, #{start_time}, #{end_time}, #{sojourn})
     </insert>
     <update id="updateAccess" parameterType="com.blueHouse.pojo.Access">
         update t_access set end_time = #{end_time} where id = #{id}
+        update t_access set sojourn = #{sojourn} where id = #{id}
     </update>
 </mapper>

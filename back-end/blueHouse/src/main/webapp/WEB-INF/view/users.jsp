@@ -101,8 +101,21 @@
             <div class="alert alert-info">
                 <strong>老板您好!</strong> 我们蓝房子目前总共有<%=request.getAttribute("accessCount")%>位到访用户，统计到访用户有利于后期我们做大数据统计分析，为您提供更好的决策!
             </div>
-            <h3>HOME</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="container">
+                <c:forEach var="acs" items="${access}">
+                    <div class="card-deck mb-1">
+                        <div class="card mb-1">
+                            <div class="card-header alert-info">
+                                <h4>到访用户: ${acs.id} (在网时间: ${acs.sojourn} 秒)</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>到访时间: ${acs.start_time}</p>
+                                <p>离开时间: ${acs.end_time}</p>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
         </div>
     </div>
 </div>
