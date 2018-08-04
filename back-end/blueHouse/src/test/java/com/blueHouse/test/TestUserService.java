@@ -29,9 +29,18 @@ public class TestUserService {
     }
 
     @Test
+    public void findUserByPartialId() throws Exception {
+        UserService userService = (UserService) applicationContext.getBean("userService");
+        List<User> users = userService.findUserByPartialId(1);
+        for (User user: users) {
+            System.out.println(user.getName());
+        }
+    }
+
+    @Test
     public void findUserByName() throws Exception {
         UserService userService = (UserService) applicationContext.getBean("userService");
-        List<User> users = userService.findUserByName("亚威");
+        List<User> users = userService.findUserByName("吴");
         for (User user: users) {
             System.out.println(user.getName());
         }

@@ -3,7 +3,6 @@ package com.blueHouse.service;
 import com.blueHouse.mapper.UserMapper;
 import com.blueHouse.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,6 +20,10 @@ public class UserServiceImpl implements UserService {
 
     public User findUserById(int id) {
         return userMapper.findUserById(id);
+    }
+
+    public List<User> findUserByPartialId(int id) {
+        return userMapper.findUserByPartialId(id);
     }
 
     public List<User> findUserByName(String name) {
