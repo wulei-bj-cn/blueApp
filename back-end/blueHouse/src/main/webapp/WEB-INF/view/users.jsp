@@ -41,60 +41,117 @@
     <br>
     <div class="tab-content">
         <div id="panel1" class="container tab-pane active">
-            <div class="alert alert-success">
-                <strong>老板您好!</strong> 我们蓝房子目前总共有<%=request.getAttribute("usersCount")%>位下单用户，您可以通过搜索框对某个用户进行搜索！如果搜索条件为空，那么系统将为您列出所有下单用户！
-            </div>
+            <c:if test="${isSearching == false }">
+                <div class="alert alert-success">
+                    <strong>老板您好!</strong> 我们蓝房子目前总共有<%=request.getAttribute("usersCount")%>位下单用户，您可以通过搜索框对某个用户进行搜索！如果搜索条件为空，那么系统将为您列出所有下单用户！
+                </div>
+            </c:if>
+            <c:if test="${isSearching == true }">
+                <div class="alert alert-success">
+                    <strong>老板您好!</strong> 根据关键词"${searchKey}"，搜索到<%=request.getAttribute("usersCount")%>位相关用户，您可以通过将搜索框置空，并点击"搜索"重新获取所有下单用户！
+                </div>
+            </c:if>
             <div class="row">
                 <div class="col-md-4">
-                    <form class="form-inline mt-2 mt-md-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="用户名或用户ID" aria-label="Search">
+                    <form class="form-inline mt-2 mt-md-0" action="/user/searchUsers" method="get">
+                        <input id="searchKey" name="searchKey" class="form-control mr-sm-2" type="text" placeholder="用户名或用户ID" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
                     </form>
                 </div>
-                <div class="col-md-8">
-                    <div id="accordion">
-                        <c:forEach var="user" items="${users}">
-                            <div class="card">
-                                <div class="card-header">
-                                    <a class="card-link collapsed" data-toggle="collapse" href="#collapse${user.id}">
-                                        用户: ${user.name}(${user.id})
-                                    </a>
-                                </div>
-                                <div id="collapse${user.id}" class="collapse" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <blockquote class="blockquote mb-0">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>姓名: </label>
-                                                    <input type="text" value="${user.name}">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label>年龄: </label>
-                                                    <input type="text" value="${user.age}">
-                                                </div>
+                <c:choose>
+                    <c:when test="${isSearching}">
+                        <div class="col-md-8">
+                            <div id="accordion1">
+                                <c:forEach var="user" items="${searchUsers}">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <a class="card-link collapsed" data-toggle="collapse" href="#collapse${user.id}">
+                                                用户: ${user.name}(${user.id})
+                                            </a>
+                                        </div>
+                                        <div id="collapse${user.id}" class="collapse" data-parent="#accordion1">
+                                            <div class="card-body">
+                                                <blockquote class="blockquote mb-0">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>姓名: </label>
+                                                            <input type="text" value="${user.name}">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label>年龄: </label>
+                                                            <input type="text" value="${user.age}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>电话: </label>
+                                                            <input type="text" value="${user.phone}">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label>住址: </label>
+                                                            <input type="text" value="${user.address}">
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-md-3 float-right">
+                                                        <button type="button" class="btn btn-sm btn-block btn-outline-success">保存</button>
+                                                    </div>
+                                                    <br>
+                                                </blockquote>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>电话: </label>
-                                                    <input type="text" value="${user.phone}">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label>住址: </label>
-                                                    <input type="text" value="${user.address}">
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="col-md-3 float-right">
-                                                <button type="button" class="btn btn-sm btn-block btn-outline-success">保存</button>
-                                            </div>
-                                            <br>
-                                        </blockquote>
+                                        </div>
                                     </div>
-                                </div>
+                                </c:forEach>
                             </div>
-                        </c:forEach>
-                    </div>
-                </div>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="col-md-8">
+                            <div id="accordion2">
+                                <c:forEach var="user" items="${users}">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <a class="card-link collapsed" data-toggle="collapse" href="#collapse${user.id}">
+                                                用户: ${user.name}(${user.id})
+                                            </a>
+                                        </div>
+                                        <div id="collapse${user.id}" class="collapse" data-parent="#accordion2">
+                                            <div class="card-body">
+                                                <blockquote class="blockquote mb-0">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>姓名: </label>
+                                                            <input type="text" value="${user.name}">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label>年龄: </label>
+                                                            <input type="text" value="${user.age}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>电话: </label>
+                                                            <input type="text" value="${user.phone}">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label>住址: </label>
+                                                            <input type="text" value="${user.address}">
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-md-3 float-right">
+                                                        <button type="button" class="btn btn-sm btn-block btn-outline-success">保存</button>
+                                                    </div>
+                                                    <br>
+                                                </blockquote>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
         <div id="panel2" class="container tab-pane fade"><br>
