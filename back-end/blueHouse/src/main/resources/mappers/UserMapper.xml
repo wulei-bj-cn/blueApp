@@ -5,12 +5,12 @@
 
 <mapper namespace="com.blueHouse.mapper.UserMapper">
     <select id="findUserById" parameterType="int" resultType="com.blueHouse.pojo.User">
-        select id, name from t_users where id = #{id}
+        select id, name, age, phone, address from t_users where id = #{id}
     </select>
     <select id="findAllUsers" resultType="com.blueHouse.pojo.User">
-        select id, name from t_users
+        select id, name, age, phone, address from t_users
     </select>
     <insert id="insertUser" parameterType="com.blueHouse.pojo.User">
-        insert into t_users(id, name) values(#{id}, #{name})
+        insert into t_users(id, name, age, phone, address) values(#{id}, #{name}, #{age}, #{phone}, #{address})
     </insert>
 </mapper>
