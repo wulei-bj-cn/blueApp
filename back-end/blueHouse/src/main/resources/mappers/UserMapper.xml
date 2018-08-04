@@ -7,6 +7,9 @@
     <select id="findUserById" parameterType="int" resultType="com.blueHouse.pojo.User">
         select id, name, age, phone, address from t_users where id = #{id}
     </select>
+    <select id="findUserByName" parameterType="String" resultType="com.blueHouse.pojo.User">
+        select id, name, age, phone, address from t_users where name LIKE "%"#{name}"%"
+    </select>
     <select id="findAllUsers" resultType="com.blueHouse.pojo.User">
         select id, name, age, phone, address from t_users
     </select>

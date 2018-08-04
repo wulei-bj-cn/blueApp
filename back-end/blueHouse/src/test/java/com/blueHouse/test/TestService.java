@@ -29,6 +29,15 @@ public class TestService {
     }
 
     @Test
+    public void findUserByName() throws Exception {
+        UserService userService = (UserService) applicationContext.getBean("userService");
+        List<User> users = userService.findUserByName("亚威");
+        for (User user: users) {
+            System.out.println(user.getName());
+        }
+    }
+
+    @Test
     public void findAllUsers() throws Exception {
         UserService userService = (UserService) applicationContext.getBean("userService");
         List<User> users = userService.findAllUsers();
