@@ -53,6 +53,9 @@ public class UserController {
             modelMap.put("usersCount", usersByName.size());
             modelMap.put("searchUsers", usersByName);
             modelMap.put("isSearching", true);
+            List<Access> accesses = accessService.findAllAccesss();
+            modelMap.put("access", accesses);
+            modelMap.put("accessCount", accesses.size());
             return "users";
         }
     }
