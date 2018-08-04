@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.AccessMapper">
+    <select id="findAccessById" parameterType="int" resultType="com.blueHouse.pojo.Access">
+        select id, start_time, end_time from t_access where id = #{id}
+    </select>
+    <select id="findAccessByPartialId" parameterType="int" resultType="com.blueHouse.pojo.Access">
+        select id, start_time, end_time from t_access where id LIKE  CONCAT(CONCAT('%',#{id},'%'))
+    </select>
+    <select id="findAllAccesss" resultType="com.blueHouse.pojo.Access">
+        select id, start_time, end_time from t_access
+    </select>
+    <insert id="insertAccess" parameterType="com.blueHouse.pojo.Access">
+        insert into t_access(id, start_time, end_time) values(#{id}, #{start_time}, #{end_time})
+    </insert>
+    <update id="updateAccess" parameterType="com.blueHouse.pojo.Access">
+        update t_access set end_time = #{end_time} where id = #{id}
+    </update>
+</mapper>

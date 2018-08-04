@@ -30,5 +30,6 @@
     </bean>
 
     <bean id="userService" class="com.blueHouse.service.UserServiceImpl"/>
+    <bean id="accessService" class="com.blueHouse.service.AccessServiceImpl"/>
 
 </beans>

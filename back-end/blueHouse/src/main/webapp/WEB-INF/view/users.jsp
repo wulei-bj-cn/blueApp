@@ -26,77 +26,83 @@
     </div>
 </section>
 <div class="container">
-    <ul class="nav nav-tabs nav-justified">
+    <ul class="nav nav-tabs nav-justified" role="tablist">
         <li class="nav-item active">
-            <a class="nav-link" data-toggle="tab" href="#panel1" role="tab">
-                <h4>到访用户</h4>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#panel2" role="tab">
+            <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">
                 <h4>下单用户</h4>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#panel3" role="tab">
-                <h4>所有用户</h4>
+            <a class="nav-link" data-toggle="tab" href="#panel2" role="tab">
+                <h4>到访用户</h4>
             </a>
         </li>
     </ul>
     <br>
-    <div class="alert alert-success">
-        <strong>老板您好!</strong> 我们蓝房子目前总共有<%=request.getAttribute("usersCount")%>位下单用户，您可以通过搜索框对某个用户进行搜索！如果搜索条件为空，那么系统将为您列出所有下单用户！
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="用户名或用户ID" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
-            </form>
-        </div>
-        <div class="col-md-8">
-            <div id="accordion">
-                <c:forEach var="user" items="${users}">
-                    <div class="card">
-                        <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#collapse${user.id}">
-                                用户: ${user.name}(${user.id})
-                            </a>
-                        </div>
-                        <div id="collapse${user.id}" class="collapse" data-parent="#accordion">
-                            <div class="card-body">
-                                <blockquote class="blockquote mb-0">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>姓名: </label>
-                                            <input type="text" value="${user.name}">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label>年龄: </label>
-                                            <input type="text" value="${user.age}">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>电话: </label>
-                                            <input type="text" value="${user.phone}">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label>住址: </label>
-                                            <input type="text" value="${user.address}">
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="col-md-3 float-right">
-                                        <button type="button" class="btn btn-sm btn-block btn-outline-success">保存</button>
-                                    </div>
-                                    <br>
-                                </blockquote>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach>
+    <div class="tab-content">
+        <div id="panel1" class="container tab-pane active">
+            <div class="alert alert-success">
+                <strong>老板您好!</strong> 我们蓝房子目前总共有<%=request.getAttribute("usersCount")%>位下单用户，您可以通过搜索框对某个用户进行搜索！如果搜索条件为空，那么系统将为您列出所有下单用户！
             </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <form class="form-inline mt-2 mt-md-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="用户名或用户ID" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+                    </form>
+                </div>
+                <div class="col-md-8">
+                    <div id="accordion">
+                        <c:forEach var="user" items="${users}">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="card-link collapsed" data-toggle="collapse" href="#collapse${user.id}">
+                                        用户: ${user.name}(${user.id})
+                                    </a>
+                                </div>
+                                <div id="collapse${user.id}" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <blockquote class="blockquote mb-0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>姓名: </label>
+                                                    <input type="text" value="${user.name}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>年龄: </label>
+                                                    <input type="text" value="${user.age}">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>电话: </label>
+                                                    <input type="text" value="${user.phone}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>住址: </label>
+                                                    <input type="text" value="${user.address}">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="col-md-3 float-right">
+                                                <button type="button" class="btn btn-sm btn-block btn-outline-success">保存</button>
+                                            </div>
+                                            <br>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="panel2" class="container tab-pane fade"><br>
+            <div class="alert alert-info">
+                <strong>老板您好!</strong> 我们蓝房子目前总共有<%=request.getAttribute("accessCount")%>位到访用户，统计到访用户有利于后期我们做大数据统计分析，为您提供更好的决策!
+            </div>
+            <h3>HOME</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
     </div>
 </div>

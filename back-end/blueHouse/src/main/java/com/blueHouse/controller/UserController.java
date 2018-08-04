@@ -6,7 +6,9 @@ package com.blueHouse.controller;
 import java.util.List;
 import javax.annotation.Resource;
 
+import com.blueHouse.pojo.Access;
 import com.blueHouse.pojo.User;
+import com.blueHouse.service.AccessService;
 import com.blueHouse.service.UserService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +22,17 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    @Resource
+    private AccessService accessService;
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public String getAllUsers(ModelMap modelMap) {
         List<User> users = userService.findAllUsers();
-        modelMap.put("users",users);
+        List<Access> accesses = accessService.findAllAccesss();
+        modelMap.put("users", users);
+        modelMap.put("access", accesses);
         modelMap.put("usersCount", users.size());
+        modelMap.put("accessCount", accesses.size());
         return "users";
     }
 
