@@ -24,7 +24,7 @@ public class TestSpring {
     @Test
     public void findUserByID() throws Exception {
         UserMapper userMapper = (UserMapper) applicationContext.getBean("userMapper");
-        User user = userMapper.findUserById(1);
+        User user = userMapper.findUserById("1");
         System.out.println(user.getName());
     }
 

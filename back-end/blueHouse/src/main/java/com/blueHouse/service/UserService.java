@@ -8,8 +8,9 @@ import java.util.List;
  * Created by wulei on 27/07/2018.
  */
 public interface UserService {
-    User findUserById(int id);
-    List<User> findUserByPartialId(int id);
-    List<User> findUserByName(String name);
+    User findUserById(String id);
+    List<User> findUserByPartialId(String id);
+    List<User> findUserByNameOrID(String name);
     List<User> findAllUsers();
+    void updateUser(User user);
 }

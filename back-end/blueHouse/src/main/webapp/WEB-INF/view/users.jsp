@@ -61,6 +61,11 @@
                 <c:choose>
                     <c:when test="${isSearching}">
                         <div class="col-md-8">
+                            <c:if test="${usersCount == 0}">
+                                <div class="alert alert-warning">
+                                    <p>抱歉！系统中没有搜索到相关用户！请重新选择搜索条件并继续搜索！</p>
+                                </div>
+                            </c:if>
                             <div id="accordion1">
                                 <c:forEach var="user" items="${searchUsers}">
                                     <div class="card">
@@ -71,33 +76,36 @@
                                         </div>
                                         <div id="collapse${user.id}" class="collapse" data-parent="#accordion1">
                                             <div class="card-body">
-                                                <blockquote class="blockquote mb-0">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label>姓名: </label>
-                                                            <input type="text" value="${user.name}">
+                                                <form class="form-inline mt-2 mt-md-0" action="/user/updateUser" method="get">
+                                                    <blockquote class="blockquote mb-0">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>姓名: </label>
+                                                                <input id="userName" name="userName" type="text" value="${user.name}">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>年龄: </label>
+                                                                <input id="userAge" name="userAge" type="text" value="${user.age}">
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label>年龄: </label>
-                                                            <input type="text" value="${user.age}">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>电话: </label>
+                                                                <input id="userPhone" name="userPhone" type="text" value="${user.phone}">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>住址: </label>
+                                                                <input id="userAddress" name="userAddress" type="text" value="${user.address}">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label>电话: </label>
-                                                            <input type="text" value="${user.phone}">
+                                                        <br>
+                                                        <div class="col-md-3 float-right">
+                                                            <input type="hidden" id="userID" name="userID" value="${user.id}"/>
+                                                            <button type="submit" class="btn btn-sm btn-block btn-outline-success">更新</button>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label>住址: </label>
-                                                            <input type="text" value="${user.address}">
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                    <div class="col-md-3 float-right">
-                                                        <button type="button" class="btn btn-sm btn-block btn-outline-success">保存</button>
-                                                    </div>
-                                                    <br>
-                                                </blockquote>
+                                                        <br>
+                                                    </blockquote>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -117,33 +125,36 @@
                                         </div>
                                         <div id="collapse${user.id}" class="collapse" data-parent="#accordion2">
                                             <div class="card-body">
-                                                <blockquote class="blockquote mb-0">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label>姓名: </label>
-                                                            <input type="text" value="${user.name}">
+                                                <form class="form-inline mt-2 mt-md-0" action="/user/updateUser" method="get">
+                                                    <blockquote class="blockquote mb-0">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>姓名: </label>
+                                                                <input id="userName" name="userName" type="text" value="${user.name}">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>年龄: </label>
+                                                                <input id="userAge" name="userAge" type="text" value="${user.age}">
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label>年龄: </label>
-                                                            <input type="text" value="${user.age}">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>电话: </label>
+                                                                <input id="userPhone" name="userPhone" type="text" value="${user.phone}">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>住址: </label>
+                                                                <input id="userAddress" name="userAddress" type="text" value="${user.address}">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label>电话: </label>
-                                                            <input type="text" value="${user.phone}">
+                                                        <br>
+                                                        <div class="col-md-3 float-right">
+                                                            <input type="hidden" id="userID" name="userID" value="${user.id}"/>
+                                                            <button type="submit" class="btn btn-sm btn-block btn-outline-success">保存</button>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label>住址: </label>
-                                                            <input type="text" value="${user.address}">
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                    <div class="col-md-3 float-right">
-                                                        <button type="button" class="btn btn-sm btn-block btn-outline-success">保存</button>
-                                                    </div>
-                                                    <br>
-                                                </blockquote>
+                                                        <br>
+                                                    </blockquote>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

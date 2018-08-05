@@ -18,19 +18,21 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public User findUserById(int id) {
+    public User findUserById(String id) {
         return userMapper.findUserById(id);
     }
 
-    public List<User> findUserByPartialId(int id) {
+    public List<User> findUserByPartialId(String id) {
         return userMapper.findUserByPartialId(id);
     }
 
-    public List<User> findUserByName(String name) {
-        return userMapper.findUserByName(name);
+    public List<User> findUserByNameOrID(String nameOrID) {
+        return userMapper.findUserByNameOrID(nameOrID);
     }
 
     public List<User> findAllUsers() {
         return userMapper.findAllUsers();
     }
+
+    public void updateUser(User user) { userMapper.updateUser(user);}
 }

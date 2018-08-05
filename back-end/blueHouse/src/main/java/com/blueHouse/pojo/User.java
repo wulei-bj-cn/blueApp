@@ -4,18 +4,18 @@ package com.blueHouse.pojo;
  * Created by wulei on 23/07/2018.
  */
 public class User {
-    private Integer id;
+    private String id;
     private String name;
     private String password;
     private Integer age;
     private String phone;
     private String address;
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

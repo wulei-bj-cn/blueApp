@@ -8,9 +8,10 @@ import java.util.List;
 import com.blueHouse.pojo.User;
 
 public interface UserMapper {
-    User findUserById(int id);
-    List<User> findUserByPartialId(int id);
-    List<User> findUserByName(String name);
+    User findUserById(String id);
+    List<User> findUserByPartialId(String id);
+    List<User> findUserByNameOrID(String name);
     List<User> findAllUsers();
     void insertUser(User user);
+    void updateUser(User user);
 }

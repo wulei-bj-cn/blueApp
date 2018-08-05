@@ -46,17 +46,35 @@ public class UserController {
             modelMap.put("isSearching", false);
             return "redirect: /user/getAll";
         } else {
-            //List<User> usersByID = userService.findUserByPartialId((int)searchKey);
-            List<User> usersByName = userService.findUserByName(searchKey);
-            //modelMap.put("searchUsers", usersByID.addAll(usersByName));
+            List<User> userByNameOrID = userService.findUserByNameOrID(searchKey);
             modelMap.put("searchKey", searchKey);
-            modelMap.put("usersCount", usersByName.size());
-            modelMap.put("searchUsers", usersByName);
+            modelMap.put("usersCount", userByNameOrID.size());
+            modelMap.put("searchUsers", userByNameOrID);
             modelMap.put("isSearching", true);
             List<Access> accesses = accessService.findAllAccesss();
             modelMap.put("access", accesses);
             modelMap.put("accessCount", accesses.size());
             return "users";
         }
+    }
+
+    @RequestMapping(value = "/updateUser", method = RequestMethod.GET)
+    public String updateUser(HttpServletRequest req) {
+        String userName = req.getParameter("userName");
+        int userAge = Integer.parseInt(req.getParameter("userAge"));
+        String userPhone = req.getParameter("userPhone");
+        String userAddress = req.getParameter("userAddress");
+        String userID = req.getParameter("userID");
+
+        User newUser = new User();
+        newUser.setId(userID);
+        newUser.setName(userName);
+        newUser.setAge(userAge);
+        newUser.setPhone(userPhone);
+        newUser.setAddress(userAddress);
+
+        userService.updateUser(newUser);
+
+        return "redirect: /user/getAll";
     }
 }

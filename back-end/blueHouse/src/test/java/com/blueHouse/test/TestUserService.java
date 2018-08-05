@@ -24,14 +24,14 @@ public class TestUserService {
     @Test
     public void findUserByID() throws Exception {
         UserService userService = (UserService) applicationContext.getBean("userService");
-        User user = userService.findUserById(1);
+        User user = userService.findUserById("1");
         System.out.println(user.getName());
     }
 
     @Test
     public void findUserByPartialId() throws Exception {
         UserService userService = (UserService) applicationContext.getBean("userService");
-        List<User> users = userService.findUserByPartialId(1);
+        List<User> users = userService.findUserByPartialId("1");
         for (User user: users) {
             System.out.println(user.getName());
         }
@@ -40,7 +40,7 @@ public class TestUserService {
     @Test
     public void findUserByName() throws Exception {
         UserService userService = (UserService) applicationContext.getBean("userService");
-        List<User> users = userService.findUserByName("吴");
+        List<User> users = userService.findUserByNameOrID("吴");
         for (User user: users) {
             System.out.println(user.getName());
         }

@@ -23,7 +23,7 @@ public class TestMybatis {
         SqlSession session = factory.openSession();
         //---------------
         UserMapper userMapper = session.getMapper(UserMapper.class);
-        User user = userMapper.findUserById(1);
+        User user = userMapper.findUserById("1");
         System.out.println(user.getName());
         //--------------
         session.close();
@@ -53,7 +53,7 @@ public class TestMybatis {
         SqlSession session = factory.openSession();
         //---------------------
         User user = new User();
-        user.setId(23);
+        user.setId("23");
         user.setName("23lalala");
 
         UserMapper mapper = session.getMapper(UserMapper.class);
