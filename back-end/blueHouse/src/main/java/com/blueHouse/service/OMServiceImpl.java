@@ -1,8 +1,7 @@
 package com.blueHouse.service;
 
 import com.blueHouse.mapper.OM_Mapper;
-import com.blueHouse.pojo.Measure;
-import com.blueHouse.pojo.Order;
+import com.blueHouse.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +26,15 @@ public class OMServiceImpl implements OMService {
         return om_mapper.findOrder(user_id, order_id);
     }
 
+    public List<Contract> findContract(String user_id, String order_id) {
+        return om_mapper.findContract(user_id, order_id);
+    }
+
+    public List<Design> findDesign(String user_id, String order_id) {
+        return om_mapper.findDesign(user_id, order_id);
+    }
+
+    public List<Disclaim> findDisclaim(String user_id, String order_id) {
+        return om_mapper.findDisclaim(user_id, order_id);
+    }
 }

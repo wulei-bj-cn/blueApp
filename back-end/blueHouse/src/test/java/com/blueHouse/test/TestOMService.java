@@ -1,7 +1,6 @@
 package com.blueHouse.test;
 
-import com.blueHouse.pojo.Measure;
-import com.blueHouse.pojo.Order;
+import com.blueHouse.pojo.*;
 import com.blueHouse.service.OMService;
 import org.aspectj.weaver.ast.Or;
 import org.junit.Before;
@@ -36,6 +35,56 @@ public class TestOMService {
                             measure.getUrl() + "\n" +
                             measure.getTs() + "\n" +
                             measure.getCrew()
+            );
+        }
+    }
+
+    @Test
+    public void findContract() throws Exception {
+        OMService omService = (OMService) applicationContext.getBean("omService");
+        List<Contract> contracts = omService.findContract("usr8", "ord1");
+        for (Contract contract: contracts) {
+            System.out.println(
+                    contract.getId() + "\n" +
+                            contract.getUser_id() + "\n" +
+                            contract.getOrder_id() + "\n" +
+                            contract.getName() + "\n" +
+                            contract.getUrl() + "\n" +
+                            contract.getTs() + "\n" +
+                            contract.getType()
+            );
+        }
+    }
+
+    @Test
+    public void findDesign() throws Exception {
+        OMService omService = (OMService) applicationContext.getBean("omService");
+        List<Design> designs = omService.findDesign("usr8", "ord1");
+        for (Design design: designs) {
+            System.out.println(
+                    design.getId() + "\n" +
+                            design.getUser_id() + "\n" +
+                            design.getOrder_id() + "\n" +
+                            design.getName() + "\n" +
+                            design.getUrl() + "\n" +
+                            design.getTs() + "\n" +
+                            design.getDesigner()
+            );
+        }
+    }
+
+    @Test
+    public void findDisclaim() throws Exception {
+        OMService omService = (OMService) applicationContext.getBean("omService");
+        List<Disclaim> disclaims = omService.findDisclaim("usr8", "ord1");
+        for (Disclaim disclaim: disclaims) {
+            System.out.println(
+                    disclaim.getId() + "\n" +
+                            disclaim.getUser_id() + "\n" +
+                            disclaim.getOrder_id() + "\n" +
+                            disclaim.getName() + "\n" +
+                            disclaim.getUrl() + "\n" +
+                            disclaim.getTs() + "\n"
             );
         }
     }

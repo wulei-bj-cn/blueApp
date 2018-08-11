@@ -1,7 +1,6 @@
 package com.blueHouse.service;
 
-import com.blueHouse.pojo.Measure;
-import com.blueHouse.pojo.Order;
+import com.blueHouse.pojo.*;
 
 import java.util.List;
 
@@ -11,4 +10,7 @@ import java.util.List;
 public interface OMService {
     List<Measure> findMeasure(String user_id, String order_id);
     List<Order> findOrder(String user_id, String order_id);
+    List<Contract> findContract(String user_id, String order_id);
+    List<Design> findDesign(String user_id, String order_id);
+    List<Disclaim> findDisclaim(String user_id, String order_id);
 }
