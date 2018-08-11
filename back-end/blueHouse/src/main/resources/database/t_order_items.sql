@@ -7,3 +7,4 @@ insert into t_order_items values ("ord1", "mat1", "materials", "2018-08-04 12:24
 insert into t_order_items values ("ord1", "mat2", "materials", "2018-08-04 12:24:16", "2018-08-04 12:24:16", "进行中");
 insert into t_order_items values ("ord1", "pro1", "projects", "2018-08-04 12:24:16", "2018-08-04 12:24:16", "进行中");
 insert into t_order_items values ("ord1", "pro2", "projects", "2018-08-04 12:24:16", "2018-08-04 12:24:16", "进行中");
+insert into t_order_items values ("ord1", "mea1", "measures", "2018-07-04 12:24:16", "2018-07-14 12:24:16", "进行中");

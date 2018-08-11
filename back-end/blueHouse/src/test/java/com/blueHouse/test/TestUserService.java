@@ -24,7 +24,7 @@ public class TestUserService {
     @Test
     public void findUserByID() throws Exception {
         UserService userService = (UserService) applicationContext.getBean("userService");
-        User user = userService.findUserById("1");
+        User user = userService.findUserById("usr1");
         System.out.println(user.getName());
     }
 

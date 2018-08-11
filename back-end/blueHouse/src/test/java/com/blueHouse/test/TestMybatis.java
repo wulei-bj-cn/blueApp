@@ -23,7 +23,7 @@ public class TestMybatis {
         SqlSession session = factory.openSession();
         //---------------
         UserMapper userMapper = session.getMapper(UserMapper.class);
-        User user = userMapper.findUserById("1");
+        User user = userMapper.findUserById("usr1");
         System.out.println(user.getName());
         //--------------
         session.close();

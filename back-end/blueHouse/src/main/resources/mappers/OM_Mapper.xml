@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.OM_Mapper">
+    <select id="findOrder" resultType="com.blueHouse.pojo.Order">
+        SELECT user_id, id, start_time, end_time, status
+        FROM t_orders
+        WHERE user_id = #{user_id} AND id = #{order_id}
+    </select>
+    <select id="findMeasure" resultType="com.blueHouse.pojo.Measure">
+        SELECT o.user_id AS user_id, o.id AS order_id, m.id AS id, m.name AS name, m.url AS url, m.ts AS ts, m.crew AS crew
+        FROM t_orders AS o INNER JOIN t_order_items AS oi ON o.id = oi.order_id
+        INNER JOIN t_measures AS m ON oi.item_id = m.id
+        WHERE o.id = #{order_id} AND o.user_id = #{user_id}
+    </select>
+</mapper>
