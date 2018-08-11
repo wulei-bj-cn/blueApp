@@ -1,4 +1,4 @@
-create table t_users (id varchar(20), name varchar(20), age int, phone varchar(20), address varchar(256));
+create table t_users (id varchar(20), name varchar(256), age int, phone varchar(64), address varchar(256));
 
 insert into t_users values ("1", "吴磊", 33, "13466719064", "北京市顺义区马坡地区007");
 insert into t_users values ("2", "秦阳", 33, "13466719064", "北京市顺义区马坡地区007");
