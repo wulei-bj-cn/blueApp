@@ -1,0 +1,12 @@
+drop table t_access;
+drop table t_admins;
+drop table t_contracts;
+drop table t_designs;
+drop table t_disclaims;
+drop table t_mat_category;
+drop table t_materials;
+drop table t_order_items;
+drop table t_orders;
+drop table t_projects;
+drop table t_roles;
+drop table t_users;
