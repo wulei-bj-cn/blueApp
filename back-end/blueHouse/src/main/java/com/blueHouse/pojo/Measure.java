@@ -13,6 +13,7 @@ public class Measure {
     private String url;
     private Timestamp ts;
     private String crew;
+    private String status;
 
     public String getUser_id() { return this.user_id; }
     public void setUser_id() { this.user_id = user_id; }
@@ -34,5 +35,8 @@ public class Measure {
 
     public String getCrew() { return this.crew; }
     public void setCrew(String crew) { this.crew = crew; }
+
+    public String getStatus() { return this.status; }
+    public void setStatus(String status) { this.status = status; }
 }
 

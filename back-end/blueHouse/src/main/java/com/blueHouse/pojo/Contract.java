@@ -13,6 +13,7 @@ public class Contract {
     private String url;
     private Timestamp ts;
     private String type;
+    private String status;
 
     public String getUser_id() { return this.user_id; }
     public void setUser_id() { this.user_id = user_id; }
@@ -34,5 +35,8 @@ public class Contract {
 
     public String getType() { return this.type; }
     public void setType(String type) { this.type = type; }
+
+    public String getStatus() { return this.status; }
+    public void setStatus(String status) { this.status = status; }
 }
 

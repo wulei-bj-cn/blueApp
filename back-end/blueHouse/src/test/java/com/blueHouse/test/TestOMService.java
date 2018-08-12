@@ -34,6 +34,7 @@ public class TestOMService {
                             measure.getName() + "\n" +
                             measure.getUrl() + "\n" +
                             measure.getTs() + "\n" +
+                            measure.getStatus() + "\n" +
                             measure.getCrew()
             );
         }
@@ -51,6 +52,7 @@ public class TestOMService {
                             contract.getName() + "\n" +
                             contract.getUrl() + "\n" +
                             contract.getTs() + "\n" +
+                            contract.getStatus() + "\n" +
                             contract.getType()
             );
         }
@@ -68,6 +70,7 @@ public class TestOMService {
                             design.getName() + "\n" +
                             design.getUrl() + "\n" +
                             design.getTs() + "\n" +
+                            design.getStatus() + "\n" +
                             design.getDesigner()
             );
         }
@@ -84,6 +87,7 @@ public class TestOMService {
                             disclaim.getOrder_id() + "\n" +
                             disclaim.getName() + "\n" +
                             disclaim.getUrl() + "\n" +
+                            disclaim.getStatus() + "\n" +
                             disclaim.getTs() + "\n"
             );
         }
@@ -100,6 +104,7 @@ public class TestOMService {
                             project.getOrder_id() + "\n" +
                             project.getName() + "\n" +
                             project.getCategory() + "\n" +
+                            project.getStatus() + "\n" +
                             project.getEnabled() + "\n"
             );
         }

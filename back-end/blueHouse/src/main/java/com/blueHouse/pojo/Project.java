@@ -10,6 +10,7 @@ public class Project {
     private String name;
     private String category;
     private int enabled;
+    private String status;
 
     public String getUser_id() { return this.user_id; }
     public void setUser_id() { this.user_id = user_id; }
@@ -28,5 +29,8 @@ public class Project {
 
     public int getEnabled() { return this.enabled; }
     public void setEnabled(int enabled) { this.enabled = enabled; }
+
+    public String getStatus() { return this.status; }
+    public void setStatus(String status) { this.status = status; }
 }
 
