@@ -5,3 +5,5 @@ SELECT o.user_id AS user_id, o.id AS order_id, c.id AS id, c.name AS name, c.url
 SELECT o.user_id AS user_id, o.id AS order_id, d.id AS id, d.name AS name, d.url AS url, d.ts AS ts, d.designer AS designer FROM t_orders AS o INNER JOIN t_order_items AS oi ON o.id = oi.order_id INNER JOIN t_designs AS d ON oi.item_id = d.id WHERE o.id = "ord1" AND o.user_id = "usr8";
 
 SELECT o.user_id AS user_id, o.id AS order_id, d.id AS id, d.name AS name, d.url AS url, d.ts AS ts FROM t_orders AS o INNER JOIN t_order_items AS oi ON o.id = oi.order_id INNER JOIN t_disclaims AS d ON oi.item_id = d.id WHERE o.id = "ord1" AND o.user_id = "usr8";
+
+SELECT o.user_id AS user_id, o.id AS order_id, p.id AS id, p.name AS name, p.category AS category, p.enabled AS enabled FROM t_orders AS o INNER JOIN t_order_items AS oi ON o.id = oi.order_id INNER JOIN t_projects AS p ON oi.item_id = p.id WHERE o.id = "ord1" AND o.user_id = "usr8";

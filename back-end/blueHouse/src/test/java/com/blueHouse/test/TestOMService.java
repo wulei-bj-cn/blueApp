@@ -90,6 +90,22 @@ public class TestOMService {
     }
 
     @Test
+    public void findProject() throws Exception {
+        OMService omService = (OMService) applicationContext.getBean("omService");
+        List<Project> projects = omService.findProject("usr8", "ord1");
+        for (Project project: projects) {
+            System.out.println(
+                    project.getId() + "\n" +
+                            project.getUser_id() + "\n" +
+                            project.getOrder_id() + "\n" +
+                            project.getName() + "\n" +
+                            project.getCategory() + "\n" +
+                            project.getEnabled() + "\n"
+            );
+        }
+    }
+
+    @Test
     public void findOrder() throws Exception {
         OMService omService = (OMService) applicationContext.getBean("omService");
         List<Order> orders = omService.findOrder("usr8", "ord1");

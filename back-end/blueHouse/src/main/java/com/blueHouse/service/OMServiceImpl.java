@@ -37,4 +37,8 @@ public class OMServiceImpl implements OMService {
     public List<Disclaim> findDisclaim(String user_id, String order_id) {
         return om_mapper.findDisclaim(user_id, order_id);
     }
+
+    public List<Project> findProject(String user_id, String order_id) {
+        return om_mapper.findProject(user_id, order_id);
+    }
 }

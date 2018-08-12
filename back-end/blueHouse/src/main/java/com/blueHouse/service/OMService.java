@@ -13,4 +13,5 @@ public interface OMService {
     List<Contract> findContract(String user_id, String order_id);
     List<Design> findDesign(String user_id, String order_id);
     List<Disclaim> findDisclaim(String user_id, String order_id);
+    List<Project> findProject(String user_id, String order_id);
 }
