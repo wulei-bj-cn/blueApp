@@ -88,6 +88,7 @@ public class TestOMService {
                             disclaim.getName() + "\n" +
                             disclaim.getUrl() + "\n" +
                             disclaim.getStatus() + "\n" +
+                            disclaim.getCrew() + "\n" +
                             disclaim.getTs() + "\n"
             );
         }

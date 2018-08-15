@@ -12,6 +12,7 @@ public class Disclaim {
     private String name;
     private String url;
     private Timestamp ts;
+    private String crew;
     private String status;
 
     public String getUser_id() { return this.user_id; }
@@ -31,6 +32,9 @@ public class Disclaim {
 
     public Timestamp getTs() { return this.ts; }
     public void setTs(Timestamp ts) { this.ts = ts; }
+
+    public String getCrew() { return this.crew; }
+    public void setCrew(String crew) { this.crew = crew; }
 
     public String getStatus() { return this.status; }
     public void setStatus(String status) { this.status = status; }
