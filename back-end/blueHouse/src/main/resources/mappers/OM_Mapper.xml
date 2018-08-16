@@ -9,6 +9,10 @@
         FROM t_orders
         WHERE user_id = #{user_id} AND id = #{order_id}
     </select>
+    <select id="findAllOrders" resultType="com.blueHouse.pojo.Order">
+        SELECT user_id, id, start_time, end_time, status
+        FROM t_orders
+    </select>
     <select id="findMeasure" resultType="com.blueHouse.pojo.Measure">
         SELECT o.user_id AS user_id, o.id AS order_id, m.id AS id, m.name AS name, m.url AS url, m.ts AS ts, m.crew AS crew, oi.status AS status
         FROM t_orders AS o INNER JOIN t_order_items AS oi ON o.id = oi.order_id

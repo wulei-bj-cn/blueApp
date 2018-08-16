@@ -26,6 +26,10 @@ public class OMServiceImpl implements OMService {
         return om_mapper.findOrder(user_id, order_id);
     }
 
+    public List<Order> findAllOrders() {
+        return om_mapper.findAllOrders();
+    }
+
     public List<Contract> findContract(String user_id, String order_id) {
         return om_mapper.findContract(user_id, order_id);
     }

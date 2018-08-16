@@ -125,4 +125,19 @@ public class TestOMService {
             );
         }
     }
+
+    @Test
+    public void findAllOrders() throws Exception {
+        OMService omService = (OMService) applicationContext.getBean("omService");
+        List<Order> orders = omService.findAllOrders();
+        for (Order order: orders) {
+            System.out.println(
+                    order.getUser_id() + "\n" +
+                            order.getId() + "\n" +
+                            order.getStart_time() + "\n" +
+                            order.getEnd_time() + "\n" +
+                            order.getStatus()
+            );
+        }
+    }
 }
