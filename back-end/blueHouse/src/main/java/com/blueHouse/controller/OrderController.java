@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,15 +25,18 @@ public class OrderController {
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public String getAllUsers(ModelMap modelMap) {
         List<Order> orders = omService.findAllOrders();
-        List<OrderItems> orderItems = null;
+        List<OrderItems> orderItems = new ArrayList();
         if (orders != null) {
             for (Order order: orders) {
-                List<Measure> measures = omService.findMeasure(order.getUser_id(), order.getId());
-                List<Contract> contracts = omService.findContract(order.getUser_id(), order.getId());
-                List<Design> designs = omService.findDesign(order.getUser_id(), order.getId());
-                List<Disclaim> disclaims = omService.findDisclaim(order.getUser_id(), order.getId());
-                List<Project> projects = omService.findProject(order.getUser_id(), order.getId());
-                orderItems.add(new OrderItems(measures, contracts, designs, disclaims, projects));
+                String user_id = order.getUser_id();
+                String order_id = order.getId();
+                List<Measure> measures = omService.findMeasure(user_id, order_id);
+                List<Contract> contracts = omService.findContract(user_id, order_id);
+                List<Design> designs = omService.findDesign(user_id, order_id);
+                List<Disclaim> disclaims = omService.findDisclaim(user_id, order_id);
+                List<Project> projects = omService.findProject(user_id, order_id);
+                orderItems.add(
+                        new OrderItems(user_id, order_id, measures, contracts, designs, disclaims, projects));
             }
         }
         modelMap.put("orderItems", orderItems);

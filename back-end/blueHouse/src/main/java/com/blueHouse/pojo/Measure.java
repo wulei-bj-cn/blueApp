@@ -10,6 +10,7 @@ public class Measure {
     private String order_id;
     private String id;
     private String name;
+    private String address;
     private String url;
     private Timestamp ts;
     private String crew;
@@ -26,6 +27,9 @@ public class Measure {
 
     public String getName() { return this.name; }
     public void setName(String name) { this.name = name; }
+
+    public String getAddress() { return this.address; }
+    public void setAddress(String address) { this.address = address; }
 
     public String getUrl() { return this.url; }
     public void setUrl(String url) { this.url = url; }
