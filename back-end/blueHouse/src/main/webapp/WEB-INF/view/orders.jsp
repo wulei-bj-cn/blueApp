@@ -93,7 +93,7 @@
                                         <h6>设计方案</h6>
                                     </a>
                                 </li>
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#panel4" role="tab">
                                         <h6>施工交底</h6>
                                     </a>
@@ -167,7 +167,7 @@
                                                 </c:choose>
                                             </c:forEach>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="#" data-toggle="tab" role="tab">上传设计方案</a>
+                                                <a class="nav-link" href="#" data-toggle="tab" role="tab">上传设计合同</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">
@@ -203,78 +203,64 @@
                                 <div id="panel3" class="container tab-pane fade"><br>
                                     <div class="row">
                                         <ul class="nav flex-column nav-justified" role="tablist">
+                                            <c:forEach var="design" items="${designs}">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#design_${design.id}" data-toggle="tab" role="tab">设计方案_${design.id}</a>
+                                                </li>
+                                            </c:forEach>
                                             <li class="nav-item active">
-                                                <a class="nav-link active" href="#design001" data-toggle="tab" role="tab">设计方案2</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#design002" data-toggle="tab" role="tab">设计方案1</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#" data-toggle="tab" role="tab">上传设计方案</a>
+                                                <a class="nav-link active" href="#" data-toggle="tab" role="tab">上传设计方案</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">
-                                            <div id="design001" class="col-md-8 container tab-pane active">
-                                                <div><h5>顺义牛栏山幸福小区15号楼-3-202-第二版</h5></div>
-                                                <img src="photos/设计方案1.jpeg" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_pic001">
-                                                <div class="modal fade" id="design_pic001" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <c:forEach var="design_index" begin="0" end="${designs.size() - 1}" step="1">
+                                                <c:set var="design" scope="session" value="${designs.get(design_index)}"/>
+                                                <c:set var="design_tab_state" scope="session" value="fade"/>
+                                                <c:if test="${design_index == 0}">
+                                                    <c:set var="design_tab_state" scope="session" value="active"/>
+                                                </c:if>
+                                                <div id="design_${design.id}" class="col-md-8 container tab-pane ${design_tab_state}">
+                                                    <div><h5>${design.name}</h5></div>
+                                                    <div><h5>设计师: ${design.designer}</h5></div>
+                                                    <div><h5>出版时间: ${design.ts}</h5></div>
+                                                    <img src="<%=request.getContextPath() %>/resources/img/designs/${design.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_pic${design.id}">
+                                                    <div class="modal fade" id="design_pic${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <img src="<%=request.getContextPath() %>/resources/img/designs/${design.url}" alt="" style="width:100%;">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                </div>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <img src="photos/设计方案1.jpeg" alt="" style="width:100%;">
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                            </div>
-                                                        </div><!-- /.modal-content -->
-                                                    </div><!-- /.modal-dialog -->
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div id="design002" class="col-md-8 container tab-pane fade">
-                                                <div><h5>顺义牛栏山幸福小区15号楼-3-202-第一版</h5></div>
-                                                <img src="photos/设计方案2.jpeg" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_pic002">
-                                                <div class="modal fade" id="design_pic002" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <img src="photos/设计方案2.jpeg" alt="" style="width:100%;">
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                            </div>
-                                                        </div><!-- /.modal-content -->
-                                                    </div><!-- /.modal-dialog -->
-                                                </div>
-                                            </div>
+                                            </c:forEach>
                                         </div>
                                     </div>
                                 </div>
                                 <div id="panel4" class="container tab-pane fade"><br>
                                     <div class="card-deck mb-1">
                                         <div class="card mb-12">
-                                            <div class="card-header alert-success">
-                                                <h4>顺义鲁能7号院20号楼2-201施工交底</h4>
+                                            <div class="card-header alert-info">
+                                                <h4>${disclaim.name}</h4>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <p><label>用户名:</label>吴磊</p>
-                                                        <p><label>地址:</label>西辛南区25号楼3-301室</p>
-                                                        <p><label>交底时间:</label>2018-11-12下午4点</p>
-                                                        <p><label>交底人:</label>耿晓琪</p>
-                                                        <button type="button" class="btn btn-lg btn-block btn-outline-success">更新</button>
+                                                        <p><label>测量时间:</label>${disclaim.ts}</p>
+                                                        <p><label>测量人:</label>${disclaim.crew}</p>
+                                                        <button type="button" class="btn btn-lg btn-block btn-outline-info">更新</button>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <img src="photos/施工交底1.jpeg" class="rounded" width="640" height="300" data-toggle="modal" data-target="#disclaimModal">
-                                                        <div class="modal fade" id="disclaimModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <img src="<%=request.getContextPath() %>/resources/img/disclaims/${disclaim.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#disclaim1">
+                                                        <div class="modal fade" id="disclaim1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
@@ -282,13 +268,13 @@
 
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <img src="photos/施工交底1.jpeg" alt="" style="width:100%;">
+                                                                        <img src="<%=request.getContextPath() %>/resources/img/disclaims/${disclaim.url}" alt="" style="width:100%;">
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                                                                     </div>
-                                                                </div><!-- /.modal-content -->
-                                                            </div><!-- /.modal-dialog -->
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -299,80 +285,51 @@
                                 <div id="panel5" class="container tab-pane fade"><br>
                                     <div class="row">
                                         <ul class="nav flex-column nav-justified" role="tablist">
-                                            <li class="nav-item active">
-                                                <a class="nav-link active" href="#con001" data-toggle="tab" role="tab">施工合同</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#con002" data-toggle="tab" role="tab">补充合同1</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#con003" data-toggle="tab" role="tab">补充合同2</a>
-                                            </li>
+                                            <c:forEach var="projectContract" items="${projectContracts}">
+                                                <c:choose>
+                                                    <c:when test="${projectContract.type == '施工合同'}">
+                                                        <li class="nav-item active">
+                                                            <a class="nav-link active" href="#project_${projectContract.id}" data-toggle="tab" role="tab">施工合同</a>
+                                                        </li>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#project_${projectContract.id}" data-toggle="tab" role="tab">补充合同</a>
+                                                        </li>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#" data-toggle="tab" role="tab">上传施工合同</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">
-                                            <div id="con001" class="col-md-8 container tab-pane active">
-                                                <div><h5>顺义鲁能7号院20号楼2-201施工合同</h5></div>
-                                                <img src="photos/设计合同1.jpeg" class="rounded" width="670" height="295" data-toggle="modal" data-target="#con_pic001">
-                                                <div class="modal fade" id="con_pic001" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <c:forEach var="projectContract" items="${projectContracts}">
+                                                <c:set var="project_contr_tab_state" scope="session" value="fade"/>
+                                                <c:if test="${projectContract.type == '施工合同'}">
+                                                    <c:set var="project_contr_tab_state" scope="session" value="active"/>
+                                                </c:if>
+                                                <div id="project_${projectContract.id}" class="col-md-8 container tab-pane ${project_contr_tab_state}">
+                                                    <div><h5>${projectContract.name}</h5></div>
+                                                    <img src="<%=request.getContextPath() %>/resources/img/contracts/${projectContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#project_con_${projectContract.id}">
+                                                    <div class="modal fade" id="project_con_${projectContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <img src="<%=request.getContextPath() %>/resources/img/contracts/${projectContract.url}" alt="" style="width:100%;">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                </div>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <img src="photos/设计合同1.jpeg" alt="" style="width:100%;">
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                            </div>
-                                                        </div><!-- /.modal-content -->
-                                                    </div><!-- /.modal-dialog -->
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div id="con002" class="col-md-8 container tab-pane fade">
-                                                <div><h5>顺义鲁能7号院20号楼2-201补充合同1</h5></div>
-                                                <img src="photos/设计合同-补充2.jpeg" class="rounded" width="670" height="295" data-toggle="modal" data-target="#con_pic002">
-                                                <div class="modal fade" id="con_pic002" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <img src="photos/设计合同-补充2.jpeg" alt="" style="width:100%;">
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                            </div>
-                                                        </div><!-- /.modal-content -->
-                                                    </div><!-- /.modal-dialog -->
-                                                </div>
-                                            </div>
-                                            <div id="con003" class="col-md-8 container tab-pane fade">
-                                                <div><h5>顺义鲁能7号院20号楼2-201补充合同2</h5></div>
-                                                <img src="photos/施工交底2.jpeg" class="rounded" width="670" height="295" data-toggle="modal" data-target="#con_pic003">
-                                                <div class="modal fade" id="con_pic003" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <img src="photos/施工交底2.jpeg" alt="" style="width:100%;">
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                            </div>
-                                                        </div><!-- /.modal-content -->
-                                                    </div><!-- /.modal-dialog -->
-                                                </div>
-                                            </div>
+                                            </c:forEach>
                                         </div>
                                     </div>
                                 </div>
@@ -389,70 +346,30 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr><td>001</td><td>吊顶</td><td>瓦工</td><td>进行中</td>
-                                            <td><button type="button" class="btn btn-block btn-outline-success">标记完成</button></td>
-                                            <td><button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#modal001">上传截图</button></td>
-                                            <form>
-                                                <div class="modal fade" id="modal001" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                                    <div class="modal-dialog modal-lg" role="document">
+                                        <c:forEach var="project_index" begin="0" end="${projects.size() - 1}" step="1">
+                                            <c:set var="project" scope="session" value="${projects.get(project_index)}"/>
+                                            <tr><td>00${project_index + 1}</td><td>${project.name}</td><td>${project.category}</td><td>${project.status}</td>
+                                                <td><button type="button" class="btn btn-block btn-outline-success">标记完成</button></td>
+                                                <td><button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#project_modal${project_index}">查看截图</button></td>
+                                                <div class="modal fade" id="project_modal${project_index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <input type="file" name="txt_file" id="txt_file" multiple class="file-loading" />
+                                                                <img src="<%=request.getContextPath() %>/resources/img/projects/${project.url}" alt="" style="width:100%;">
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定上传</button>
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
-                                        </tr>
-                                        <tr><td>002</td><td>改水</td><td>水电</td><td>进行中</td>
-                                            <td><button type="button" class="btn btn-block btn-outline-success">标记完成</button></td>
-                                            <td><button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#modal002">查看截图</button></td>
-                                            <div class="modal fade" id="modal002" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <img src="photos/施工交底1.jpeg" alt="" style="width:100%;">
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                        </div>
-                                                    </div><!-- /.modal-content -->
-                                                </div><!-- /.modal-dialog -->
-                                            </div>
-                                        </tr>
-                                        <tr><td>003</td><td>改电</td><td>水电</td><td>进行中</td>
-                                            <td><button type="button" class="btn btn-block btn-outline-success">标记完成</button></td>
-                                            <td><button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#modal003">查看截图</button></td>
-                                            <div class="modal fade" id="modal003" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <img src="photos/施工交底2.jpeg" alt="" style="width:100%;">
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                        </div>
-                                                    </div><!-- /.modal-content -->
-                                                </div><!-- /.modal-dialog -->
-                                            </div>
-                                        </tr>
+                                            </tr>
+                                        </c:forEach>
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </blockquote>
