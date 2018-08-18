@@ -1,9 +1,6 @@
-<%@ page import="com.blueHouse.pojo.Contract" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.stream.Collectors" %>
-<%@ page import="com.blueHouse.pojo.OrderItems" %>
-<%@ page import="com.blueHouse.pojo.Measure" %>
-<%@ page import="com.blueHouse.pojo.Disclaim" %>
+<%@ page import="com.blueHouse.pojo.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -55,31 +52,35 @@
             <%
                 OrderItems orderItem = (OrderItems) pageContext.getAttribute("orderItem");
 
-                Measure measure = (orderItem.getMeasure() == null)? null : orderItem.getMeasure().get(0);
+                Measure measure = (orderItem.getMeasure().size() == 0)? null : orderItem.getMeasure().get(0);
 
                 List<Contract> contracts = orderItem.getContracts();
 
-                List<Contract> designContracts = (contracts == null)? null :
+                List<Contract> designContracts = (contracts.size() == 0)? null :
                         contracts
                         .stream()
                         .filter((Contract contract) -> contract.getType().startsWith("设计"))
                         .collect(Collectors.toList());
 
-                List<Contract> projectContracts = (contracts == null)? null :
+                List<Design> designs = (orderItem.getDesigns().size() == 0)? null: orderItem.getDesigns();
+
+                List<Contract> projectContracts = (contracts.size() == 0)? null :
                         contracts
                         .stream()
                         .filter((Contract contract) -> contract.getType().startsWith("施工"))
                         .collect(Collectors.toList());
 
-                Disclaim disclaim = (orderItem.getDisclaim() == null)? null : orderItem.getDisclaim().get(0);
+                Disclaim disclaim = (orderItem.getDisclaim().size() == 0)? null : orderItem.getDisclaim().get(0);
+
+                List<Project> projects = (orderItem.getProjects().size() == 0)? null: orderItem.getProjects();
 
                 pageContext.setAttribute("measure", measure);
                 pageContext.setAttribute("designContracts", designContracts);
+                pageContext.setAttribute("designs", designs);
                 pageContext.setAttribute("projectContracts", projectContracts);
                 pageContext.setAttribute("disclaim", disclaim);
+                pageContext.setAttribute("projects", projects);
             %>
-            <c:set var="designs" scope="session" value="${orderItem.designs}"/>
-            <c:set var="projects" scope="session" value="${orderItem.projects}"/>
             <div class="card">
                 <div class="card-header">
                     <a class="card-link collapsed" data-toggle="collapse" href="#Collapse_${orderItem.order_id}_${orderItem.user_id}">
