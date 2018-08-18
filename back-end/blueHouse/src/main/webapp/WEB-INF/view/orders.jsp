@@ -1,6 +1,9 @@
 <%@ page import="com.blueHouse.pojo.Contract" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.stream.Collectors" %>
+<%@ page import="com.blueHouse.pojo.OrderItems" %>
+<%@ page import="com.blueHouse.pojo.Measure" %>
+<%@ page import="com.blueHouse.pojo.Disclaim" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -49,327 +52,480 @@
     </c:if>
     <div id="accordion">
         <c:forEach var="orderItem" items="${orderItems}">
-            <c:set var="measure" scope="session" value="${orderItem.getMeasure().get(0)}"/>
-            <c:set var="contracts" scope="page" value="${orderItem.getContracts()}"/>
             <%
-                List<Contract> designContracts = ((List<Contract>)pageContext.getAttribute("contracts"))
+                OrderItems orderItem = (OrderItems) pageContext.getAttribute("orderItem");
+
+                Measure measure = (orderItem.getMeasure() == null)? null : orderItem.getMeasure().get(0);
+
+                List<Contract> contracts = orderItem.getContracts();
+
+                List<Contract> designContracts = (contracts == null)? null :
+                        contracts
                         .stream()
                         .filter((Contract contract) -> contract.getType().startsWith("设计"))
                         .collect(Collectors.toList());
 
-                List<Contract> projectContracts = ((List<Contract>)pageContext.getAttribute("contracts"))
+                List<Contract> projectContracts = (contracts == null)? null :
+                        contracts
                         .stream()
                         .filter((Contract contract) -> contract.getType().startsWith("施工"))
                         .collect(Collectors.toList());
 
+                Disclaim disclaim = (orderItem.getDisclaim() == null)? null : orderItem.getDisclaim().get(0);
+
+                pageContext.setAttribute("measure", measure);
                 pageContext.setAttribute("designContracts", designContracts);
                 pageContext.setAttribute("projectContracts", projectContracts);
+                pageContext.setAttribute("disclaim", disclaim);
             %>
             <c:set var="designs" scope="session" value="${orderItem.designs}"/>
-            <c:set var="disclaim" scope="session" value="${orderItem.getDisclaim().get(0)}"/>
             <c:set var="projects" scope="session" value="${orderItem.projects}"/>
             <div class="card">
                 <div class="card-header">
-                    <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                    <a class="card-link collapsed" data-toggle="collapse" href="#Collapse_${orderItem.order_id}_${orderItem.user_id}">
                         订单: ${orderItem.order_id} / 用户: ${orderItem.user_id}
                     </a>
                 </div>
-                <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                <div id="Collapse_${orderItem.order_id}_${orderItem.user_id}" class="collapse" data-parent="#accordion">
                     <div class="card-body">
                         <blockquote class="blockquote mb-0">
                             <ul class="nav nav-tabs nav-justified" role="tablist">
                                 <li class="nav-item active">
-                                    <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">
+                                    <a class="nav-link active" data-toggle="tab" href="#panel1_${orderItem.order_id}" role="tab">
                                         <h6>预约测量</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel2" role="tab">
+                                    <a class="nav-link" data-toggle="tab" href="#panel2_${orderItem.order_id}" role="tab">
                                         <h6>设计合同</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel3" role="tab">
+                                    <a class="nav-link" data-toggle="tab" href="#panel3_${orderItem.order_id}" role="tab">
                                         <h6>设计方案</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel4" role="tab">
+                                    <a class="nav-link" data-toggle="tab" href="#panel4_${orderItem.order_id}" role="tab">
                                         <h6>施工交底</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel5" role="tab">
+                                    <a class="nav-link" data-toggle="tab" href="#panel5_${orderItem.order_id}" role="tab">
                                         <h6>施工合同</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel6" role="tab">
+                                    <a class="nav-link" data-toggle="tab" href="#panel6_${orderItem.order_id}" role="tab">
                                         <h6>施工管理</h6>
                                     </a>
                                 </li>
                             </ul>
                             <br>
                             <div class="tab-content">
-                                <div id="panel1" class="container tab-pane active"><br>
-                                    <div class="card-deck mb-1">
-                                        <div class="card mb-12">
-                                            <div class="card-header alert-info">
-                                                <h4>${measure.name}</h4>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <p><label>地址:</label>${measure.address}</p>
-                                                        <p><label>测量时间:</label>${measure.ts}</p>
-                                                        <p><label>测量人:</label>${measure.crew}</p>
-                                                        <button type="button" class="btn btn-lg btn-block btn-outline-info">更新</button>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <img src="<%=request.getContextPath() %>/resources/img/measures/${measure.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#measure1">
-                                                        <div class="modal fade" id="measure1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <img src="<%=request.getContextPath() %>/resources/img/measures/${measure.url}" alt="" style="width:100%;">
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                                    </div>
-                                                                </div><!-- /.modal-content -->
-                                                            </div><!-- /.modal-dialog -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="panel2" class="container tab-pane fade"><br>
-                                    <div class="row">
-                                        <ul class="nav flex-column nav-justified" role="tablist">
-                                            <c:forEach var="designContract" items="${designContracts}">
-                                                <c:choose>
-                                                    <c:when test="${designContract.type == '设计合同'}">
-                                                        <li class="nav-item active">
-                                                            <a class="nav-link active" href="#design_${designContract.id}" data-toggle="tab" role="tab">设计合同</a>
-                                                        </li>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#design_${designContract.id}" data-toggle="tab" role="tab">补充合同</a>
-                                                        </li>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#" data-toggle="tab" role="tab">上传设计合同</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <c:forEach var="designContract" items="${designContracts}">
-                                                <c:set var="design_contr_tab_state" scope="session" value="fade"/>
-                                                <c:if test="${designContract.type == '设计合同'}">
-                                                    <c:set var="design_contr_tab_state" scope="session" value="active"/>
-                                                </c:if>
-                                                <div id="design_${designContract.id}" class="col-md-8 container tab-pane ${design_contr_tab_state}">
-                                                    <div><h5>${designContract.name}</h5></div>
-                                                    <img src="<%=request.getContextPath() %>/resources/img/contracts/${designContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_con_${designContract.id}">
-                                                    <div class="modal fade" id="design_con_${designContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <img src="<%=request.getContextPath() %>/resources/img/contracts/${designContract.url}" alt="" style="width:100%;">
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="panel3" class="container tab-pane fade"><br>
-                                    <div class="row">
-                                        <ul class="nav flex-column nav-justified" role="tablist">
-                                            <c:forEach var="design" items="${designs}">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#design_${design.id}" data-toggle="tab" role="tab">设计方案_${design.id}</a>
-                                                </li>
-                                            </c:forEach>
-                                            <li class="nav-item active">
-                                                <a class="nav-link active" href="#" data-toggle="tab" role="tab">上传设计方案</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <c:forEach var="design_index" begin="0" end="${designs.size() - 1}" step="1">
-                                                <c:set var="design" scope="session" value="${designs.get(design_index)}"/>
-                                                <c:set var="design_tab_state" scope="session" value="fade"/>
-                                                <c:if test="${design_index == 0}">
-                                                    <c:set var="design_tab_state" scope="session" value="active"/>
-                                                </c:if>
-                                                <div id="design_${design.id}" class="col-md-8 container tab-pane ${design_tab_state}">
-                                                    <div><h5>${design.name}</h5></div>
-                                                    <div><h5>设计师: ${design.designer}</h5></div>
-                                                    <div><h5>出版时间: ${design.ts}</h5></div>
-                                                    <img src="<%=request.getContextPath() %>/resources/img/designs/${design.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_pic${design.id}">
-                                                    <div class="modal fade" id="design_pic${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <img src="<%=request.getContextPath() %>/resources/img/designs/${design.url}" alt="" style="width:100%;">
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="panel4" class="container tab-pane fade"><br>
-                                    <div class="card-deck mb-1">
-                                        <div class="card mb-12">
-                                            <div class="card-header alert-info">
-                                                <h4>${disclaim.name}</h4>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <p><label>测量时间:</label>${disclaim.ts}</p>
-                                                        <p><label>测量人:</label>${disclaim.crew}</p>
-                                                        <button type="button" class="btn btn-lg btn-block btn-outline-info">更新</button>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <img src="<%=request.getContextPath() %>/resources/img/disclaims/${disclaim.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#disclaim1">
-                                                        <div class="modal fade" id="disclaim1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <img src="<%=request.getContextPath() %>/resources/img/disclaims/${disclaim.url}" alt="" style="width:100%;">
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="panel5" class="container tab-pane fade"><br>
-                                    <div class="row">
-                                        <ul class="nav flex-column nav-justified" role="tablist">
-                                            <c:forEach var="projectContract" items="${projectContracts}">
-                                                <c:choose>
-                                                    <c:when test="${projectContract.type == '施工合同'}">
-                                                        <li class="nav-item active">
-                                                            <a class="nav-link active" href="#project_${projectContract.id}" data-toggle="tab" role="tab">施工合同</a>
-                                                        </li>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#project_${projectContract.id}" data-toggle="tab" role="tab">补充合同</a>
-                                                        </li>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#" data-toggle="tab" role="tab">上传施工合同</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <c:forEach var="projectContract" items="${projectContracts}">
-                                                <c:set var="project_contr_tab_state" scope="session" value="fade"/>
-                                                <c:if test="${projectContract.type == '施工合同'}">
-                                                    <c:set var="project_contr_tab_state" scope="session" value="active"/>
-                                                </c:if>
-                                                <div id="project_${projectContract.id}" class="col-md-8 container tab-pane ${project_contr_tab_state}">
-                                                    <div><h5>${projectContract.name}</h5></div>
-                                                    <img src="<%=request.getContextPath() %>/resources/img/contracts/${projectContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#project_con_${projectContract.id}">
-                                                    <div class="modal fade" id="project_con_${projectContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <img src="<%=request.getContextPath() %>/resources/img/contracts/${projectContract.url}" alt="" style="width:100%;">
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="panel6" class="container tab-pane fade"><br>
-                                    <table class="table table-condensed table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th>编号</th>
-                                            <th>施工名称</th>
-                                            <th>施工大类</th>
-                                            <th>当前状态</th>
-                                            <th>标记完成</th>
-                                            <th>施工截图</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <c:forEach var="project_index" begin="0" end="${projects.size() - 1}" step="1">
-                                            <c:set var="project" scope="session" value="${projects.get(project_index)}"/>
-                                            <tr><td>00${project_index + 1}</td><td>${project.name}</td><td>${project.category}</td><td>${project.status}</td>
-                                                <td><button type="button" class="btn btn-block btn-outline-success">标记完成</button></td>
-                                                <td><button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#project_modal${project_index}">查看截图</button></td>
-                                                <div class="modal fade" id="project_modal${project_index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
+                                <div id="panel1_${orderItem.order_id}" class="container tab-pane active"><br>
+                                    <c:choose>
+                                        <c:when test="${measure == null}">
+                                            <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_measure_modal_${orderItem.order_id}">新建预约测量</button>
+                                            <form>
+                                                <div class="modal fade" id="new_measure_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <img src="<%=request.getContextPath() %>/resources/img/projects/${project.url}" alt="" style="width:100%;">
+                                                                <input type="file" name="txt_file" id="measure_file" multiple class="file-loading" />
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </tr>
-                                        </c:forEach>
-                                        </tbody>
-                                    </table>
+                                            </form>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="card-deck mb-1">
+                                                <div class="card mb-12">
+                                                    <div class="card-header alert-info">
+                                                        <h4>${measure.name}</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <p><label>地址:</label>${measure.address}</p>
+                                                                <p><label>测量时间:</label>${measure.ts}</p>
+                                                                <p><label>测量人:</label>${measure.crew}</p>
+                                                                <button type="button" class="btn btn-lg btn-block btn-outline-info">更新</button>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <img src="<%=request.getContextPath() %>/resources/img/measures/${measure.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#measure_${orderItem.order_id}">
+                                                                <div class="modal fade" id="measure_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <img src="<%=request.getContextPath() %>/resources/img/measures/${measure.url}" alt="" style="width:100%;">
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                            </div>
+                                                                        </div><!-- /.modal-content -->
+                                                                    </div><!-- /.modal-dialog -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                                <div id="panel2_${orderItem.order_id}" class="container tab-pane fade"><br>
+                                    <c:choose>
+                                        <c:when test="${designContracts == null}">
+                                            <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_design_contr_modal_${orderItem.order_id}">新建设计合同</button>
+                                            <form>
+                                                <div class="modal fade" id="new_design_contr_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <input type="file" name="txt_file" id="design_contr_file" multiple class="file-loading" />
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="row">
+                                                <ul class="nav flex-column nav-justified" role="tablist">
+                                                    <c:forEach var="designContract" items="${designContracts}">
+                                                        <c:choose>
+                                                            <c:when test="${designContract.type == '设计合同'}">
+                                                                <li class="nav-item active">
+                                                                    <a class="nav-link active" href="#design_contr_${orderItem.order_id}_${designContract.id}" data-toggle="tab" role="tab">设计合同</a>
+                                                                </li>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#design_contr_${orderItem.order_id}_${designContract.id}" data-toggle="tab" role="tab">补充合同</a>
+                                                                </li>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:forEach>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#" data-toggle="tab" role="tab">上传设计合同</a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <c:forEach var="designContract" items="${designContracts}">
+                                                        <c:set var="design_contr_tab_state" scope="session" value="fade"/>
+                                                        <c:if test="${designContract.type == '设计合同'}">
+                                                            <c:set var="design_contr_tab_state" scope="session" value="active"/>
+                                                        </c:if>
+                                                        <div id="design_contr_${orderItem.order_id}_${designContract.id}" class="col-md-8 container tab-pane ${design_contr_tab_state}">
+                                                            <div><h5>${designContract.name}</h5></div>
+                                                            <img src="<%=request.getContextPath() %>/resources/img/contracts/${designContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_con_${orderItem.order_id}_${designContract.id}">
+                                                            <div class="modal fade" id="design_con_${orderItem.order_id}_${designContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <img src="<%=request.getContextPath() %>/resources/img/contracts/${designContract.url}" alt="" style="width:100%;">
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </c:forEach>
+                                                </div>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                                <div id="panel3_${orderItem.order_id}" class="container tab-pane fade"><br>
+                                    <c:choose>
+                                        <c:when test="${designs == null}">
+                                            <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_design_modal_${orderItem.order_id}">新建设计方案</button>
+                                            <form>
+                                                <div class="modal fade" id="new_design_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <input type="file" name="txt_file" id="design_file" multiple class="file-loading" />
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="row">
+                                                <ul class="nav flex-column nav-justified" role="tablist">
+                                                    <c:forEach var="design" items="${designs}">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#design_${orderItem.order_id}_${design.id}" data-toggle="tab" role="tab">设计方案_${design.id}</a>
+                                                        </li>
+                                                    </c:forEach>
+                                                    <li class="nav-item active">
+                                                        <a class="nav-link active" href="#" data-toggle="tab" role="tab">上传设计方案</a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <c:forEach var="design_index" begin="0" end="${designs.size() - 1}" step="1">
+                                                        <c:set var="design" scope="session" value="${designs.get(design_index)}"/>
+                                                        <c:set var="design_tab_state" scope="session" value="fade"/>
+                                                        <c:if test="${design_index == 0}">
+                                                            <c:set var="design_tab_state" scope="session" value="active"/>
+                                                        </c:if>
+                                                        <div id="design_${orderItem.order_id}_${design.id}" class="col-md-8 container tab-pane ${design_tab_state}">
+                                                            <div><h5>${design.name}</h5></div>
+                                                            <div><h5>设计师: ${design.designer}</h5></div>
+                                                            <div><h5>出版时间: ${design.ts}</h5></div>
+                                                            <img src="<%=request.getContextPath() %>/resources/img/designs/${design.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_pic_${orderItem.order_id}_${design.id}">
+                                                            <div class="modal fade" id="design_pic_${orderItem.order_id}_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <img src="<%=request.getContextPath() %>/resources/img/designs/${design.url}" alt="" style="width:100%;">
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </c:forEach>
+                                                </div>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                                <div id="panel4_${orderItem.order_id}" class="container tab-pane fade"><br>
+                                    <c:choose>
+                                        <c:when test="${disclaim == null}">
+                                            <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_disclaim_modal_${orderItem.order_id}">新建施工交底</button>
+                                            <form>
+                                                <div class="modal fade" id="new_disclaim_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <input type="file" name="txt_file" id="disclaim_file" multiple class="file-loading" />
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="card-deck mb-1">
+                                                <div class="card mb-12">
+                                                    <div class="card-header alert-info">
+                                                        <h4>${disclaim.name}</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <p><label>测量时间:</label>${disclaim.ts}</p>
+                                                                <p><label>测量人:</label>${disclaim.crew}</p>
+                                                                <button type="button" class="btn btn-lg btn-block btn-outline-info">更新</button>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <img src="<%=request.getContextPath() %>/resources/img/disclaims/${disclaim.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#disclaim_${orderItem.order_id}">
+                                                                <div class="modal fade" id="disclaim_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <img src="<%=request.getContextPath() %>/resources/img/disclaims/${disclaim.url}" alt="" style="width:100%;">
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                                <div id="panel5_${orderItem.order_id}" class="container tab-pane fade"><br>
+                                    <c:choose>
+                                        <c:when test="${projectContracts == null}">
+                                            <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_project_contr_modal_${orderItem.order_id}">新建施工合同</button>
+                                            <form>
+                                                <div class="modal fade" id="new_project_contr_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <input type="file" name="txt_file" id="project_contr_file" multiple class="file-loading" />
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="row">
+                                                <ul class="nav flex-column nav-justified" role="tablist">
+                                                    <c:forEach var="projectContract" items="${projectContracts}">
+                                                        <c:choose>
+                                                            <c:when test="${projectContract.type == '施工合同'}">
+                                                                <li class="nav-item active">
+                                                                    <a class="nav-link active" href="#project_${orderItem.order_id}_${projectContract.id}" data-toggle="tab" role="tab">施工合同</a>
+                                                                </li>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#project_${orderItem.order_id}_${projectContract.id}" data-toggle="tab" role="tab">补充合同</a>
+                                                                </li>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:forEach>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#" data-toggle="tab" role="tab">上传施工合同</a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <c:forEach var="projectContract" items="${projectContracts}">
+                                                        <c:set var="project_contr_tab_state" scope="session" value="fade"/>
+                                                        <c:if test="${projectContract.type == '施工合同'}">
+                                                            <c:set var="project_contr_tab_state" scope="session" value="active"/>
+                                                        </c:if>
+                                                        <div id="project_${orderItem.order_id}_${projectContract.id}" class="col-md-8 container tab-pane ${project_contr_tab_state}">
+                                                            <div><h5>${projectContract.name}</h5></div>
+                                                            <img src="<%=request.getContextPath() %>/resources/img/contracts/${projectContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#project_con_${orderItem.order_id}_${projectContract.id}">
+                                                            <div class="modal fade" id="project_con_${orderItem.order_id}_${projectContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <img src="<%=request.getContextPath() %>/resources/img/contracts/${projectContract.url}" alt="" style="width:100%;">
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </c:forEach>
+                                                </div>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                                <div id="panel6_${orderItem.order_id}" class="container tab-pane fade"><br>
+                                    <c:choose>
+                                        <c:when test="${projects == null}">
+                                            <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_project_modal_${orderItem.order_id}">新建施工项目</button>
+                                            <form>
+                                                <div class="modal fade" id="new_project_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <input type="file" name="txt_file" id="project_file" multiple class="file-loading" />
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <table class="table table-condensed table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>编号</th>
+                                                    <th>施工名称</th>
+                                                    <th>施工大类</th>
+                                                    <th>当前状态</th>
+                                                    <th>标记完成</th>
+                                                    <th>施工截图</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <c:forEach var="project_index" begin="0" end="${projects.size() - 1}" step="1">
+                                                    <c:set var="project" scope="session" value="${projects.get(project_index)}"/>
+                                                    <tr><td>00${project_index + 1}</td><td>${project.name}</td><td>${project.category}</td><td>${project.status}</td>
+                                                        <td><button type="button" class="btn btn-block btn-outline-success">标记完成</button></td>
+                                                        <td><button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#project_modal_${orderItem.order_id}_${project.id}">查看截图</button></td>
+                                                        <div class="modal fade" id="project_modal_${orderItem.order_id}_${project.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <img src="<%=request.getContextPath() %>/resources/img/projects/${project.url}" alt="" style="width:100%;">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </tr>
+                                                </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </blockquote>
