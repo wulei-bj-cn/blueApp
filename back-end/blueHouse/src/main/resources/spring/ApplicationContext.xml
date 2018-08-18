@@ -29,6 +29,10 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
     </bean>
 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+    </bean>
+
     <bean id="userService" class="com.blueHouse.service.UserServiceImpl"/>
     <bean id="accessService" class="com.blueHouse.service.AccessServiceImpl"/>
     <bean id="omService" class="com.blueHouse.service.OMServiceImpl"/>

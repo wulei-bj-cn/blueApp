@@ -118,7 +118,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#panel6_${orderItem.order_id}" role="tab">
-                                        <h6>施工管理</h6>
+                                        <h6>施工项目</h6>
                                     </a>
                                 </li>
                             </ul>
@@ -127,8 +127,12 @@
                                 <div id="panel1_${orderItem.order_id}" class="container tab-pane active"><br>
                                     <c:choose>
                                         <c:when test="${measure == null}">
-                                            <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_measure_modal_${orderItem.order_id}">新建预约测量</button>
-                                            <form>
+                                            <p>目前还没有对预约测量进行管理，点击<span class="badge badge-primary">新建预约测量</span>添加测量记录。</p>
+                                            <br>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_measure_modal_${orderItem.order_id}">新建预约测量</button>
+                                            </div>
+                                            <form class="form-inline mt-2 mt-md-0" action="/order/uploadMeasure" method="get" enctype="multipart/form-data">
                                                 <div class="modal fade" id="new_measure_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
@@ -136,10 +140,10 @@
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <input type="file" name="txt_file" id="measure_file" multiple class="file-loading" />
+                                                                <input type="file" name="measure_file" id="measure_file" />
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                                                                <button type="submit" class="btn btn-outline-success" data-dismiss="modal">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -189,7 +193,11 @@
                                 <div id="panel2_${orderItem.order_id}" class="container tab-pane fade"><br>
                                     <c:choose>
                                         <c:when test="${designContracts == null}">
-                                            <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_design_contr_modal_${orderItem.order_id}">新建设计合同</button>
+                                            <p>目前还没有对设计合同进行管理，点击<span class="badge badge-danger">新建设计合同</span>添加合同记录。</p>
+                                            <br>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-block btn-outline-danger" data-toggle="modal" data-target="#new_design_contr_modal_${orderItem.order_id}">新建设计合同</button>
+                                            </div>
                                             <form>
                                                 <div class="modal fade" id="new_design_contr_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
@@ -264,7 +272,11 @@
                                 <div id="panel3_${orderItem.order_id}" class="container tab-pane fade"><br>
                                     <c:choose>
                                         <c:when test="${designs == null}">
-                                            <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_design_modal_${orderItem.order_id}">新建设计方案</button>
+                                            <p>目前还没有对设计方案进行管理，点击<span class="badge badge-info">新建设计方案</span>添加设计方案记录。</p>
+                                            <br>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#new_design_modal_${orderItem.order_id}">新建设计方案</button>
+                                            </div>
                                             <form>
                                                 <div class="modal fade" id="new_design_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
@@ -333,7 +345,11 @@
                                 <div id="panel4_${orderItem.order_id}" class="container tab-pane fade"><br>
                                     <c:choose>
                                         <c:when test="${disclaim == null}">
-                                            <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_disclaim_modal_${orderItem.order_id}">新建施工交底</button>
+                                            <p>目前还没有对施工交底进行管理，点击<span class="badge badge-secondary">新建施工交底</span>添加交底记录。</p>
+                                            <br>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-block btn-outline-secondary" data-toggle="modal" data-target="#new_disclaim_modal_${orderItem.order_id}">新建施工交底</button>
+                                            </div>
                                             <form>
                                                 <div class="modal fade" id="new_disclaim_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
@@ -394,7 +410,11 @@
                                 <div id="panel5_${orderItem.order_id}" class="container tab-pane fade"><br>
                                     <c:choose>
                                         <c:when test="${projectContracts == null}">
-                                            <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_project_contr_modal_${orderItem.order_id}">新建施工合同</button>
+                                            <p>目前还没有对施工合同进行管理，点击<span class="badge badge-success">新建施工合同</span>添加合同记录。</p>
+                                            <br>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-block btn-outline-success" data-toggle="modal" data-target="#new_project_contr_modal_${orderItem.order_id}">新建施工合同</button>
+                                            </div>
                                             <form>
                                                 <div class="modal fade" id="new_project_contr_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
@@ -469,7 +489,11 @@
                                 <div id="panel6_${orderItem.order_id}" class="container tab-pane fade"><br>
                                     <c:choose>
                                         <c:when test="${projects == null}">
-                                            <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_project_modal_${orderItem.order_id}">新建施工项目</button>
+                                            <p>目前还没有对施工项目进行管理，点击<span class="badge badge-warning">新建施工项目</span>添加项目记录。</p>
+                                            <br>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-block btn-outline-warning" data-toggle="modal" data-target="#new_project_modal_${orderItem.order_id}">新建施工项目</button>
+                                            </div>
                                             <form>
                                                 <div class="modal fade" id="new_project_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">

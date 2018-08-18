@@ -10,8 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +46,22 @@ public class OrderController {
         modelMap.put("orderItems", orderItems);
         modelMap.put("ordersCount", orders.size());
         modelMap.put("isSearching", false);
+        return "orders";
+    }
+
+    @RequestMapping(value = "uploadMeasure", method = RequestMethod.GET)
+    public String uploadMeasure(MultipartFile measureFile, HttpServletRequest request) {
+        String filename = "YPP-007.jpg";
+        String targetPath = request.getContextPath() + "/resources/img/measures/" + filename;
+        File file = new File("/Users/wulei/" + filename);
+        System.out.println("=======Uploading MEASURE file=======");
+        try {
+            measureFile.transferTo(file);
+        } catch (IOException ex) {
+            System.out.println("IO exception detected when uploading Blue House MEASURE files!");
+        }
+        System.out.println("=======DONE Uploading MEASURE file=======");
+
         return "orders";
     }
 
