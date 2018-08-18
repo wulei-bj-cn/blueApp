@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -28,6 +29,7 @@ public class OrderController {
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public String getAllUsers(ModelMap modelMap) {
+        System.out.println("======Hey, SOB, I'm in /order/getAll ======");
         List<Order> orders = omService.findAllOrders();
         List<OrderItems> orderItems = new ArrayList();
         if (orders != null) {
@@ -49,8 +51,9 @@ public class OrderController {
         return "orders";
     }
 
-    @RequestMapping(value = "uploadMeasure", method = RequestMethod.GET)
-    public String uploadMeasure(MultipartFile measureFile, HttpServletRequest request) {
+    @RequestMapping(value = "/uploadMeasure")
+    public String uploadMeasureFile(@RequestParam("measure_file") MultipartFile measureFile, HttpServletRequest request) {
+        System.out.println("======Hey, SOB, I'm in /order/uploadMeasure ======");
         String filename = "YPP-007.jpg";
         String targetPath = request.getContextPath() + "/resources/img/measures/" + filename;
         File file = new File("/Users/wulei/" + filename);

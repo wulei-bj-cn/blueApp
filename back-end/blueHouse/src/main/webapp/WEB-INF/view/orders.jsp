@@ -132,7 +132,7 @@
                                             <div class="col-md-3">
                                                 <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_measure_modal_${orderItem.order_id}">新建预约测量</button>
                                             </div>
-                                            <form class="form-inline mt-2 mt-md-0" action="/order/uploadMeasure" method="get" enctype="multipart/form-data">
+                                            <form class="form-inline mt-2 mt-md-0" action="/order/uploadMeasure" method="post" enctype="multipart/form-data">
                                                 <div class="modal fade" id="new_measure_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
@@ -141,6 +141,7 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <input type="file" name="measure_file" id="measure_file" />
+                                                                <input type="text" id="measure_order_id" name="measure_order_id" value="${orderItem.order_id}" hidden="true"/>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="submit" class="btn btn-outline-success" data-dismiss="modal">确定</button>

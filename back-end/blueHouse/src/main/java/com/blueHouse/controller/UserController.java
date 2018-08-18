@@ -29,6 +29,7 @@ public class UserController {
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public String getAllUsers(ModelMap modelMap) {
+        System.out.println("======Hey, SOB, I'm in /user/getAll ======");
         List<User> users = userService.findAllUsers();
         List<Access> accesses = accessService.findAllAccesss();
         modelMap.put("users", users);
