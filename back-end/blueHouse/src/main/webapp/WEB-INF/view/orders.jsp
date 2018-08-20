@@ -93,32 +93,32 @@
                             <ul class="nav nav-tabs nav-justified" role="tablist">
                                 <li class="nav-item active">
                                     <a class="nav-link active" data-toggle="tab" href="#panel1_${orderItem.order_id}" role="tab">
-                                        <h6>预约测量</h6>
+                                        <h6 class="text-primary">预约测量</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#panel2_${orderItem.order_id}" role="tab">
-                                        <h6>设计合同</h6>
+                                        <h6 class="text-danger">设计合同</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#panel3_${orderItem.order_id}" role="tab">
-                                        <h6>设计方案</h6>
+                                        <h6 class="text-info">设计方案</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#panel4_${orderItem.order_id}" role="tab">
-                                        <h6>施工交底</h6>
+                                        <h6 class="text-secondary">施工交底</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#panel5_${orderItem.order_id}" role="tab">
-                                        <h6>施工合同</h6>
+                                        <h6 class="text-success">施工合同</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#panel6_${orderItem.order_id}" role="tab">
-                                        <h6>施工项目</h6>
+                                        <h6 class="text-warning">施工项目</h6>
                                     </a>
                                 </li>
                             </ul>
@@ -137,14 +137,32 @@
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
+                                                                <span class="badge badge-primary float-left">新建预约测量</span>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <input type="file" name="measure_file" id="measure_file" />
-                                                                <input type="text" id="measure_order_id" name="measure_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                <div class="form-group">
+                                                                    <label for="measure_name">名称</label>
+                                                                    &nbsp;
+                                                                    <input type="text" class="form-control" id="measure_name" placeholder="请输入名称">
+                                                                </div>
+                                                                <br>
+                                                                <div class="form-group">
+                                                                    <label for="measure_address">地址</label>
+                                                                    &nbsp;
+                                                                    <input type="text" class="form-control" id="measure_address" placeholder="请输入地址">
+                                                                </div>
+                                                                <br>
+                                                                <div class="form-group">
+                                                                    <label for="measure_file">上传测量截图</label>
+                                                                    &nbsp;
+                                                                    <input type="file" name="measure_file" id="measure_file" />
+                                                                    &nbsp;
+                                                                    <input type="text" id="measure_order_id" name="measure_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-outline-success" data-dismiss="modal">确定</button>
+                                                                <button type="submit" class="btn btn-outline-primary" data-dismiss="modal">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -204,13 +222,36 @@
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
+                                                                <span class="badge badge-danger float-left">新建设计合同</span>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <input type="file" name="txt_file" id="design_contr_file" multiple class="file-loading" />
+                                                                <div class="form-group">
+                                                                    <label for="design_contr_name">名称</label>
+                                                                    <input type="text" class="form-control" id="design_contr_name" placeholder="请输入名称">
+                                                                </div>
+                                                                <br>
+                                                                <div class="form-group">
+                                                                    <label>合同类型</label>
+                                                                    <br>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio"  value="设计合同" name="design_contr_type" id="design_contr_type_option1" checked>设计合同
+                                                                    </label>
+                                                                    <br>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio"  value="设计合同-补充" name="design_contr_type" id="design_contr_type_option2">设计合同-补充
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="design_contr_file">上传设计合同截图</label>
+                                                                    &nbsp;
+                                                                    <input type="file" name="design_contr_file" id="design_contr_file" />
+                                                                    &nbsp;
+                                                                    <input type="text" id="design_contr_order_id" name="design_contr_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                                                                <button type="submit" class="btn btn-outline-danger" data-dismiss="modal">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -283,13 +324,32 @@
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
+                                                                <span class="badge badge-info float-left">新建设计方案</span>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <input type="file" name="txt_file" id="design_file" multiple class="file-loading" />
+                                                                <div class="form-group">
+                                                                    <label for="design_name">名称</label>
+                                                                    &nbsp;
+                                                                    <input type="text" class="form-control" id="design_name" placeholder="请输入名称">
+                                                                </div>
+                                                                <br>
+                                                                <div class="form-group">
+                                                                    <label for="design_3d_url">设计方案3D图景链接</label>
+                                                                    &nbsp;
+                                                                    <input type="text" class="form-control" id="design_3d_url" placeholder="请输入URL地址">
+                                                                </div>
+                                                                <br>
+                                                                <div class="form-group">
+                                                                    <label for="design_file">上传设计方案截图</label>
+                                                                    &nbsp;
+                                                                    <input type="file" name="design_file" id="design_file" />
+                                                                    &nbsp;
+                                                                    <input type="text" id="design_order_id" name="design_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                                                                <button type="button" class="btn btn-outline-info" data-dismiss="modal">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -356,13 +416,26 @@
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
+                                                                <span class="badge badge-secondary float-left">新建施工交底</span>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <input type="file" name="txt_file" id="disclaim_file" multiple class="file-loading" />
+                                                                <div class="form-group">
+                                                                    <label for="disclaim_name">名称</label>
+                                                                    &nbsp;
+                                                                    <input type="text" class="form-control" id="disclaim_name" placeholder="请输入名称">
+                                                                </div>
+                                                                <br>
+                                                                <div class="form-group">
+                                                                    <label for="disclaim_file">上传施工交底截图</label>
+                                                                    &nbsp;
+                                                                    <input type="file" name="disclaim_file" id="disclaim_file" />
+                                                                    &nbsp;
+                                                                    <input type="text" id="disclaim_order_id" name="disclaim_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                                                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -421,13 +494,36 @@
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
+                                                                <span class="badge badge-success float-left">新建施工合同</span>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <input type="file" name="txt_file" id="project_contr_file" multiple class="file-loading" />
+                                                                <div class="form-group">
+                                                                    <label for="project_contr_name">名称</label>
+                                                                    <input type="text" class="form-control" id="project_contr_name" placeholder="请输入名称">
+                                                                </div>
+                                                                <br>
+                                                                <div class="form-group">
+                                                                    <label>合同类型</label>
+                                                                    <br>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio"  value="施工合同" name="project_contr_type" id="project_contr_type_option1" checked>施工合同
+                                                                    </label>
+                                                                    <br>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio"  value="施工合同-补充" name="project_contr_type" id="project_contr_type_option2">施工合同-补充
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="project_contr_file">上传施工合同截图</label>
+                                                                    &nbsp;
+                                                                    <input type="file" name="project_contr_file" id="project_contr_file" />
+                                                                    &nbsp;
+                                                                    <input type="text" id="project_contr_order_id" name="project_contr_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                                                                <button type="button" class="btn btn-outline-success" data-dismiss="modal">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -500,13 +596,34 @@
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
+                                                                <span class="badge badge-warning float-left">新建施工项目</span>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <input type="file" name="txt_file" id="project_file" multiple class="file-loading" />
+                                                                <div class="form-group">
+                                                                    <label for="project_category">请选择施工大类</label>
+                                                                    <select id="project_category" class="custom-select" title="请选择施工大类">
+                                                                        <option value="瓦工">瓦工</option>
+                                                                        <option value="水电">水电</option>
+                                                                        <option value="泥工">泥工</option>
+                                                                    </select>
+                                                                </div>
+                                                                <br>
+                                                                <div class="form-group">
+                                                                    <label for="project_name">施工项目</label>
+                                                                    <input type="text" class="form-control" id="project_name" placeholder="吊顶/改水/改电...">
+                                                                </div>
+                                                                <br>
+                                                                <div class="form-group">
+                                                                    <label for="project_file">上传施工项目截图</label>
+                                                                    &nbsp;
+                                                                    <input type="file" name="project_file" id="project_file" />
+                                                                    &nbsp;
+                                                                    <input type="text" id="project_order_id" name="project_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                                                                <button type="button" class="btn btn-outline-warning" data-dismiss="modal">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
