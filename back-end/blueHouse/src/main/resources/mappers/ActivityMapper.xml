@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.ActivityMapper">
+    <select id="findActivityById" parameterType="int" resultType="com.blueHouse.pojo.Activity">
+        select id, describe , url ,start_time, end_time from t_activities where id = #{id}
+    </select>
+    <select id="findActivityByPartialId" parameterType="int" resultType="com.blueHouse.pojo.Activity">
+        select  id, describe , url ,start_time, end_time from t_activities  where id LIKE  CONCAT(CONCAT('%',#{id},'%'))
+    </select>
+    <select id="findAllActivity" resultType="com.blueHouse.pojo.Activity">
+        select id, describe , url ,start_time, end_time  from t_activities
+    </select>
+    <insert id="insertActivity" parameterType="com.blueHouse.pojo.Activity">
+        insert into t_activities (id, describe , url ,start_time, end_time ) values(#{id},#{describe} ,#{url} , #{start_time}, #{end_time})
+    </insert>
+    <update id="updateActivity" parameterType="com.blueHouse.pojo.Activity">
+        update t_activities set end_time = #{end_time} where id = #{id}
+        update t_activities set url = #{url} where id = #{id}
+    </update>
+</mapper>
