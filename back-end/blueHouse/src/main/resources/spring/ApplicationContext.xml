@@ -36,5 +36,6 @@
     <bean id="userService" class="com.blueHouse.service.UserServiceImpl"/>
     <bean id="accessService" class="com.blueHouse.service.AccessServiceImpl"/>
     <bean id="omService" class="com.blueHouse.service.OMServiceImpl"/>
+    <bean id="activityService" class="com.blueHouse.service.ActivityServiceImpl"/>
 
 </beans>
