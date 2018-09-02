@@ -5,19 +5,17 @@
 
 <mapper namespace="com.blueHouse.mapper.ContractMapper">
     <select id="findContractById" parameterType="string" resultType="com.blueHouse.pojo.orders.Contract">
-        select id from t_contracts where id = #{id}
+        select id,name,url,type,ts from t_contracts where id = #{id}
     </select>
-    <select id="findContractByPartialId" parameterType="string" resultType="com.blueHouse.pojo.orders.Contract">
-        select id, start_time, end_time, sojourn from t_contracts where id LIKE  CONCAT(CONCAT('%',#{id},'%'))
+    <select id="findContractByPartialName" parameterType="string" resultType="com.blueHouse.pojo.orders.Contract">
+        select id,name,url,type,ts from t_contracts where name LIKE CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <select id="findAllContracts" resultType="com.blueHouse.pojo.orders.Contract">
-        select id, start_time, end_time, sojourn from t_contracts
+        select id,name,url,type,ts from t_contracts
     </select>
     <insert id="insertContract" parameterType="com.blueHouse.pojo.orders.Contract">
-        insert into t_contracts(id, start_time, end_time, sojourn) values(#{id}, #{start_time}, #{end_time}, #{sojourn})
+        insert into t_contracts(id,name,url,type,ts) values(#{id}, #{name}, #{url}, #{type},#{ts})
     </insert>
     <update id="updateContract" parameterType="com.blueHouse.pojo.orders.Contract">
-        update t_contracts set end_time = #{end_time} where id = #{id}
-        update t_contracts set sojourn = #{sojourn} where id = #{id}
     </update>
 </mapper>

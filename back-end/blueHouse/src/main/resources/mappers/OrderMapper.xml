@@ -5,19 +5,17 @@
 
 <mapper namespace="com.blueHouse.mapper.OrderMapper">
     <select id="findOrderById" parameterType="string" resultType="com.blueHouse.pojo.orders.Order">
-        select id from t_orders where id = #{name}
+        select id,user_id,start_time,end_time,status from t_orders where id = #{id}
     </select>
     <select id="findOrderByPartialId" parameterType="string" resultType="com.blueHouse.pojo.orders.Order">
-        select id, start_time, end_time, sojourn from t_orders where id LIKE  CONCAT(CONCAT('%',#{name},'%'))
+        select id,user_id,start_time,end_time,status from t_orders where user_id LIKE  CONCAT(CONCAT('%',#{id},'%'))
     </select>
     <select id="findAllOrders" resultType="com.blueHouse.pojo.orders.Order">
-        select id, start_time, end_time, sojourn from t_orders
+        select id,user_id,start_time,end_time,status from t_orders
     </select>
     <insert id="insertOrder" parameterType="com.blueHouse.pojo.orders.Order">
-        insert stringo t_orders(id, start_time, end_time, sojourn) values(#{id}, #{start_time}, #{end_time}, #{sojourn})
+        insert t_orders(id, user_id, start_time, end_time,status ) values(#{id}, #{user_id}, #{start_time}, #{end_time},#{status})
     </insert>
     <update id="updateOrder" parameterType="com.blueHouse.pojo.orders.Order">
-        update t_orders set end_time = #{end_time} where id = #{id}
-        update t_orders set sojourn = #{sojourn} where id = #{id}
     </update>
 </mapper>

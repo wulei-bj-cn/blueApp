@@ -7,8 +7,7 @@ import java.util.List;
  * Created by lihan on 2018/9/1.
  */
 public interface AdminService {
-    Admin findAdminById(int id);
-    List<Admin> findAdminByPartialId(int id);
+    Admin findAdminById(String id);
     List<Admin> findAllAdmin();
     List<Admin> findAdminByNameOrID(String name);
     void insertAdmin(Admin admin);

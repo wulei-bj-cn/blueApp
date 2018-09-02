@@ -5,19 +5,17 @@
 
 <mapper namespace="com.blueHouse.mapper.MeasureMapper">
     <select id="findMeasureById" parameterType="string" resultType="com.blueHouse.pojo.orders.Measure">
-        select id from t_measures where id = #{name}
+        select id,name,address,url,ts,crew from t_measures where id = #{id}
     </select>
     <select id="findMeasureByUserName" parameterType="string" resultType="com.blueHouse.pojo.orders.Measure">
-        select id, start_time, end_time, sojourn from t_measures where id LIKE  CONCAT(CONCAT('%',#{name},'%'))
+        select id,name,address,url,ts,crew  from t_measures where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <select id="findMeasureByCrewName" resultType="com.blueHouse.pojo.orders.Measure">
-        select id, start_time, end_time, sojourn from t_measures
+        select id,name,address,url,ts,crew from t_measures where crew LIKE CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <insert id="insertMeasure" parameterType="com.blueHouse.pojo.orders.Measure">
-        insert into t_measures(id, start_time, end_time, sojourn) values(#{id}, #{start_time}, #{end_time}, #{sojourn})
+        insert into t_measures(id,name,address,url,ts,crew ) values(#{id}, #{name}, #{address}, #{url},#{ts},#{crew})
     </insert>
     <update id="updateMeasure" parameterType="com.blueHouse.pojo.orders.Measure">
-        update t_measures set end_time = #{end_time} where id = #{id}
-        update t_measures set sojourn = #{sojourn} where id = #{id}
     </update>
 </mapper>

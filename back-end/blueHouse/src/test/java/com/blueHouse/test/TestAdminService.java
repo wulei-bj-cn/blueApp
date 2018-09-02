@@ -23,7 +23,18 @@ public class TestAdminService {
     @Test
     public void findAdminById() throws Exception {
         AdminService adminService= (AdminService) applicationContext.getBean("adminService");
-        Admin admin = adminService.findAdminById(1);
+        Admin admin = adminService.findAdminById("adm1");
         System.out.println(admin.getId());
+        System.out.println(admin.getLast_log_on());
+    }
+
+    @Test
+    public void findAllAdmin() throws Exception{
+        AdminService adminService= (AdminService) applicationContext.getBean("adminService");
+        List<Admin> admins = adminService.findAllAdmin();
+        for(Admin admin:admins){
+            System.out.println(admin.getId());
+            System.out.println(admin.getLogin());
+        }
     }
 }

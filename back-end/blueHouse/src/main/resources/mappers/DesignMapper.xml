@@ -5,19 +5,18 @@
 
 <mapper namespace="com.blueHouse.mapper.DesignMapper">
     <select id="findDesignById" parameterType="string" resultType="com.blueHouse.pojo.orders.Design">
-        select id from t_designs where id = #{id}
+        select id,name,url,ts,designer from t_designs where id = #{id}
     </select>
     <select id="findDesignByUseName" parameterType="string" resultType="com.blueHouse.pojo.orders.Design">
-        select id, start_time, end_time, sojourn from t_designs where id LIKE  CONCAT(CONCAT('%',#{name},'%'))
+        select id,name,url,ts,designer from t_designs where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <select id="finaDesignByDesignerName" parameterType="string"  resultType="com.blueHouse.pojo.orders.Design">
-        select id, start_time, end_time, sojourn from t_designs where id LIKE  CONCAT(CONCAT('%',#{name},'%'))
+        select id,name,url,ts,designer from t_designs where designer LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <insert id="insertDesign" parameterType="com.blueHouse.pojo.orders.Design">
-        insert into t_designs(id, start_time, end_time, sojourn) values(#{id}, #{start_time}, #{end_time}, #{sojourn})
+        insert into t_designs(id,name,url,ts,designer) values(#{id}, #{name}, #{url}, #{ts},#{designer})
     </insert>
     <update id="updateDesign" parameterType="com.blueHouse.pojo.orders.Design">
-        update t_designs set end_time = #{end_time} where id = #{id}
-        update t_designs set sojourn = #{sojourn} where id = #{id}
+
     </update>
 </mapper>

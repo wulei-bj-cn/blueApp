@@ -18,13 +18,8 @@ public class AdminServiceImpl implements AdminService {
     private AdminMapper adminMapper;
 
     @Override
-    public Admin findAdminById(int id) {
+    public Admin findAdminById(String id) {
         return adminMapper.findAdminById(id);
-    }
-
-    @Override
-    public List<Admin> findAdminByPartialId(int id) {
-        return adminMapper.findAdminByPartialId(id);
     }
 
     @Override

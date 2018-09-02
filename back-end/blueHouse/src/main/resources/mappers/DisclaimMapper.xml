@@ -5,19 +5,17 @@
 
 <mapper namespace="com.blueHouse.mapper.DisclaimMapper">
     <select id="findDisclaimById" parameterType="string" resultType="com.blueHouse.pojo.orders.Disclaim">
-        select id from t_disclaims where id = #{name}
+        select id,name,url,ts,crew from t_disclaims where id = #{id}
     </select>
     <select id="findDisclaimByUserName" parameterType="string" resultType="com.blueHouse.pojo.orders.Disclaim">
-        select id, start_time, end_time, sojourn from t_disclaims where id LIKE  CONCAT(CONCAT('%',#{name},'%'))
+        select id,name,url,ts,crew  from t_disclaims where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
-    <select id="findDisclaimByCrewrName" resultType="com.blueHouse.pojo.orders.Disclaim">
-        select id, start_time, end_time, sojourn from t_disclaims
+    <select id="findDisclaimByCrewrName"  parameterType="string" resultType="com.blueHouse.pojo.orders.Disclaim">
+        select id,name,url,ts,crew  from t_disclaims where crew LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <insert id="insertDisclaim" parameterType="com.blueHouse.pojo.orders.Disclaim">
-        insert into t_disclaims(id, start_time, end_time, sojourn) values(#{id}, #{start_time}, #{end_time}, #{sojourn})
+        insert into t_disclaims(id,name,url,ts,crew ) values(#{id}, #{name}, #{url}, #{ts},#{crew})
     </insert>
     <update id="updateDisclaim" parameterType="com.blueHouse.pojo.orders.Disclaim">
-        update t_disclaims set end_time = #{end_time} where id = #{id}
-        update t_disclaims set sojourn = #{sojourn} where id = #{id}
     </update>
 </mapper>

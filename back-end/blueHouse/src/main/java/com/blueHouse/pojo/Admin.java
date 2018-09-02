@@ -6,19 +6,19 @@ import java.sql.Timestamp;
  * Created by lihan on 2018/9/1.
  */
 public class Admin {
-    private Integer id;
+    private String id;
     private String login;
     private String name;
     private String password;
-    private Integer role;
-    private Integer status;
+    private String role;
+    private String status;
     private Timestamp last_log_on;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -46,19 +46,19 @@ public class Admin {
         this.password = password;
     }
 
-    public Integer getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

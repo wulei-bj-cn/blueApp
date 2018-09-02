@@ -14,7 +14,7 @@
         select id, des , url ,start_time, end_time  from t_activities
     </select>
     <insert id="insertActivity" parameterType="com.blueHouse.pojo.Activity">
-        insert into t_activities (id, des , url ,start_time, end_time ) values(#{id},#{describe} ,#{url} , #{start_time}, #{end_time})
+        insert into t_activities (id, des , url ,start_time, end_time ) values(#{id},#{des} ,#{url} , #{start_time}, #{end_time})
     </insert>
     <update id="updateActivity" parameterType="com.blueHouse.pojo.Activity">
         update t_activities set end_time = #{end_time} where id = #{id}

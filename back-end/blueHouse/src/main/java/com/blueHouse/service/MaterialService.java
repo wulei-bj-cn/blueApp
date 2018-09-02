@@ -7,6 +7,7 @@ import com.blueHouse.pojo.orders.Material;
  */
 public interface MaterialService {
     Material finaMaterialById(String id);
+    Material findMaterialByPartialName(String name);
     void insertMaterial(Material material);
     void updateMaterial(Material material);
 }

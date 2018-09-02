@@ -20,6 +20,11 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
+    public Material findMaterialByPartialName(String name) {
+        return materialMapper.findMaterialByPartialName(name);
+    }
+
+    @Override
     public void insertMaterial(Material material) {
         materialMapper.insertMaterial(material);
     }
