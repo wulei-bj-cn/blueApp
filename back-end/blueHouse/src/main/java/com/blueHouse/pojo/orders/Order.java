@@ -1,4 +1,4 @@
-package com.blueHouse.pojo;
+package com.blueHouse.pojo.orders;
 
 import java.sql.Timestamp;
 

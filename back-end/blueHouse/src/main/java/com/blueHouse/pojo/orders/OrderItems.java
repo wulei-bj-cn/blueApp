@@ -1,5 +1,7 @@
-package com.blueHouse.pojo;
+package com.blueHouse.pojo.orders;
 
+
+import com.blueHouse.pojo.orders.*;
 
 import java.util.List;
 

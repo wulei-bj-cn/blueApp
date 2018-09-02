@@ -4,43 +4,50 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.blueHouse.mapper.OM_Mapper">
-    <select id="findOrder" resultType="com.blueHouse.pojo.Order">
+    <select id="findOrder" resultType="com.blueHouse.pojo.orders.Order">
         SELECT user_id, id, start_time, end_time, status
         FROM t_orders
         WHERE user_id = #{user_id} AND id = #{order_id}
     </select>
-    <select id="findAllOrders" resultType="com.blueHouse.pojo.Order">
+    <select id="findAllOrders" resultType="com.blueHouse.pojo.orders.Order">
         SELECT user_id, id, start_time, end_time, status
         FROM t_orders
     </select>
-    <select id="findMeasure" resultType="com.blueHouse.pojo.Measure">
+    <select id="findMeasure" resultType="com.blueHouse.pojo.orders.Measure">
         SELECT o.user_id AS user_id, o.id AS order_id, m.id AS id, m.name AS name, m.address AS address, m.url AS url, m.ts AS ts, m.crew AS crew, oi.status AS status
         FROM t_orders AS o INNER JOIN t_order_items AS oi ON o.id = oi.order_id
         INNER JOIN t_measures AS m ON oi.item_id = m.id
         WHERE o.id = #{order_id} AND o.user_id = #{user_id}
     </select>
-    <select id="findContract" resultType="com.blueHouse.pojo.Contract">
+    <select id="findContract" resultType="com.blueHouse.pojo.orders.Contract">
         SELECT o.user_id AS user_id, o.id AS order_id, c.id AS id, c.name AS name, c.url AS url, c.ts AS ts, c.type AS type, oi.status AS status
         FROM t_orders AS o INNER JOIN t_order_items AS oi ON o.id = oi.order_id
         INNER JOIN t_contracts AS c ON oi.item_id = c.id
         WHERE o.id = #{order_id} AND o.user_id = #{user_id};
     </select>
-    <select id="findDesign" resultType="com.blueHouse.pojo.Design">
+    <select id="findDesign" resultType="com.blueHouse.pojo.orders.Design">
         SELECT o.user_id AS user_id, o.id AS order_id, d.id AS id, d.name AS name, d.url AS url, d.ts AS ts, d.designer AS designer, oi.status AS status
         FROM t_orders AS o INNER JOIN t_order_items AS oi ON o.id = oi.order_id
         INNER JOIN t_designs AS d ON oi.item_id = d.id
         WHERE o.id = #{order_id} AND o.user_id = #{user_id};
     </select>
-    <select id="findDisclaim" resultType="com.blueHouse.pojo.Disclaim">
+    <select id="findDisclaim" resultType="com.blueHouse.pojo.orders.Disclaim">
         SELECT o.user_id AS user_id, o.id AS order_id, d.id AS id, d.name AS name, d.url AS url, d.ts AS ts, d.crew AS crew, oi.status AS status
         FROM t_orders AS o INNER JOIN t_order_items AS oi ON o.id = oi.order_id
         INNER JOIN t_disclaims AS d ON oi.item_id = d.id
         WHERE o.id = #{order_id} AND o.user_id = #{user_id};
     </select>
-    <select id="findProject" resultType="com.blueHouse.pojo.Project">
+    <select id="findProject" resultType="com.blueHouse.pojo.orders.Project">
         SELECT o.user_id AS user_id, o.id AS order_id, p.id AS id, p.name AS name, p.url AS url, p.category AS category, p.enabled AS enabled, oi.status AS status
         FROM t_orders AS o INNER JOIN t_order_items AS oi ON o.id = oi.order_id
         INNER JOIN t_projects AS p ON oi.item_id = p.id
+        WHERE o.id = #{order_id} AND o.user_id = #{user_id};
+    </select>
+    <select id="findMaterial" resultType="com.blueHouse.pojo.orders.Material">
+        SELECT o.user_id AS user_id, o.id AS order_id, m.id as id, mc.class_name as class_name, mc.name as category, m.brand as brand, m.name as name, m.price as price, m.url as url
+        FROM t_orders AS o INNER JOIN t_order_items AS oi ON o.id = oi.order_id
+        INNER JOIN t_materials AS m ON oi.item_id = m.id
+        INNER JOIN t_mat_category AS mc ON m.category = mc.id
         WHERE o.id = #{order_id} AND o.user_id = #{user_id};
     </select>
 </mapper>

@@ -4,7 +4,7 @@ package com.blueHouse.controller;
  * Created by wulei on 27/07/2018.
  */
 
-import com.blueHouse.pojo.*;
+import com.blueHouse.pojo.orders.*;
 import com.blueHouse.service.OMService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,7 +28,7 @@ public class OrderController {
     private OMService omService;
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public String getAllUsers(ModelMap modelMap) {
+    public String getAllOrders(ModelMap modelMap) {
         System.out.println("======Hey, SOB, I'm in /order/getAll ======");
         List<Order> orders = omService.findAllOrders();
         List<OrderItems> orderItems = new ArrayList();

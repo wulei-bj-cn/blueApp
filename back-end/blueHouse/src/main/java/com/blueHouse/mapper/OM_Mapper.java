@@ -4,7 +4,7 @@ package com.blueHouse.mapper;
  * Created by wulei on 23/07/2018.
  */
 
-import com.blueHouse.pojo.*;
+import com.blueHouse.pojo.orders.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -38,6 +38,11 @@ public interface OM_Mapper {
     );
 
     List<Project> findProject(
+            @Param("user_id")String user_id,
+            @Param("order_id")String order_id
+    );
+
+    List<Material> findMaterial(
             @Param("user_id")String user_id,
             @Param("order_id")String order_id
     );

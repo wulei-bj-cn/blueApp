@@ -1,8 +1,7 @@
 package com.blueHouse.test;
 
-import com.blueHouse.pojo.*;
+import com.blueHouse.pojo.orders.*;
 import com.blueHouse.service.OMService;
-import org.aspectj.weaver.ast.Or;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -107,6 +106,25 @@ public class TestOMService {
                             project.getCategory() + "\n" +
                             project.getStatus() + "\n" +
                             project.getEnabled() + "\n"
+            );
+        }
+    }
+
+    @Test
+    public void findMaterial() throws Exception {
+        OMService omService = (OMService) applicationContext.getBean("omService");
+        List<Material> materials = omService.findMaterial("usr8", "ord1");
+        for (Material material: materials) {
+            System.out.println(
+                    material.getId() + "\n" +
+                            material.getUser_id() + "\n" +
+                            material.getOrder_id() + "\n" +
+                            material.getName() + "\n" +
+                            material.getCategory() + "\n" +
+                            material.getBrand() + "\n" +
+                            material.getClass_name() + "\n" +
+                            material.getPrice() + "\n" +
+                            material.getUrl() + "\n"
             );
         }
     }

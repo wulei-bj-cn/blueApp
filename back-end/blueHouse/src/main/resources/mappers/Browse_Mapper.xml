@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.Browse_Mapper">
+    <select id="browseAllMaterials" resultType="com.blueHouse.pojo.browse.T_Material">
+        SELECT m.id AS id, mc.class_name AS class_name, mc.name AS category, m.brand AS brand, m.name AS name, m.price AS price, m.url AS url
+        FROM t_materials m
+        INNER JOIN t_mat_category mc ON m.category = mc.id
+    </select>
+</mapper>

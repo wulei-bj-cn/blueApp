@@ -1,7 +1,7 @@
 package com.blueHouse.test;
 
 import com.blueHouse.mapper.OM_Mapper;
-import com.blueHouse.pojo.Measure;
+import com.blueHouse.pojo.orders.Measure;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

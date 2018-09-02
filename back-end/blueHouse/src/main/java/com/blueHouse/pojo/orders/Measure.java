@@ -1,16 +1,19 @@
-package com.blueHouse.pojo;
+package com.blueHouse.pojo.orders;
+
+import java.sql.Timestamp;
 
 /**
  * Created by wulei on 23/07/2018.
  */
-public class Project {
+public class Measure {
     private String user_id;
     private String order_id;
     private String id;
     private String name;
+    private String address;
     private String url;
-    private String category;
-    private int enabled;
+    private Timestamp ts;
+    private String crew;
     private String status;
 
     public String getUser_id() { return this.user_id; }
@@ -25,14 +28,17 @@ public class Project {
     public String getName() { return this.name; }
     public void setName(String name) { this.name = name; }
 
+    public String getAddress() { return this.address; }
+    public void setAddress(String address) { this.address = address; }
+
     public String getUrl() { return this.url; }
     public void setUrl(String url) { this.url = url; }
 
-    public String getCategory() { return this.category; }
-    public void setCategory(String category) { this.category = category; }
+    public Timestamp getTs() { return this.ts; }
+    public void setTs(Timestamp ts) { this.ts = ts; }
 
-    public int getEnabled() { return this.enabled; }
-    public void setEnabled(int enabled) { this.enabled = enabled; }
+    public String getCrew() { return this.crew; }
+    public void setCrew(String crew) { this.crew = crew; }
 
     public String getStatus() { return this.status; }
     public void setStatus(String status) { this.status = status; }

@@ -1,20 +1,18 @@
-package com.blueHouse.pojo;
-
-import java.sql.Timestamp;
+package com.blueHouse.pojo.orders;
 
 /**
  * Created by wulei on 23/07/2018.
  */
-public class Measure {
+public class Material {
     private String user_id;
     private String order_id;
     private String id;
+    private String class_name;
+    private String category;
+    private String brand;
     private String name;
-    private String address;
+    private double price;
     private String url;
-    private Timestamp ts;
-    private String crew;
-    private String status;
 
     public String getUser_id() { return this.user_id; }
     public void setUser_id() { this.user_id = user_id; }
@@ -25,22 +23,23 @@ public class Measure {
     public String getId() { return this.id; }
     public void setId(String id) { this.id = id; }
 
+    public String getClass_name() { return this.class_name; }
+    public void setClass_name(String class_name) { this.class_name = class_name; }
+
+    public String getCategory() { return this.category; }
+    public void setCategory(String category) { this.category = category; }
+
+    public String getBrand() { return this.brand; }
+    public void setBrand(String brand) { this.brand = brand; }
+
     public String getName() { return this.name; }
     public void setName(String name) { this.name = name; }
 
-    public String getAddress() { return this.address; }
-    public void setAddress(String address) { this.address = address; }
+    public double getPrice() { return this.price; }
+    public void setPrice(double price) { this.price = price; }
 
     public String getUrl() { return this.url; }
     public void setUrl(String url) { this.url = url; }
 
-    public Timestamp getTs() { return this.ts; }
-    public void setTs(Timestamp ts) { this.ts = ts; }
-
-    public String getCrew() { return this.crew; }
-    public void setCrew(String crew) { this.crew = crew; }
-
-    public String getStatus() { return this.status; }
-    public void setStatus(String status) { this.status = status; }
 }
 

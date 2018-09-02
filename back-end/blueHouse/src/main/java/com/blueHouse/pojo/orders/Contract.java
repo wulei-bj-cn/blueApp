@@ -1,18 +1,18 @@
-package com.blueHouse.pojo;
+package com.blueHouse.pojo.orders;
 
 import java.sql.Timestamp;
 
 /**
  * Created by wulei on 23/07/2018.
  */
-public class Design {
+public class Contract {
     private String user_id;
     private String order_id;
     private String id;
     private String name;
     private String url;
     private Timestamp ts;
-    private String designer;
+    private String type;
     private String status;
 
     public String getUser_id() { return this.user_id; }
@@ -33,8 +33,8 @@ public class Design {
     public Timestamp getTs() { return this.ts; }
     public void setTs(Timestamp ts) { this.ts = ts; }
 
-    public String getDesigner() { return this.designer; }
-    public void setDesigner() { this.designer = designer; }
+    public String getType() { return this.type; }
+    public void setType(String type) { this.type = type; }
 
     public String getStatus() { return this.status; }
     public void setStatus(String status) { this.status = status; }

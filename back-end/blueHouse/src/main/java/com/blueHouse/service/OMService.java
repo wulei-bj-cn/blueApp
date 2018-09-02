@@ -1,6 +1,6 @@
 package com.blueHouse.service;
 
-import com.blueHouse.pojo.*;
+import com.blueHouse.pojo.orders.*;
 
 import java.util.List;
 
@@ -15,4 +15,5 @@ public interface OMService {
     List<Design> findDesign(String user_id, String order_id);
     List<Disclaim> findDisclaim(String user_id, String order_id);
     List<Project> findProject(String user_id, String order_id);
+    List<Material> findMaterial(String user_id, String order_id);
 }
