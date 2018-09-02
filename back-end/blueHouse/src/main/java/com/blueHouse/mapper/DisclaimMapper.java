@@ -1,6 +1,6 @@
 package com.blueHouse.mapper;
 
-import com.blueHouse.pojo.Disclaim;
+import com.blueHouse.pojo.orders.Disclaim;
 
 import java.util.List;
 

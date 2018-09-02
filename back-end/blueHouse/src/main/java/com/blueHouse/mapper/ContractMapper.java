@@ -1,6 +1,6 @@
 package com.blueHouse.mapper;
 
-import com.blueHouse.pojo.Contract;
+import com.blueHouse.pojo.orders.Contract;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package com.blueHouse.service;
 
-import com.blueHouse.pojo.Disclaim;
+
+import com.blueHouse.pojo.orders.Disclaim;
 
 import java.util.List;
 

@@ -1,7 +1,8 @@
 package com.blueHouse.mapper;
 
-import com.blueHouse.pojo.Design;
-import com.sun.tools.javac.util.List;
+import com.blueHouse.pojo.orders.Design;
+
+import java.util.List;
 
 /**
  * Created by lihan on 2018/9/1.

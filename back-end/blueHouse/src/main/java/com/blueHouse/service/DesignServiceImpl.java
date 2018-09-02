@@ -1,10 +1,10 @@
 package com.blueHouse.service;
 
-import com.blueHouse.pojo.Design;
-import com.sun.tools.javac.util.List;
+import com.blueHouse.pojo.orders.Design;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by lihan on 2018/9/1.

@@ -1,6 +1,7 @@
 package com.blueHouse.service;
 
-import com.blueHouse.pojo.Measure;
+
+import com.blueHouse.pojo.orders.Measure;
 
 import java.util.List;
 

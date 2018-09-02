@@ -1,6 +1,6 @@
 package com.blueHouse.service;
 
-import com.blueHouse.pojo.Measure;
+import com.blueHouse.pojo.orders.Measure;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;

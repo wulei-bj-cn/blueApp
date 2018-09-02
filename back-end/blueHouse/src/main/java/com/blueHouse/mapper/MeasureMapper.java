@@ -1,6 +1,6 @@
 package com.blueHouse.mapper;
 
-import com.blueHouse.pojo.Measure;
+import com.blueHouse.pojo.orders.Measure;
 
 import java.util.List;
 

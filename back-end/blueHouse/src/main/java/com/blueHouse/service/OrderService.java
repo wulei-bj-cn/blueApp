@@ -1,6 +1,7 @@
 package com.blueHouse.service;
 
-import com.blueHouse.pojo.Order;
+
+import com.blueHouse.pojo.orders.Order;
 
 import java.util.List;
 

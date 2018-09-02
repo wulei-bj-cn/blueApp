@@ -1,6 +1,6 @@
 package com.blueHouse.service;
 
-import com.blueHouse.pojo.Project;
+import com.blueHouse.pojo.orders.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -14,7 +14,7 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectService projectService;
 
     @Override
-    public ProjectService findProjectById(String id) {
+    public Project findProjectById(String id) {
         return projectService.findProjectById(id);
     }
 
