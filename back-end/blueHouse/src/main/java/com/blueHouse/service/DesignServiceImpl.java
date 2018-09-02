@@ -1,5 +1,6 @@
 package com.blueHouse.service;
 
+import com.blueHouse.mapper.DesignMapper;
 import com.blueHouse.pojo.orders.Design;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,30 +13,30 @@ import java.util.List;
 public class DesignServiceImpl implements DesignService{
     @Resource
     @Autowired
-    private DesignService designService;
+    private DesignMapper designMapper;
 
     @Override
     public Design findDesignById(String id) {
-        return designService.findDesignById(id);
+        return designMapper.findDesignById(id);
     }
 
     @Override
     public List<Design> findDesignByUseName(String name) {
-        return designService.findDesignByUseName(name);
+        return designMapper.findDesignByUseName(name);
     }
 
     @Override
     public List<Design> finaDesignByDesignerName(String name) {
-        return designService.finaDesignByDesignerName(name);
+        return designMapper.finaDesignByDesignerName(name);
     }
 
     @Override
     public void insertDesign(Design design) {
-        designService.insertDesign(design);
+        designMapper.insertDesign(design);
     }
 
     @Override
     public void updateDesign(Design design) {
-        designService.updateDesign(design);
+        designMapper.updateDesign(design);
     }
 }

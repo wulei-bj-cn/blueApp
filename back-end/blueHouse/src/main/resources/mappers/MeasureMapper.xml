@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.MeasureMapper">
+    <select id="findMeasureById" parameterType="string" resultType="com.blueHouse.pojo.orders.Measure">
+        select id from t_measures where id = #{name}
+    </select>
+    <select id="findMeasureByUserName" parameterType="string" resultType="com.blueHouse.pojo.orders.Measure">
+        select id, start_time, end_time, sojourn from t_measures where id LIKE  CONCAT(CONCAT('%',#{name},'%'))
+    </select>
+    <select id="findMeasureByCrewName" resultType="com.blueHouse.pojo.orders.Measure">
+        select id, start_time, end_time, sojourn from t_measures
+    </select>
+    <insert id="insertMeasure" parameterType="com.blueHouse.pojo.orders.Measure">
+        insert into t_measures(id, start_time, end_time, sojourn) values(#{id}, #{start_time}, #{end_time}, #{sojourn})
+    </insert>
+    <update id="updateMeasure" parameterType="com.blueHouse.pojo.orders.Measure">
+        update t_measures set end_time = #{end_time} where id = #{id}
+        update t_measures set sojourn = #{sojourn} where id = #{id}
+    </update>
+</mapper>

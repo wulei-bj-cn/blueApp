@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.MaterialMapper">
+    <select id="finaMaterialById" parameterType="string" resultType="com.blueHouse.pojo.orders.Material">
+        select id from t_materials where id = #{id}
+    </select>
+    <select id="findMaterialByPartialId" parameterType="int" resultType="com.blueHouse.pojo.orders.Material">
+        select id, start_time, end_time, sojourn from t_materials where id LIKE  CONCAT(CONCAT('%',#{id},'%'))
+    </select>
+    <select id="findAllMaterials" resultType="com.blueHouse.pojo.orders.Material">
+        select id, start_time, end_time, sojourn from t_materials
+    </select>
+    <insert id="insertMaterial" parameterType="com.blueHouse.pojo.orders.Material">
+        insert into t_materials(id, start_time, end_time, sojourn) values(#{id}, #{start_time}, #{end_time}, #{sojourn})
+    </insert>
+    <update id="updateMaterial" parameterType="com.blueHouse.pojo.orders.Material">
+        update t_materials set end_time = #{end_time} where id = #{id}
+        update t_materials set sojourn = #{sojourn} where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.ContractMapper">
+    <select id="findContractById" parameterType="string" resultType="com.blueHouse.pojo.orders.Contract">
+        select id from t_contracts where id = #{id}
+    </select>
+    <select id="findContractByPartialId" parameterType="string" resultType="com.blueHouse.pojo.orders.Contract">
+        select id, start_time, end_time, sojourn from t_contracts where id LIKE  CONCAT(CONCAT('%',#{id},'%'))
+    </select>
+    <select id="findAllContracts" resultType="com.blueHouse.pojo.orders.Contract">
+        select id, start_time, end_time, sojourn from t_contracts
+    </select>
+    <insert id="insertContract" parameterType="com.blueHouse.pojo.orders.Contract">
+        insert into t_contracts(id, start_time, end_time, sojourn) values(#{id}, #{start_time}, #{end_time}, #{sojourn})
+    </insert>
+    <update id="updateContract" parameterType="com.blueHouse.pojo.orders.Contract">
+        update t_contracts set end_time = #{end_time} where id = #{id}
+        update t_contracts set sojourn = #{sojourn} where id = #{id}
+    </update>
+</mapper>

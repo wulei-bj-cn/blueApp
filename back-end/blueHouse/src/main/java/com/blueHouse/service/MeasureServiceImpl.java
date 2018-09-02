@@ -1,5 +1,6 @@
 package com.blueHouse.service;
 
+import com.blueHouse.mapper.MeasureMapper;
 import com.blueHouse.pojo.orders.Measure;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,30 +13,30 @@ import java.util.List;
 public class MeasureServiceImpl implements MeasureService {
     @Resource
     @Autowired
-    private MeasureService measureService;
+private MeasureMapper measureMapper;
 
     @Override
     public Measure findMeasureById(String id) {
-        return measureService.findMeasureById(id);
+        return measureMapper.findMeasureById(id);
     }
 
     @Override
     public List<Measure> findMeasureByUserName(String name) {
-        return measureService.findMeasureByUserName(name);
+        return measureMapper.findMeasureByUserName(name);
     }
 
     @Override
     public List<Measure> findMeasureByCrewName(String name) {
-        return measureService.findMeasureByCrewName(name);
+        return measureMapper.findMeasureByCrewName(name);
     }
 
     @Override
     public void insertMeasure(Measure measure) {
-        measureService.insertMeasure(measure);
+        measureMapper.insertMeasure(measure);
     }
 
     @Override
     public void updateMeasure(Measure measure) {
-        measureService.insertMeasure(measure);
+        measureMapper.insertMeasure(measure);
     }
 }

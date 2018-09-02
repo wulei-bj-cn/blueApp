@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.DisclaimMapper">
+    <select id="findDisclaimById" parameterType="string" resultType="com.blueHouse.pojo.orders.Disclaim">
+        select id from t_disclaims where id = #{name}
+    </select>
+    <select id="findDisclaimByUserName" parameterType="string" resultType="com.blueHouse.pojo.orders.Disclaim">
+        select id, start_time, end_time, sojourn from t_disclaims where id LIKE  CONCAT(CONCAT('%',#{name},'%'))
+    </select>
+    <select id="findDisclaimByCrewrName" resultType="com.blueHouse.pojo.orders.Disclaim">
+        select id, start_time, end_time, sojourn from t_disclaims
+    </select>
+    <insert id="insertDisclaim" parameterType="com.blueHouse.pojo.orders.Disclaim">
+        insert into t_disclaims(id, start_time, end_time, sojourn) values(#{id}, #{start_time}, #{end_time}, #{sojourn})
+    </insert>
+    <update id="updateDisclaim" parameterType="com.blueHouse.pojo.orders.Disclaim">
+        update t_disclaims set end_time = #{end_time} where id = #{id}
+        update t_disclaims set sojourn = #{sojourn} where id = #{id}
+    </update>
+</mapper>

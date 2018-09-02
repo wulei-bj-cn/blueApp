@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.AdminMapper">
+    <select id="findAdminById" parameterType="int" resultType="com.blueHouse.pojo.Admin">
+        select id, start_time, end_time, sojourn from t_admins where id = #{id}
+    </select>
+    <select id="findAdminByPartialId" parameterType="int" resultType="com.blueHouse.pojo.Admin">
+        select id, start_time, end_time, sojourn from t_admins where id LIKE  CONCAT(CONCAT('%',#{id},'%'))
+    </select>
+    <select id="findAllAdmin" resultType="com.blueHouse.pojo.Admin">
+        select id, start_time, end_time, sojourn from t_admins
+    </select>
+    <select id="findAdminByNameOrID" parameterType="string"  resultType="com.blueHouse.pojo.Admin">
+        select id, start_time, end_time, sojourn from t_admins where login LIKE  CONCAT(CONCAT('%',#{name},'%'))
+    </select>
+    <insert id="insertAdmin" parameterType="com.blueHouse.pojo.Admin">
+        insert into t_admins(id, start_time, end_time, sojourn) values(#{id}, #{start_time}, #{end_time}, #{sojourn})
+    </insert>
+    <update id="updateAdmin" parameterType="com.blueHouse.pojo.Admin">
+        update t_admins set end_time = #{end_time} where id = #{id}
+        update t_admins set sojourn = #{sojourn} where id = #{id}
+    </update>
+</mapper>

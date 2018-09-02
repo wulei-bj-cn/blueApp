@@ -1,5 +1,6 @@
 package com.blueHouse.service;
 
+import com.blueHouse.mapper.DisclaimMapper;
 import com.blueHouse.pojo.orders.Disclaim;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,30 +13,30 @@ import java.util.List;
 public class DisclaimServiceImpl  implements  DisclaimService{
     @Resource
     @Autowired
-    private DisclaimService disclaimService;
+    private DisclaimMapper disclaimMapper;
 
     @Override
     public Disclaim findDisclaimById(String id) {
-        return disclaimService.findDisclaimById(id);
+        return disclaimMapper.findDisclaimById(id);
     }
 
     @Override
     public List<Disclaim> findDisclaimByUserName(String name) {
-        return disclaimService.findDisclaimByUserName(name);
+        return disclaimMapper.findDisclaimByUserName(name);
     }
 
     @Override
     public List<Disclaim> findDisclaimByCrewrName(String name) {
-        return disclaimService.findDisclaimByCrewrName(name);
+        return disclaimMapper.findDisclaimByCrewrName(name);
     }
 
     @Override
     public void insertDisclaim(Disclaim disclaim) {
-        disclaimService.insertDisclaim(disclaim);
+        disclaimMapper.insertDisclaim(disclaim);
     }
 
     @Override
     public void updateDisclaim(Disclaim disclaim) {
-        disclaimService.updateDisclaim(disclaim);
+        disclaimMapper.updateDisclaim(disclaim);
     }
 }

@@ -1,6 +1,7 @@
 package com.blueHouse.service;
 
-import com.blueHouse.pojo.Material;
+import com.blueHouse.mapper.MaterialMapper;
+import com.blueHouse.pojo.orders.Material;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -11,20 +12,20 @@ import javax.annotation.Resource;
 public class MaterialServiceImpl implements MaterialService {
     @Resource
     @Autowired
-    private MaterialService materialService;
+    private MaterialMapper materialMapper;
 
     @Override
     public Material finaMaterialById(String id) {
-        return materialService.finaMaterialById(id);
+        return materialMapper.finaMaterialById(id);
     }
 
     @Override
     public void insertMaterial(Material material) {
-        materialService.insertMaterial(material);
+        materialMapper.insertMaterial(material);
     }
 
     @Override
     public void updateMaterial(Material material) {
-        materialService.updateMaterial(material);
+        materialMapper.updateMaterial(material);
     }
 }

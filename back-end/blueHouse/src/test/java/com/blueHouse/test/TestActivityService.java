@@ -1,8 +1,6 @@
 package com.blueHouse.test;
 
-import com.blueHouse.pojo.Access;
 import com.blueHouse.pojo.Activity;
-import com.blueHouse.service.AccessService;
 import com.blueHouse.service.ActivityService;
 import org.junit.Before;
 import org.junit.Test;

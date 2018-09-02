@@ -38,5 +38,13 @@
     <bean id="omService" class="com.blueHouse.service.OMServiceImpl"/>
     <bean id="activityService" class="com.blueHouse.service.ActivityServiceImpl"/>
     <bean id="browseService" class="com.blueHouse.service.BrowseServiceImpl"/>
+    <bean id="adminService" class="com.blueHouse.service.AdminServiceImpl"/>
+    <bean id="contractService" class="com.blueHouse.service.ContractServiceImpl"/>
+    <bean id="designService" class="com.blueHouse.service.DesignServiceImpl"/>
+    <bean id="disclaimService" class="com.blueHouse.service.DisclaimServiceImpl"/>
+    <bean id="materialService" class="com.blueHouse.service.MaterialServiceImpl"/>
+    <bean id="measureService" class="com.blueHouse.service.MeasureServiceImpl"/>
+    <bean id="orderService" class="com.blueHouse.service.OrderServiceImpl"/>
+    <bean id="projectService" class="com.blueHouse.service.ProjectServiceImpl"/>
 
 </beans>

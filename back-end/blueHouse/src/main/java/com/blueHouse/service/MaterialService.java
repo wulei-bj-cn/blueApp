@@ -1,6 +1,6 @@
 package com.blueHouse.service;
 
-import com.blueHouse.pojo.Material;
+import com.blueHouse.pojo.orders.Material;
 
 /**
  * Created by lihan on 2018/9/1.

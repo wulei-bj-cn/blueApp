@@ -1,5 +1,6 @@
 package com.blueHouse.service;
 
+import com.blueHouse.mapper.OrderMapper;
 import com.blueHouse.pojo.orders.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,30 +13,30 @@ import java.util.List;
 public class OrderServiceImpl implements  OrderService{
     @Resource
     @Autowired
-    private OrderService orderService;
+    private OrderMapper orderMapper;
 
     @Override
     public Order findOrderById(String id) {
-        return orderService.findOrderById(id);
+        return orderMapper.findOrderById(id);
     }
 
     @Override
     public List<Order> findOrderByUserId(String id) {
-        return orderService.findOrderByUserId(id);
+        return orderMapper.findOrderByUserId(id);
     }
 
     @Override
     public List<Order> findOrderByUserName(String name) {
-        return orderService.findOrderByUserName(name);
+        return orderMapper.findOrderByUserName(name);
     }
 
     @Override
     public void insertOrder(Order order) {
-        orderService.insertOrder(order);
+        orderMapper.insertOrder(order);
     }
 
     @Override
     public void updateOrder(Order order) {
-        orderService.updateOrder(order);
+        orderMapper.updateOrder(order);
     }
 }
