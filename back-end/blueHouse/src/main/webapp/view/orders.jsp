@@ -1,6 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.stream.Collectors" %>
-<%@ page import="com.blueHouse.pojo.*" %>
+<%@ page import="com.blueHouse.pojo.orders.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.

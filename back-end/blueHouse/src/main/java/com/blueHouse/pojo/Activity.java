@@ -6,26 +6,26 @@ import java.sql.Timestamp;
  * Created by lihan on 2018/8/11.
  */
 public class Activity {
-    private Integer id;
-    private String describe;
+    private String id;
+    private String des;
     private String url;
     private Timestamp start_time;
     private Timestamp end_time;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDes() {
+        return des;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setDes(String des) {
+        this.des = des;
     }
 
     public String getUrl() {
