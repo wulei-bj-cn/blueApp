@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.blueHouse.mapper.ActivityMapper">
-    <select id="findActivityById" parameterType="int" resultType="com.blueHouse.pojo.Activity">
+    <select id="findActivityById" parameterType="String" resultType="com.blueHouse.pojo.Activity">
         select id, des , url ,start_time, end_time from t_activities where id = #{id}
     </select>
-    <select id="findActivityByPartialId" parameterType="int" resultType="com.blueHouse.pojo.Activity">
-        select  id, des , url ,start_time, end_time from t_activities  where id LIKE  CONCAT(CONCAT('%',#{id},'%'))
+    <select id="findActivityByPartialName" parameterType="String" resultType="com.blueHouse.pojo.Activity">
+        select  id, des , url ,start_time, end_time from t_activities  where des LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <select id="findAllActivity" resultType="com.blueHouse.pojo.Activity">
         select id, des , url ,start_time, end_time  from t_activities

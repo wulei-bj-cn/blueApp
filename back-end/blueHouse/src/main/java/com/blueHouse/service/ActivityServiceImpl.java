@@ -16,13 +16,13 @@ public class ActivityServiceImpl implements  ActivityService{
     private ActivityMapper activityMapper;
 
     @Override
-    public Activity findActivityById(int id) {
+    public Activity findActivityById(String id) {
         return activityMapper.findActivityById(id);
     }
 
     @Override
-    public List<Activity> findActivityByPartialId(int id) {
-        return activityMapper.findActivityByPartialId(id);
+    public List<Activity> findActivityByPartialName(String name) {
+        return activityMapper.findActivityByPartialName(name);
     }
 
     @Override

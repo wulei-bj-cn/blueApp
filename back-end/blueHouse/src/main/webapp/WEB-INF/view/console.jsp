@@ -54,8 +54,10 @@
                 <h4>活动管理</h4>
             </div>
             <div class="card-body">
-                <p>推广活动、广告管理入口，通过该Panel更新定期的活动或广告推广。</p>
-                <button type="button" class="btn btn-lg btn-block btn-outline-primary">进入入口</button>
+                <form class="form-inline mt-2 mt-md-0" action="/activity/getAll" method="get">
+                    <p>推广活动、广告管理入口，通过该Panel更新定期的活动或广告推广。</p>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">进入入口</button>
+                </form>
             </div>
         </div>
         <div class="card mb-3">
