@@ -1,19 +1,18 @@
 package com.blueHouse.test;
 
-import com.blueHouse.pojo.Activity;
+import com.blueHouse.pojo.browse.T_Activity;
 import com.blueHouse.service.ActivityService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.security.Timestamp;
 import java.util.List;
 
 /**
  * Created by lihan on 2018/8/25.
  */
-public class TestActivityService {
+public class TestTActivityService {
     private ApplicationContext applicationContext;
 
     @Before
@@ -24,15 +23,15 @@ public class TestActivityService {
     @Test
     public void findActivityById() throws Exception {
         ActivityService activityService= (ActivityService) applicationContext.getBean("activityService");
-        Activity activity = activityService.findActivityById("1");
+        T_Activity activity = activityService.findActivityById("1");
         System.out.println(activity.getId());
     }
 
     @Test
     public void findActivityByPartialName() throws Exception {
         ActivityService activityService = (ActivityService) applicationContext.getBean("activityService");
-        List<Activity> activity = activityService.findActivityByPartialName("1");
-        for (Activity act: activity) {
+        List<T_Activity> activity = activityService.findActivityByPartialName("1");
+        for (T_Activity act: activity) {
             System.out.println(act.getStart_time());
         }
     }
@@ -40,14 +39,14 @@ public class TestActivityService {
     @Test
     public void findAllActivity() throws Exception {
         ActivityService activityService = (ActivityService) applicationContext.getBean("activityService");
-        List<Activity> activity = activityService.findAllActivity();
-        for (Activity act: activity) {
+        List<T_Activity> activity = activityService.findAllActivity();
+        for (T_Activity act: activity) {
             System.out.println(act.getEnd_time());
         }
     }
     @Test
     public void updateActivity() throws Exception{
-        Activity act = new Activity();
+        T_Activity act = new T_Activity();
         act.setDes("hahhao");
         act.setId("act1");
         String startTime = "2018-09-09 00:00:00";

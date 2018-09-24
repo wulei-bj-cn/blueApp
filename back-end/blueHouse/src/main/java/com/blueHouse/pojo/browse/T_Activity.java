@@ -1,11 +1,11 @@
-package com.blueHouse.pojo;
+package com.blueHouse.pojo.browse;
 
 import java.sql.Timestamp;
 
 /**
  * Created by lihan on 2018/8/11.
  */
-public class Activity {
+public class T_Activity {
     private String id;
     private String des;
     private String url;
