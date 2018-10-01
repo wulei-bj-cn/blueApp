@@ -15,6 +15,10 @@ public interface OM_Mapper {
             @Param("order_id")String order_id
     );
 
+    List<Order> findOrderByUser(
+            @Param("user_id")String user_id
+    );
+
     List<Order> findAllOrders();
 
     List<Measure> findMeasure(

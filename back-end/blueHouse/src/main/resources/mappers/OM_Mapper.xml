@@ -9,6 +9,11 @@
         FROM t_orders
         WHERE user_id = #{user_id} AND id = #{order_id}
     </select>
+    <select id="findOrderByUser" resultType="com.blueHouse.pojo.orders.Order">
+        SELECT id, start_time, end_time, status
+        FROM t_orders
+        WHERE user_id = #{user_id}
+    </select>
     <select id="findAllOrders" resultType="com.blueHouse.pojo.orders.Order">
         SELECT user_id, id, start_time, end_time, status
         FROM t_orders

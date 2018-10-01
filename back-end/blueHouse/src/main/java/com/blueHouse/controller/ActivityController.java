@@ -1,6 +1,6 @@
 package com.blueHouse.controller;
 
-import com.blueHouse.pojo.Activity;
+import com.blueHouse.pojo.browse.T_Activity;
 import com.blueHouse.service.ActivityService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,7 +24,7 @@ public class ActivityController {
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public String getAllActivities(ModelMap modelMap){
-        List<Activity> activities = activityService.findAllActivity();
+        List<T_Activity> activities = activityService.findAllActivity();
         modelMap.put("activities", activities);
         modelMap.put("activitiesCount", activities.size());
         modelMap.put("isSearching", false);
@@ -38,7 +38,7 @@ public class ActivityController {
             modelMap.put("isSearching", false);
             return "redirect: /activity/getAll";
         } else {
-            List<Activity> activities = activityService.findActivityByPartialName(searchKey);
+            List<T_Activity> activities = activityService.findActivityByPartialName(searchKey);
             modelMap.put("searchKey", searchKey);
             modelMap.put("activitiesCount", activities.size());
             modelMap.put("searchActivities", activities);
@@ -65,7 +65,7 @@ public class ActivityController {
             e.printStackTrace();
         }
 
-        Activity newActivity = new Activity();
+        T_Activity newActivity = new T_Activity();
 
         newActivity.setId(activityID);
         newActivity.setDes(des);
@@ -95,7 +95,7 @@ public class ActivityController {
         }catch (Exception e){
             e.printStackTrace();
         }
-        Activity newActivity = new Activity();
+        T_Activity newActivity = new T_Activity();
 
         newActivity.setId(activityID);
         newActivity.setDes(des);
