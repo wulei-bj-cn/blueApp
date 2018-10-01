@@ -31,9 +31,9 @@ public class TestActivityService {
     @Test
     public void findActivityByPartialName() throws Exception {
         ActivityService activityService = (ActivityService) applicationContext.getBean("activityService");
-        List<Activity> activity = activityService.findActivityByPartialName("1");
+        List<Activity> activity = activityService.findActivityByPartialName("act");
         for (Activity act: activity) {
-            System.out.println(act.getStart_time());
+            System.out.println(act.getDes());
         }
     }
 

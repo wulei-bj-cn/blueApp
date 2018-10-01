@@ -75,7 +75,7 @@
                                         </div>
                                         <div id="collapse${activity.id}" class="collapse" data-parent="#accordion1">
                                             <div class="card-body">
-                                                <form class="form-inline mt-2 mt-md-0" action="/activity/searchActivities" method="get">
+                                                <form class="form-inline mt-2 mt-md-0" action="/activity/updateActivity" method="get">
                                                     <blockquote class="blockquote mb-0">
                                                         <div class="row">
                                                             <div class="col-md-6">
@@ -152,7 +152,7 @@
                                                         </div>
                                                         <br>
                                                         <div class="col-md-3 float-right">
-                                                            <input type="hidden" id="userID" name="userID" value="${activity.id}"/>
+                                                            <input type="hidden" id="activityID" name="activityID" value="${activity.id}"/>
                                                             <button type="submit" class="btn btn-sm btn-block btn-outline-success">保存</button>
                                                         </div>
                                                         <br>
@@ -172,6 +172,12 @@
             <div class="container">
                 <form class="form-inline mt-2 mt-md-0" action="/activity/insertActivity" method="get">
                     <blockquote class="blockquote mb-0">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>活动ID: </label>
+                                <input id="activityID" name="activityID" type="text" value="">
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label>活动描述: </label>
@@ -194,8 +200,7 @@
                         </div>
                         <br>
                         <div class="col-md-3 float-right">
-                            <input type="hidden" id="ActivityID" name="ActivityID" value=""/>
-                            <button type="submit" class="btn btn-sm btn-block btn-outline-success">保存</button>
+                            <button type="submit" class="btn btn-sm btn-block btn-outline-success">插入</button>
                         </div>
                         <br>
                     </blockquote>

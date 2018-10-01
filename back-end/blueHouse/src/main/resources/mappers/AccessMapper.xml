@@ -17,7 +17,7 @@
         insert into t_access(id, start_time, end_time, sojourn) values(#{id}, #{start_time}, #{end_time}, #{sojourn})
     </insert>
     <update id="updateAccess" parameterType="com.blueHouse.pojo.Access">
-        update t_access set end_time = #{end_time} where id = #{id}
-        update t_access set sojourn = #{sojourn} where id = #{id}
+        update t_access set end_time = #{end_time} where id = #{id};
+        update t_access set sojourn = #{sojourn} where id = #{id};
     </update>
 </mapper>
