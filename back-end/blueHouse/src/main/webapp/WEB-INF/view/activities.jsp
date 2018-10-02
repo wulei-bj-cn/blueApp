@@ -41,12 +41,12 @@
     <div class="tab-content">
         <div id="panel1" class="container tab-pane active">
             <c:if test="${isSearching == false }">
-                <div class="alert alert-success">
+                <div class="alert alert-primary">
                     <strong>老板您好!</strong> 我们蓝房子目前总共有<%=request.getAttribute("activitiesCount")%>个优惠活动，您可以通过搜索框对活动进行搜索！如果搜索条件为空，那么系统将为您列出所有优惠活动！
                 </div>
             </c:if>
             <c:if test="${isSearching == true }">
-                <div class="alert alert-success">
+                <div class="alert alert-primary">
                     <strong>老板您好!</strong> 根据关键词"${searchKey}"，搜索到<%=request.getAttribute("activitiesCount")%>个优惠活动，您可以通过将搜索框置空，并点击"搜索"重新获取所有优惠活动！
                 </div>
             </c:if>
@@ -60,7 +60,7 @@
                 <c:choose>
                     <c:when test="${isSearching}">
                         <div class="col-md-8">
-                            <c:if test="${activityCount == 0}">
+                            <c:if test="${activitiesCount == 0}">
                                 <div class="alert alert-warning">
                                     <p>抱歉！系统中没有搜索到相关活动！请重新选择搜索条件并继续搜索！</p>
                                 </div>

@@ -40,7 +40,7 @@ public class MaterialController {
             List<T_Material> materials = materialService.findMaterialByPartialName(searchKey);
             modelMap.put("materials", materials);
             modelMap.put("materialsCount", materials.size());
-            modelMap.put("isSearching", false);
+            modelMap.put("isSearching", true);
             modelMap.put("searchKey", searchKey);
             return "materials";
         }
