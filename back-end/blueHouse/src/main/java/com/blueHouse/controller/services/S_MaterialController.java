@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/material")
-public class MaterialController {
+@RequestMapping("/materialService")
+public class S_MaterialController {
 
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
 

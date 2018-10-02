@@ -16,7 +16,7 @@
     <insert id="insertActivity" parameterType="com.blueHouse.pojo.browse.T_Activity">
         insert into t_activities (id, des , url ,start_time, end_time ) values(#{id},#{des} ,#{url} , #{start_time}, #{end_time})
     </insert>
-    <update id="updateActivity" parameterType="com.blueHouse.pojo.Activity">
-        update t_activities set end_time = #{end_time}, url = #{url} , start_time = #{start_time} where id = #{id}
+    <update id="updateActivity" parameterType="com.blueHouse.pojo.browse.T_Activity">
+        update t_activities set des = #{des},end_time = #{end_time}, url = #{url} , start_time = #{start_time} where id = #{id}
     </update>
 </mapper>

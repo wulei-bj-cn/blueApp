@@ -1,10 +1,12 @@
 package com.blueHouse.service;
 
 import com.blueHouse.mapper.MaterialMapper;
+import com.blueHouse.pojo.browse.T_Material;
 import com.blueHouse.pojo.orders.Material;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by lihan on 2018/9/1.
@@ -15,22 +17,27 @@ public class MaterialServiceImpl implements MaterialService {
     private MaterialMapper materialMapper;
 
     @Override
-    public Material finaMaterialById(String id) {
+    public T_Material finaMaterialById(String id) {
         return materialMapper.finaMaterialById(id);
     }
 
     @Override
-    public Material findMaterialByPartialName(String name) {
+    public List<T_Material> findMaterialByPartialName(String name) {
         return materialMapper.findMaterialByPartialName(name);
     }
 
     @Override
-    public void insertMaterial(Material material) {
+    public List<T_Material> findAllMaterials() {
+        return materialMapper.findAllMaterials();
+    }
+
+    @Override
+    public void insertMaterial(T_Material material) {
         materialMapper.insertMaterial(material);
     }
 
     @Override
-    public void updateMaterial(Material material) {
+    public void updateMaterial(T_Material material) {
         materialMapper.updateMaterial(material);
     }
 }

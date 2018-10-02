@@ -4,19 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.blueHouse.mapper.MaterialMapper">
-    <select id="finaMaterialById" parameterType="string" resultType="com.blueHouse.pojo.orders.Material">
+    <select id="finaMaterialById" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Material">
         select id,brand,name,url,category,price from t_materials where id = #{id}
     </select>
-    <select id="findMaterialByPartialName" parameterType="string" resultType="com.blueHouse.pojo.orders.Material">
-        select id,brand,name,url,category,price from t_materials where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
+    <select id="findMaterialByPartialName" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Material">
+        select id,brand,name,url,category,price from t_materials where name LIKE  CONCAT(CONCAT('%',#{name},'%')) or brand LIKE CONCAT(CONCAT('%',#{name},'%'))
     </select>
-    <select id="findAllMaterials" resultType="com.blueHouse.pojo.orders.Material">
+    <select id="findAllMaterials" resultType="com.blueHouse.pojo.browse.T_Material">
         select id,brand,name,url,category,price from t_materials
     </select>
-    <insert id="insertMaterial" parameterType="com.blueHouse.pojo.orders.Material">
+    <insert id="insertMaterial" parameterType="com.blueHouse.pojo.browse.T_Material">
         insert into t_materials(id,brand,name,url,category,price)  values(#{id}, #{brand}, #{name}, #{url},#{category},#{price})
     </insert>
-    <update id="updateMaterial" parameterType="com.blueHouse.pojo.orders.Material">
-        update t_materials set price = #{price} where name = #{name}
+    <update id="updateMaterial" parameterType="com.blueHouse.pojo.browse.T_Material">
+        update t_materials set brand = #{brand},name = #{name},url= #{url},category = #{category},price = #{price} where id = #{id}
     </update>
 </mapper>
