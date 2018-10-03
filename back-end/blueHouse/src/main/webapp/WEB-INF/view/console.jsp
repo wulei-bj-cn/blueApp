@@ -65,8 +65,10 @@
                 <h4>施工项目</h4>
             </div>
             <div class="card-body">
-                <p>该Panel用于维护所有蓝房子支持的施工具体项目，如吊顶、防水等。</p>
-                <button type="button" class="btn btn-lg btn-block btn-outline-danger">进入入口</button>
+                <form class="form-inline mt-2 mt-md-0" action="/project/getAll" method="get">
+                    <p>该Panel用于维护所有蓝房子支持的施工具体项目，如吊顶、防水等。</p>
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-danger">进入入口</button>
+                </form>
             </div>
         </div>
     </div>
@@ -87,8 +89,10 @@
                 <h4>建材管理</h4>
             </div>
             <div class="card-body">
-                <p>所有建材的维护入口，通过该入口对蓝房子支持的建材进行维护。</p>
-                <button type="button" class="btn btn-lg btn-block btn-outline-dark">进入入口</button>
+                <form class="form-inline mt-2 mt-md-0" action="/material/getAll" method="get">
+                    <p>所有建材的维护入口，通过该入口对蓝房子支持的建材进行维护。</p>
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-dark">进入入口</button>
+                </form>
             </div>
         </div>
         <div class="card mb-4">
