@@ -47,46 +47,29 @@ public class MaterialController {
     }
 
     @RequestMapping(value = "/updateMaterial", method = RequestMethod.GET)
-    public String updateMaterial(HttpServletRequest req) {
-        String brand = req.getParameter("brand");
-        String name = req.getParameter("name");
-        String url = req.getParameter("url");
-        String category = req.getParameter("category");
-        String price = req.getParameter("price");
-        String id = req.getParameter("materialId");
-
-        long cate = 0L;
-        double pric = 0.0;
-        try{
-            cate = Long.parseLong(category);
-            pric = Double.parseDouble(price);
-        }catch (NumberFormatException e){
-            e.printStackTrace();
-        }
-
-
-        T_Material newMaterial= new T_Material();
-
-        newMaterial.setId(id);
-        newMaterial.setBrand(brand);
-        newMaterial.setName(name);
-        newMaterial.setUrl(url);
-        newMaterial.setCategory(category);
-        newMaterial.setPrice(pric);
-
-        materialService.updateMaterial(newMaterial);
+    public String updateMaterial(HttpServletRequest request) {
+        T_Material material = this.createMaterialFromRequest(request);
+        materialService.updateMaterial(material);
 
         return "redirect: /material/getAll";
     }
 
     @RequestMapping(value = "/insertiMaterial", method = RequestMethod.GET)
-    public String insertMaterial(HttpServletRequest req) {
-        String brand = req.getParameter("brand");
-        String name = req.getParameter("name");
-        String url = req.getParameter("url");
-        String category = req.getParameter("category");
-        String price = req.getParameter("price");
-        String id = req.getParameter("materialId");
+    public String insertMaterial(HttpServletRequest request) {
+        T_Material material = this.createMaterialFromRequest(request);
+        materialService.insertMaterial(material);
+
+        return "redirect: /material/getAll";
+    }
+
+    private T_Material createMaterialFromRequest(HttpServletRequest request){
+        T_Material material = new T_Material();
+        String brand = request.getParameter("brand");
+        String name = request.getParameter("name");
+        String url = request.getParameter("url");
+        String category = request.getParameter("category");
+        String price = request.getParameter("price");
+        String id = request.getParameter("materialId");
 
         long cate = 0L;
         double pric = 0.0;
@@ -97,19 +80,14 @@ public class MaterialController {
             e.printStackTrace();
         }
 
+        material.setId(id);
+        material.setBrand(brand);
+        material.setName(name);
+        material.setUrl(url);
+        material.setCategory(category);
+        material.setPrice(pric);
 
-        T_Material newMaterial= new T_Material();
-
-        newMaterial.setId(id);
-        newMaterial.setBrand(brand);
-        newMaterial.setName(name);
-        newMaterial.setUrl(url);
-        newMaterial.setCategory(category);
-        newMaterial.setPrice(pric);
-
-        materialService.insertMaterial(newMaterial);
-
-        return "redirect: /material/getAll";
+        return material;
     }
 }
 

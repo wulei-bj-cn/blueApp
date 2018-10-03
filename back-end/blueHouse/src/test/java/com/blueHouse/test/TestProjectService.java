@@ -1,5 +1,6 @@
 package com.blueHouse.test;
 
+import com.blueHouse.pojo.browse.T_Project;
 import com.blueHouse.pojo.orders.Project;
 import com.blueHouse.service.ProjectService;
 import org.junit.Before;
@@ -20,7 +21,7 @@ public class TestProjectService {
     @Test
     public void findProjectById() throws Exception {
         ProjectService projectService= (ProjectService) applicationContext.getBean("projectService");
-        Project project = projectService.findProjectById("pro1");
+        T_Project project = projectService.findProjectById("pro1");
         System.out.println(project.getId());
     }
 }
