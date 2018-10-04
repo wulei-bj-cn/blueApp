@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.BrandMapper">
+    <select id="findBrandById" parameterType="String" resultType="com.blueHouse.pojo.Brand">
+        select id, brand from t_brands where id = #{id}
+    </select>
+    <select id="findBrandByBrand" parameterType="String" resultType="com.blueHouse.pojo.Brand">
+        select id, brand from t_brands where brand LIKE CONCAT(CONCAT('%',#{brand},'%'))
+    </select>
+    <select id="findAllBrands" resultType="com.blueHouse.pojo.Brand">
+        select id, brand from t_brands
+    </select>
+    <insert id="insertBrand" parameterType="com.blueHouse.pojo.Brand">
+        insert into t_brands(id, brand) values(#{id}, #{brand})
+    </insert>
+    <update id="updateBrand" parameterType="com.blueHouse.pojo.Brand">
+        update t_brands set brand = #{brand} where id = #{id};
+    </update>
+    <delete id="deleteBrand" parameterType="com.blueHouse.pojo.Brand">
+        DELETE FROM t_brands where id = #{id};
+    </delete>
+</mapper>

@@ -4,18 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.blueHouse.mapper.MeasureMapper">
-    <select id="findMeasureById" parameterType="string" resultType="com.blueHouse.pojo.orders.Measure">
+    <select id="findMeasureById" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Measure">
         select id,name,address,url,ts,crew from t_measures where id = #{id}
     </select>
-    <select id="findMeasureByUserName" parameterType="string" resultType="com.blueHouse.pojo.orders.Measure">
+    <select id="findMeasureByUserName" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Measure">
         select id,name,address,url,ts,crew  from t_measures where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
-    <select id="findMeasureByCrewName" resultType="com.blueHouse.pojo.orders.Measure">
+    <select id="findMeasureByCrewName" resultType="com.blueHouse.pojo.browse.T_Measure">
         select id,name,address,url,ts,crew from t_measures where crew LIKE CONCAT(CONCAT('%',#{name},'%'))
     </select>
-    <insert id="insertMeasure" parameterType="com.blueHouse.pojo.orders.Measure">
-        insert into t_measures(id,name,address,url,ts,crew ) values(#{id}, #{name}, #{address}, #{url},#{ts},#{crew})
+    <insert id="insertMeasure" parameterType="com.blueHouse.pojo.browse.T_Measure">
+        insert into t_measures(id,name,address,url,ts,crew) values(#{id}, #{name}, #{address}, #{url},#{ts},#{crew})
     </insert>
-    <update id="updateMeasure" parameterType="com.blueHouse.pojo.orders.Measure">
+    <update id="updateMeasure" parameterType="com.blueHouse.pojo.browse.T_Measure">
+        UPDATE t_measures SET name = #{name}, address = #{address}, url = #{url}, ts = #{ts}, crew = #{crew} WHERE id = #{id}
     </update>
+    <delete id="deleteMeasure" parameterType="com.blueHouse.pojo.browse.T_Measure">
+        DELETE FROM t_measures WHERE id = #{id}
+    </delete>
 </mapper>

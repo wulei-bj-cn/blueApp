@@ -4,18 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.blueHouse.mapper.ContractMapper">
-    <select id="findContractById" parameterType="string" resultType="com.blueHouse.pojo.orders.Contract">
+    <select id="findContractById" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Contract">
         select id,name,url,type,ts from t_contracts where id = #{id}
     </select>
-    <select id="findContractByPartialName" parameterType="string" resultType="com.blueHouse.pojo.orders.Contract">
+    <select id="findContractByPartialName" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Contract">
         select id,name,url,type,ts from t_contracts where name LIKE CONCAT(CONCAT('%',#{name},'%'))
     </select>
-    <select id="findAllContracts" resultType="com.blueHouse.pojo.orders.Contract">
+    <select id="findAllContracts" resultType="com.blueHouse.pojo.browse.T_Contract">
         select id,name,url,type,ts from t_contracts
     </select>
-    <insert id="insertContract" parameterType="com.blueHouse.pojo.orders.Contract">
+    <insert id="insertContract" parameterType="com.blueHouse.pojo.browse.T_Contract">
         insert into t_contracts(id,name,url,type,ts) values(#{id}, #{name}, #{url}, #{type},#{ts})
     </insert>
-    <update id="updateContract" parameterType="com.blueHouse.pojo.orders.Contract">
+    <update id="updateContract" parameterType="com.blueHouse.pojo.browse.T_Contract">
+        UPDATE t_contracts SET name = #{name}, url = #{url}, type = #{type}, ts = #{ts} WHERE id = #{id}
     </update>
+    <delete id="deleteContract" parameterType="com.blueHouse.pojo.browse.T_Contract">
+        DELETE FROM t_contracts WHERE id = #{id}
+    </delete>
 </mapper>

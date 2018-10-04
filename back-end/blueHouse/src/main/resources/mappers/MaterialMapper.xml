@@ -19,4 +19,7 @@
     <update id="updateMaterial" parameterType="com.blueHouse.pojo.browse.T_Material">
         update t_materials set brand = #{brand},name = #{name},url= #{url},category = #{category},price = #{price} where id = #{id}
     </update>
+    <delete id="deleteMaterial" parameterType="com.blueHouse.pojo.browse.T_Material">
+        DELETE FROM t_materials where id = #{id}
+    </delete>
 </mapper>

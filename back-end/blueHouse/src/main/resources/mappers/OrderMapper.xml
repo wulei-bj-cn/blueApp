@@ -16,6 +16,13 @@
     <insert id="insertOrder" parameterType="com.blueHouse.pojo.orders.Order">
         insert t_orders(id, user_id, start_time, end_time,status ) values(#{id}, #{user_id}, #{start_time}, #{end_time},#{status})
     </insert>
-    <update id="updateOrder" parameterType="com.blueHouse.pojo.orders.Order">
+    <update id="updateOrderStatus" parameterType="com.blueHouse.pojo.orders.Order">
+        UPDATE t_orders SET status = #{status} WHERE id = #{id}
     </update>
+    <update id="updateOrderEndTime" parameterType="com.blueHouse.pojo.orders.Order">
+        UPDATE t_orders SET end_time = #{end_time} WHERE id = #{id}
+    </update>
+    <delete id="deleteOrder" parameterType="com.blueHouse.pojo.orders.Order">
+        DELETE FROM t_orders WHERE id = #{id}
+    </delete>
 </mapper>

@@ -22,4 +22,7 @@
     <update id="updateUser" parameterType="com.blueHouse.pojo.User">
         update t_users set name = #{name}, age = #{age}, phone = #{phone}, address = #{address} WHERE id = #{id}
     </update>
+    <delete id="deleteUser" parameterType="com.blueHouse.pojo.User">
+        DELETE FROM t_users WHERE id = #{id}
+    </delete>
 </mapper>

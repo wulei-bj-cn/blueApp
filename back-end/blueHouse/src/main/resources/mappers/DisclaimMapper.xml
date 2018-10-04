@@ -4,18 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.blueHouse.mapper.DisclaimMapper">
-    <select id="findDisclaimById" parameterType="string" resultType="com.blueHouse.pojo.orders.Disclaim">
+    <select id="findDisclaimById" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Disclaim">
         select id,name,url,ts,crew from t_disclaims where id = #{id}
     </select>
-    <select id="findDisclaimByUserName" parameterType="string" resultType="com.blueHouse.pojo.orders.Disclaim">
+    <select id="findDisclaimByUserName" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Disclaim">
         select id,name,url,ts,crew  from t_disclaims where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
-    <select id="findDisclaimByCrewrName"  parameterType="string" resultType="com.blueHouse.pojo.orders.Disclaim">
+    <select id="findDisclaimByCrewrName"  parameterType="string" resultType="com.blueHouse.pojo.browse.T_Disclaim">
         select id,name,url,ts,crew  from t_disclaims where crew LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
-    <insert id="insertDisclaim" parameterType="com.blueHouse.pojo.orders.Disclaim">
-        insert into t_disclaims(id,name,url,ts,crew ) values(#{id}, #{name}, #{url}, #{ts},#{crew})
+    <insert id="insertDisclaim" parameterType="com.blueHouse.pojo.browse.T_Disclaim">
+        insert into t_disclaims(id,name,url,ts,crew) values(#{id}, #{name}, #{url}, #{ts},#{crew})
     </insert>
-    <update id="updateDisclaim" parameterType="com.blueHouse.pojo.orders.Disclaim">
+    <update id="updateDisclaim" parameterType="com.blueHouse.pojo.browse.T_Disclaim">
+        UPDATE t_disclaims SET name = #{name}, url = #{url}, ts = #{ts}, crew = #{crew} WHERE id = #{id}
     </update>
+    <delete id="deleteDisclaim" parameterType="com.blueHouse.pojo.browse.T_Disclaim">
+        DELETE FROM t_disclaims WHERE id = #{id}
+    </delete>
 </mapper>

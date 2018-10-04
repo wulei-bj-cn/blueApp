@@ -19,4 +19,7 @@
     <update id="updateProject" parameterType="com.blueHouse.pojo.browse.T_Project">
         update t_projects SET name = #{name}, url = #{url},enabled = #{enabled},category = #{category} where id = #{id}
     </update>
+    <delete id="deleteProject" parameterType="com.blueHouse.pojo.browse.T_Project">
+        DELETE FROM t_projects where id = #{id}
+    </delete>
 </mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.CartMapper">
+    <select id="findCartByUserId" parameterType="String" resultType="com.blueHouse.pojo.Cart">
+        select user_id, item_id, item_class, add_time from t_cart where user_id = #{user_id}
+    </select>
+    <select id="findAllCarts" resultType="com.blueHouse.pojo.Cart">
+        select user_id, item_id, item_class, add_time from t_cart
+    </select>
+    <insert id="insertCart" parameterType="com.blueHouse.pojo.Cart">
+        insert into t_cart(user_id, item_id, item_class, add_time) values(#{user_id}, #{item_id}, #{item_class}, #{add_time})
+    </insert>
+    <delete id="deleteCart" parameterType="com.blueHouse.pojo.Cart">
+        DELETE FROM t_cart where user_id = #{user_id} AND item_id = #{item_id};
+    </delete>
+    <delete id="deleteAllCartByUser" parameterType="com.blueHouse.pojo.Cart">
+        DELETE FROM t_cart where user_id = #{user_id};
+    </delete>
+</mapper>
