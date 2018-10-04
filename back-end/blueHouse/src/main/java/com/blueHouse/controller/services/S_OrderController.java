@@ -29,7 +29,7 @@ public class S_OrderController {
 
     @RequestMapping(value = "/getOrderByUser", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> getOrderListForUser(
+    public Map<String, Object> getOrderByUser(
             @RequestParam(value = "page", required = false) int page,
             @RequestParam(value = "size", required = false) int size,
             @RequestParam(value = "user_id") String user_id,
@@ -58,6 +58,60 @@ public class S_OrderController {
         map.put("code", httpCode);
         map.put("error_type", error_type);
         map.put("data", orderData);
+
+        return map;
+    }
+
+    @RequestMapping(value = "/getOrderDetail", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getOrderDetail(
+            @RequestParam(value = "user_id") String user_id,
+            @RequestParam(value = "order_id") String order_id,
+            HttpServletRequest req
+    ) {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        boolean returnStatus = true;
+        String message = "";
+        int httpCode = 200;
+        int error_type = 1;
+
+        OMService omService = (OMService) applicationContext.getBean("omService");
+        List<Order> order = omService.findOrder(user_id, order_id);
+
+        map.put("status", returnStatus);
+        map.put("message", message);
+        map.put("code", httpCode);
+        map.put("error_type", error_type);
+        map.put("data", order);
+
+        return map;
+    }
+
+    @RequestMapping(value = "/getDesignList", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getDesignList(
+            @RequestParam(value = "page", required = false) int page,
+            @RequestParam(value = "size", required = false) int size,
+            @RequestParam(value = "user_id") String user_id,
+            @RequestParam(value = "order_id") String order_id,
+            HttpServletRequest req
+    ) {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        boolean returnStatus = true;
+        String message = "";
+        int httpCode = 200;
+        int error_type = 1;
+
+        OMService omService = (OMService) applicationContext.getBean("omService");
+        List<Design> designs = omService.findDesign(user_id, order_id);
+
+        map.put("status", returnStatus);
+        map.put("message", message);
+        map.put("code", httpCode);
+        map.put("error_type", error_type);
+        map.put("data", designs);
 
         return map;
     }
