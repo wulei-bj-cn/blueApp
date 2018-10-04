@@ -1,6 +1,6 @@
 package com.blueHouse.test;
 
-import com.blueHouse.pojo.orders.Material;
+import com.blueHouse.pojo.browse.T_Material;
 import com.blueHouse.service.MaterialService;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class TestMaterialService {
     @Test
     public void findMaterialById() throws Exception {
         MaterialService materialService= (MaterialService) applicationContext.getBean("materialService");
-        Material material = materialService.finaMaterialById("mat1");
+        T_Material material = materialService.finaMaterialById("mat1");
         System.out.println(material.getId());
     }
 }

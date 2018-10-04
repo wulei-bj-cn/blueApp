@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class S_OrderController {
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
 
     @RequestMapping(value = "/getOrderByUser", method = RequestMethod.GET)
+    @ResponseBody
     public Map<String, Object> getOrderListForUser(
             @RequestParam(value = "page", required = false) int page,
             @RequestParam(value = "size", required = false) int size,
