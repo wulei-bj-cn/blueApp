@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.ArticleMapper">
+    <select id="findArticleByUserId" parameterType="String" resultType="com.blueHouse.pojo.Article">
+        select id, title, digest, url, content from t_articles where user_id = #{user_id}
+    </select>
+    <select id="findAllArticles" resultType="com.blueHouse.pojo.Article">
+        select id, title, digest, url, content from t_articles
+    </select>
+    <insert id="insertArticle" parameterType="com.blueHouse.pojo.Article">
+        insert into t_articles(id, title, digest, url, content) values(#{id}, #{title}, #{digest}, #{url}, #{content})
+    </insert>
+    <delete id="deleteArticle" parameterType="com.blueHouse.pojo.Article">
+        DELETE FROM t_articles where id = #{id};
+    </delete>
+</mapper>
