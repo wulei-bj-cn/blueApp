@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.blueHouse.mapper.ArticleMapper">
-    <select id="findArticleByUserId" parameterType="String" resultType="com.blueHouse.pojo.Article">
-        select id, title, digest, url, content from t_articles where user_id = #{user_id}
+    <select id="findArticleById" parameterType="String" resultType="com.blueHouse.pojo.Article">
+        select id, title, digest, url, content from t_articles where id = #{id}
     </select>
     <select id="findAllArticles" resultType="com.blueHouse.pojo.Article">
         select id, title, digest, url, content from t_articles
