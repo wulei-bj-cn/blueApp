@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.OrderItemMapper">
+    <select id="findOrderItemByOrderId" parameterType="string" resultType="com.blueHouse.pojo.orders.OrderItem">
+        select order_id, item_id, item_class, start_time, end_time, status from t_order_items where order_id = #{order_id}
+    </select>
+    <select id="findOrderItemBy2Id" parameterType="string" resultType="com.blueHouse.pojo.orders.OrderItem">
+        select order_id, item_id, item_class, start_time, end_time, status from t_order_items where order_id = #{order_id} AND item_id = #{item_id}
+    </select>
+    <insert id="insertOrderItem" parameterType="com.blueHouse.pojo.orders.OrderItem">
+        insert t_order_items(order_id, item_id, item_class, start_time, end_time, status) values(#{order_id}, #{item_id}, #{item_class}, #{start_time}, #{end_time}, #{status})
+    </insert>
+    <update id="updateOrderItemStatus" parameterType="com.blueHouse.pojo.orders.OrderItem">
+        UPDATE t_order_items SET status = #{status} WHERE order_id = #{order_id} AND item_id = #{item_id}
+    </update>
+    <update id="updateOrderItemEndTime" parameterType="com.blueHouse.pojo.orders.OrderItem">
+        UPDATE t_order_items SET end_time = #{end_time} WHERE order_id = #{order_id} AND item_id = #{item_id}
+    </update>
+    <delete id="deleteOrderItem" parameterType="com.blueHouse.pojo.orders.OrderItem">
+        DELETE FROM t_order_items WHERE order_id = #{order_id} AND item_id = #{item_id}
+    </delete>
+    <delete id="deleteOrderItemsByOrder" parameterType="com.blueHouse.pojo.orders.OrderItem">
+        DELETE FROM t_order_items WHERE order_id = #{order_id}
+    </delete>
+</mapper>
