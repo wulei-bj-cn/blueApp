@@ -14,6 +14,7 @@
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/popper.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/js/dateformat.js"></script>
 </head>
 <body>
 <section class="jumbotron alert-info">
@@ -90,11 +91,11 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <label>开始时间: </label>
-                                                                <input id="startTime" name="startTime" type="text" value="${activity.start_time}">
+                                                                <input id="startTime" name="startTime" type="text" value="${activity.start_time}" onfocus="setDate(this,'yyyy-MM-dd HH:mm')">
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>结束时间: </label>
-                                                                <input id="endTime" name="endTime" type="text" value="${activity.end_time}">
+                                                                <input id="endTime" name="endTime" type="text" value="${activity.end_time}" onfocus="setDate(this,'yyyy-MM-dd HH:mm')">
                                                             </div>
                                                         </div>
                                                         <br>
@@ -142,12 +143,12 @@
                                                             <div class="col-md-6">
                                                                 <label>开始时间: </label>
                                                                 <input id="startTime" name="startTime" type="text"
-                                                                       value="${activity.start_time}">
+                                                                       value="${activity.start_time}" onfocus="setDate(this,'yyyy-MM-dd HH:mm')">
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>结束时间: </label>
                                                                 <input id="endTime" name="endTime" type="text"
-                                                                       value="${activity.end_time}">
+                                                                       value="${activity.end_time}" onfocus="setDate(this,'yyyy-MM-dd HH:mm')">
                                                             </div>
                                                         </div>
                                                         <br>
@@ -191,11 +192,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>开始时间: </label>
-                                <input id="startTime" name="startTime" type="text" value="">
+                                <input id="startTime" name="startTime" type="text" value="" onfocus="setDate(this,'yyyy-MM-dd HH:mm')">
                             </div>
                             <div class="col-md-6">
                                 <label>结束时间: </label>
-                                <input id="endTime" name="endTime" type="text" value="">
+                                <input id="endTime" name="endTime" type="text" value="" onfocus="setDate(this,'yyyy-MM-dd HH:mm')">
                             </div>
                         </div>
                         <br>
