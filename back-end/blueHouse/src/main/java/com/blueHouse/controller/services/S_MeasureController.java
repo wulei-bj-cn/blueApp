@@ -7,6 +7,7 @@ package com.blueHouse.controller.services;
 import com.blueHouse.pojo.browse.T_Measure;
 import com.blueHouse.pojo.orders.Order;
 import com.blueHouse.pojo.orders.OrderItem;
+import com.blueHouse.service.MD5Service;
 import com.blueHouse.service.MeasureService;
 import com.blueHouse.service.OrderItemService;
 import com.blueHouse.service.OrderService;
@@ -31,6 +32,12 @@ public class S_MeasureController {
 
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
 
+    MeasureService measureService = (MeasureService) applicationContext.getBean("measureService");
+    OrderService orderService = (OrderService) applicationContext.getBean("orderService");
+    OrderItemService orderItemService = (OrderItemService) applicationContext.getBean("orderItemService");
+    MD5Service md5Service = (MD5Service) applicationContext.getBean("md5Service");
+
+
     @RequestMapping(value = "/insertMeasure", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getMeasureByCategory(
@@ -45,10 +52,6 @@ public class S_MeasureController {
         int httpCode = 200;
         int error_type = 1;
 
-        MeasureService measureService = (MeasureService) applicationContext.getBean("measureService");
-        OrderService orderService = (OrderService) applicationContext.getBean("orderService");
-        OrderItemService orderItemService = (OrderItemService) applicationContext.getBean("orderItemService");
-
         //生产新的Measure对象，并对其赋值，尤其是ID
         T_Measure t_measure = new T_Measure();
         t_measure.setAddress(address);
@@ -56,7 +59,7 @@ public class S_MeasureController {
         Timestamp ts = (Timestamp) new Date();
         t_measure.setTs(ts);
         //要保证有唯一的Measure id，这里通过MD5结合固定字符串"mea"的方法来大概率保证id唯一。
-        String measure_id = (new Encypt()).encodeByMD5(address + ts);
+        String measure_id = md5Service.encodeByMD5(address + ts);
         t_measure.setId("mea" + measure_id);
 
         //生产新的订单，主要是订单id
@@ -64,7 +67,7 @@ public class S_MeasureController {
         order.setUser_id(user_id);
         order.setStart_time(ts);
         order.setStatus("预约测量中");
-        String order_id = (new Encypt()).encodeByMD5(user_id + measure_id);
+        String order_id = md5Service.encodeByMD5(user_id + measure_id);
         order.setId("ord" + order_id);
 
         //生产新的订单项，就是将订单id，用户id，item的id插入到订单项表中。
