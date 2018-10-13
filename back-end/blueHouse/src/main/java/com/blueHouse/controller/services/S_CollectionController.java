@@ -79,5 +79,37 @@ public class S_CollectionController {
         return map;
     }
 
+    @RequestMapping(value = "/deleteCollection", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getCollectionByCategory(
+            @RequestParam(value = "user_id") String user_id,
+            @RequestParam(value = "item_id") String item_id,
+            HttpServletRequest req
+    ) {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        boolean returnStatus = true;
+        String message = "";
+        int httpCode = 200;
+        int error_type = 1;
+
+        CollectionService collectionService = (CollectionService) applicationContext.getBean("collectionService");
+        Collection collection = new Collection();
+        collection.setUser_id(user_id);
+        collection.setItem_id(item_id);
+        try {
+            collectionService.deleteCollection(collection);
+        } catch (RuntimeException re) {
+            returnStatus = false;
+        }
+
+        map.put("status", returnStatus);
+        map.put("message", message);
+        map.put("code", httpCode);
+        map.put("error_type", error_type);
+        map.put("data", "");
+
+        return map;
+    }
 
 }
