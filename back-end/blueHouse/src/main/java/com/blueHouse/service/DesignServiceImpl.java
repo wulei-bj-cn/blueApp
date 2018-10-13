@@ -39,4 +39,7 @@ public class DesignServiceImpl implements DesignService{
     public void updateDesign(Design design) {
         designMapper.updateDesign(design);
     }
+
+    @Override
+    public void deleteDesign(Design design) { designMapper.deleteDesign(design); }
 }

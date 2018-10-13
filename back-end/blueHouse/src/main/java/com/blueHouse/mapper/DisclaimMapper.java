@@ -13,4 +13,5 @@ public interface DisclaimMapper {
     List<Disclaim> findDisclaimByCrewrName(String name);
     void insertDisclaim(Disclaim disclaim);
     void updateDisclaim(Disclaim disclaim);
+    void deleteDisclaim(Disclaim disclaim);
 }

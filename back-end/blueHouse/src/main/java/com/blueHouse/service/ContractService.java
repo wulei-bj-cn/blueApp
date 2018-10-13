@@ -13,4 +13,5 @@ public interface ContractService {
     List<Contract> findAllContract();
     void insertContract(Contract con);
     void updateContract(Contract con);
+    void deleteContract(Contract con);
 }

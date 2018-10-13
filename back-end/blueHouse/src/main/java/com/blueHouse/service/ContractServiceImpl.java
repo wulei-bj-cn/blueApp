@@ -39,4 +39,7 @@ public class ContractServiceImpl implements ContractService {
     public void updateContract(Contract con) {
         contractMapper.updateContract(con);
     }
+
+    @Override
+    public void deleteContract(Contract con) { contractMapper.deleteContract(con);}
 }

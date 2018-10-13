@@ -13,4 +13,5 @@ public interface DesignMapper {
     List<Design> finaDesignByDesignerName(String name);
     void insertDesign(Design design);
     void updateDesign(Design design);
+    void deleteDesign(Design design);
 }

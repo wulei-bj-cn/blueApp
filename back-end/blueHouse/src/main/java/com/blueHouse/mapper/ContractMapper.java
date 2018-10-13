@@ -13,4 +13,5 @@ public interface ContractMapper {
         List<Contract> findAllContract();
         void insertContract(Contract con);
         void updateContract(Contract con);
+        void deleteContract(Contract con);
 }

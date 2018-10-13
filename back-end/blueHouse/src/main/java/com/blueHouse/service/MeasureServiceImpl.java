@@ -39,4 +39,7 @@ private MeasureMapper measureMapper;
     public void updateMeasure(Measure measure) {
         measureMapper.insertMeasure(measure);
     }
+
+    @Override
+    public void deleteMeasure(Measure measure) { measureMapper.deleteMeasure(measure); }
 }

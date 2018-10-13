@@ -14,4 +14,5 @@ public interface MeasureService {
     List<Measure> findMeasureByCrewName(String name);
     void insertMeasure(Measure measure);
     void updateMeasure(Measure measure);
+    void deleteMeasure(Measure measure);
 }

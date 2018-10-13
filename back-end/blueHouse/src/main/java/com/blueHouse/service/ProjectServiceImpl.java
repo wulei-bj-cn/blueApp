@@ -38,4 +38,7 @@ public class ProjectServiceImpl implements ProjectService {
     public void updateProject(T_Project project) {
         projectMapper.updateProject(project);
     }
+
+    @Override
+    public void deleteProject(T_Project project) { projectMapper.deleteProject(project); }
 }

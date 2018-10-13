@@ -40,4 +40,7 @@ public class MaterialServiceImpl implements MaterialService {
     public void updateMaterial(T_Material material) {
         materialMapper.updateMaterial(material);
     }
+
+    @Override
+    public void deleteMaterial(T_Material material) { materialMapper.deleteMaterial(material); }
 }

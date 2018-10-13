@@ -14,4 +14,5 @@ public interface ProjectMapper {
     List<T_Project> findAllProjects();
     void insertProject(T_Project project);
     void updateProject(T_Project project);
+    void deleteProject(T_Project project);
 }

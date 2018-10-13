@@ -14,4 +14,5 @@ public interface MaterialService {
     List<T_Material> findAllMaterials();
     void insertMaterial(T_Material material);
     void updateMaterial(T_Material material);
+    void deleteMaterial(T_Material material);
 }

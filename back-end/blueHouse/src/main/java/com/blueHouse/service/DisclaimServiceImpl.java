@@ -39,4 +39,7 @@ public class DisclaimServiceImpl  implements  DisclaimService{
     public void updateDisclaim(Disclaim disclaim) {
         disclaimMapper.updateDisclaim(disclaim);
     }
+
+    @Override
+    public void deleteDisclaim(Disclaim disclaim) { disclaimMapper.deleteDisclaim(disclaim); }
 }
