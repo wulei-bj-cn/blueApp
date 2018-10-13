@@ -1,6 +1,6 @@
 package com.blueHouse.test;
 
-import com.blueHouse.pojo.orders.Disclaim;
+import com.blueHouse.pojo.browse.T_Disclaim;
 import com.blueHouse.service.DisclaimService;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class TestDisclaimService {
     @Test
     public void findDisclaimById() throws Exception {
         DisclaimService disclaimService= (DisclaimService) applicationContext.getBean("disclaimService");
-        Disclaim Disclaim = disclaimService.findDisclaimById("dis1");
+        T_Disclaim Disclaim = disclaimService.findDisclaimById("dis1");
         System.out.println(Disclaim.getId());
     }
 }
