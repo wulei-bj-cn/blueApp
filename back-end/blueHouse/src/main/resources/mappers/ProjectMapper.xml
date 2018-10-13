@@ -5,16 +5,16 @@
 
 <mapper namespace="com.blueHouse.mapper.ProjectMapper">
     <select id="findProjectById" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Project">
-        select id,name,url,enabled,category from t_projects where id = #{id}
+        select id,name,url,enabled,ts,category,status from t_projects where id = #{id}
     </select>
     <select id="findProjectByName" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Project">
-        select id,name,url,enabled,category from t_projects where name = #{name}
+        select id,name,url,enabled,ts,category,status from t_projects where name = #{name}
     </select>
     <select id="findAllProjects" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Project">
-        select id,name,url,enabled,category from t_projects
+        select id,name,url,enabled,ts,category,status from t_projects
     </select>
     <insert id="insertProject" parameterType="com.blueHouse.pojo.browse.T_Project">
-        insert into t_projects(id,name,url,enabled,category)  values(#{id}, #{name}, #{url}, #{enabled},#{category})
+        insert into t_projects(id,name,url,enabled,ts,category,status)  values(#{id}, #{name}, #{url}, #{enabled}, #{ts}, #{category}, #{status})
     </insert>
     <update id="updateProject" parameterType="com.blueHouse.pojo.browse.T_Project">
         update t_projects SET name = #{name}, url = #{url},enabled = #{enabled},category = #{category} where id = #{id}

@@ -1,5 +1,7 @@
 package com.blueHouse.pojo.browse;
 
+import java.sql.Timestamp;
+
 /**
  * Created by wulei on 23/07/2018.
  */
@@ -10,6 +12,7 @@ public class T_Project {
     private String url;
     private String category;
     private int enabled;
+    private Timestamp ts;
     private String status;
 
     public String getId() { return this.id; }
@@ -26,6 +29,9 @@ public class T_Project {
 
     public int getEnabled() { return this.enabled; }
     public void setEnabled(int enabled) { this.enabled = enabled; }
+
+    public Timestamp getTs() { return this.ts; }
+    public void setTs(Timestamp ts) { this.ts = ts; }
 
     public String getStatus() { return this.status; }
     public void setStatus(String status) { this.status = status; }
