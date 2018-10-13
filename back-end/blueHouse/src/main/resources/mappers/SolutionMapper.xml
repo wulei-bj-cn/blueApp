@@ -5,13 +5,16 @@
 
 <mapper namespace="com.blueHouse.mapper.SolutionMapper">
     <select id="findSolutionById" parameterType="String" resultType="com.blueHouse.pojo.browse.T_Solution">
-        select id,name,url,ts,designer from t_solutions where id = #{id}
+        select id,name,url,ts,designer, category from t_solutions where id = #{id}
     </select>
     <select id="findSolutionByName" parameterType="String" resultType="com.blueHouse.pojo.browse.T_Solution">
-        select id,name,url,ts,designer from t_solutions where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
+        select id,name,url,ts,designer, category from t_solutions where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <select id="finaSolutionByDesignerName" parameterType="String"  resultType="com.blueHouse.pojo.browse.T_Solution">
-        select id,name,url,ts,designer from t_solutions where designer LIKE  CONCAT(CONCAT('%',#{designer},'%'))
+        select id,name,url,ts,designer, category from t_solutions where designer LIKE  CONCAT(CONCAT('%',#{designer},'%'))
+    </select>
+    <select id="finaSolutionByCategory" parameterType="String"  resultType="com.blueHouse.pojo.browse.T_Solution">
+        select id,name,url,ts,designer, category from t_solutions where category LIKE  CONCAT(CONCAT('%',#{category},'%'))
     </select>
     <insert id="insertSolution" parameterType="com.blueHouse.pojo.browse.T_Solution">
         insert into t_solutions(id,name,url,ts,designer) values(#{id}, #{name}, #{url}, #{ts},#{designer})

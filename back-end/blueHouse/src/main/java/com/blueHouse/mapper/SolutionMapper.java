@@ -11,7 +11,8 @@ public interface SolutionMapper {
 
     T_Solution findSolutionById(String id);
     List<T_Solution> findSolutionByName(String name);
-    List<T_Solution> finaSolutionByDesignerName(String designer);
+    List<T_Solution> findSolutionByDesignerName(String designer);
+    List<T_Solution> findSolutionByCategory(String category);
     void insertSolution(T_Solution t_solution);
     void updateSolution(T_Solution t_solution);
     void deleteSolution(T_Solution t_solution);

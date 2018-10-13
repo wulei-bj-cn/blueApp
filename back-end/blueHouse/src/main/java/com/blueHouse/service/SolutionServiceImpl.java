@@ -17,7 +17,8 @@ public class SolutionServiceImpl implements SolutionService {
 
     public T_Solution findSolutionById(String id) { return solutionMapper.findSolutionById(id); }
     public List<T_Solution> findSolutionByName(String name) { return solutionMapper.findSolutionByName(name); }
-    public List<T_Solution> finaSolutionByDesignerName(String designer) { return solutionMapper.finaSolutionByDesignerName(designer); }
+    public List<T_Solution> findSolutionByDesignerName(String designer) { return solutionMapper.findSolutionByDesignerName(designer); }
+    public List<T_Solution> findSolutionByCategory(String category) { return solutionMapper.findSolutionByCategory(category); }
     public void insertSolution(T_Solution t_solution) { solutionMapper.insertSolution(t_solution); }
     public void updateSolution(T_Solution t_solution) { solutionMapper.updateSolution(t_solution); }
     public void deleteSolution(T_Solution t_solution) { solutionMapper.deleteSolution(t_solution);}

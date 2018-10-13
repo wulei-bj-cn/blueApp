@@ -22,8 +22,18 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public List<T_Material> findMaterialByPartialName(String name) {
-        return materialMapper.findMaterialByPartialName(name);
+    public List<T_Material> findMaterialByPartialName(String name, String brand) {
+        return materialMapper.findMaterialByPartialName(name, brand);
+    }
+
+    @Override
+    public List<T_Material> findMaterialByBrand(String brand) {
+        return materialMapper.findMaterialByBrand(brand);
+    }
+
+    @Override
+    public List<T_Material> findMaterialByCategory(String category) {
+        return materialMapper.findMaterialByCategory(category);
     }
 
     @Override
