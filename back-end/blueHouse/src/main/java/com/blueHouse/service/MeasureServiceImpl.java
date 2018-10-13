@@ -1,7 +1,7 @@
 package com.blueHouse.service;
 
 import com.blueHouse.mapper.MeasureMapper;
-import com.blueHouse.pojo.orders.Measure;
+import com.blueHouse.pojo.browse.T_Measure;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -16,30 +16,30 @@ public class MeasureServiceImpl implements MeasureService {
 private MeasureMapper measureMapper;
 
     @Override
-    public Measure findMeasureById(String id) {
+    public T_Measure findMeasureById(String id) {
         return measureMapper.findMeasureById(id);
     }
 
     @Override
-    public List<Measure> findMeasureByUserName(String name) {
+    public List<T_Measure> findMeasureByUserName(String name) {
         return measureMapper.findMeasureByUserName(name);
     }
 
     @Override
-    public List<Measure> findMeasureByCrewName(String name) {
+    public List<T_Measure> findMeasureByCrewName(String name) {
         return measureMapper.findMeasureByCrewName(name);
     }
 
     @Override
-    public void insertMeasure(Measure measure) {
+    public void insertMeasure(T_Measure measure) {
         measureMapper.insertMeasure(measure);
     }
 
     @Override
-    public void updateMeasure(Measure measure) {
+    public void updateMeasure(T_Measure measure) {
         measureMapper.insertMeasure(measure);
     }
 
     @Override
-    public void deleteMeasure(Measure measure) { measureMapper.deleteMeasure(measure); }
+    public void deleteMeasure(T_Measure measure) { measureMapper.deleteMeasure(measure); }
 }

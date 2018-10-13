@@ -1,7 +1,7 @@
 package com.blueHouse.service;
 
 
-import com.blueHouse.pojo.orders.Measure;
+import com.blueHouse.pojo.browse.T_Measure;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import java.util.List;
  * Created by lihan on 2018/9/1.
  */
 public interface MeasureService {
-    Measure findMeasureById(String id);
-    List<Measure> findMeasureByUserName(String name);
-    List<Measure> findMeasureByCrewName(String name);
-    void insertMeasure(Measure measure);
-    void updateMeasure(Measure measure);
-    void deleteMeasure(Measure measure);
+    T_Measure findMeasureById(String id);
+    List<T_Measure> findMeasureByUserName(String name);
+    List<T_Measure> findMeasureByCrewName(String name);
+    void insertMeasure(T_Measure measure);
+    void updateMeasure(T_Measure measure);
+    void deleteMeasure(T_Measure measure);
 }
