@@ -1,6 +1,6 @@
 package com.blueHouse.service;
 
-import com.blueHouse.pojo.orders.Design;
+import com.blueHouse.pojo.browse.T_Design;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import java.util.List;
  * Created by lihan on 2018/9/1.
  */
 public interface DesignService {
-    Design findDesignById(String id);
-    List<Design> findDesignByUseName(String name);
-    List<Design> finaDesignByDesignerName(String name);
-    void insertDesign(Design design);
-    void updateDesign(Design design);
-    void deleteDesign(Design design);
+    T_Design findDesignById(String id);
+    List<T_Design> findDesignByUseName(String name);
+    List<T_Design> finaDesignByT_DesignerName(String name);
+    void insertDesign(T_Design design);
+    void updateDesign(T_Design design);
+    void deleteDesign(T_Design design);
 }
