@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface CartMapper {
 
-    Cart findCartByUserId(String user_id);
+    List<Cart> findCartByUserId(String user_id);
     List<Cart> findAllCarts();
     void insertCart(Cart cart);
     void deleteCart(Cart cart);

@@ -1,7 +1,7 @@
 package com.blueHouse.service;
 
 import com.blueHouse.mapper.ContractMapper;
-import com.blueHouse.pojo.orders.Contract;
+import com.blueHouse.pojo.browse.T_Contract;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -17,29 +17,29 @@ public class ContractServiceImpl implements ContractService {
 
 
     @Override
-    public Contract findContractById(String id) {
+    public T_Contract findContractById(String id) {
         return contractMapper.findContractById(id);
     }
 
     @Override
-    public List<Contract> findContractByPartialName(String name) {
+    public List<T_Contract> findContractByPartialName(String name) {
         return contractMapper.findContractByPartialName(name);
     }
     @Override
-    public List<Contract> findAllContract() {
+    public List<T_Contract> findAllContract() {
         return contractMapper.findAllContract();
     }
 
     @Override
-    public void insertContract(Contract con) {
+    public void insertContract(T_Contract con) {
         contractMapper.insertContract(con);
     }
 
     @Override
-    public void updateContract(Contract con) {
+    public void updateContract(T_Contract con) {
         contractMapper.updateContract(con);
     }
 
     @Override
-    public void deleteContract(Contract con) { contractMapper.deleteContract(con);}
+    public void deleteContract(T_Contract con) { contractMapper.deleteContract(con);}
 }
