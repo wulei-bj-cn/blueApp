@@ -15,7 +15,9 @@ public class CollectionServiceImpl implements CollectionService {
     @Autowired
     private CollectionMapper collectionMapper;
 
-    public Collection findCollectionByUserId(String user_id) { return collectionMapper.findCollectionByUserId(user_id); }
+    public List<Collection> findCollectionByUserId(String user_id) { return collectionMapper.findCollectionByUserId(user_id); }
+
+    public List<Collection> findCollectionByCategory(String category) { return collectionMapper.findCollectionByCategory(category); }
 
     public List<Collection> findAllCollections() { return collectionMapper.findAllCollections(); }
 

@@ -10,7 +10,8 @@ import java.util.List;
  */
 public interface CollectionService {
 
-    Collection findCollectionByUserId(String user_id);
+    List<Collection> findCollectionByUserId(String user_id);
+    List<Collection> findCollectionByCategory(String category);
     List<Collection> findAllCollections();
     void insertCollection(Collection cart);
     void deleteCollection(Collection cart);

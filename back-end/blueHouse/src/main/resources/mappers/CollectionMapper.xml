@@ -7,6 +7,9 @@
     <select id="findCollectionByUserId" parameterType="String" resultType="com.blueHouse.pojo.Collection">
         select user_id, item_id, item_class, add_time from t_collections where user_id = #{user_id}
     </select>
+    <select id="findCollectionByCategory" parameterType="String" resultType="com.blueHouse.pojo.Collection">
+        select user_id, item_id, item_class, add_time from t_collections where item_class = #{item_class}
+    </select>
     <select id="findAllCollections" resultType="com.blueHouse.pojo.Collection">
         select user_id, item_id, item_class, add_time from t_collections
     </select>
