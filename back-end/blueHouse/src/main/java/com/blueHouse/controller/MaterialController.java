@@ -37,7 +37,7 @@ public class MaterialController {
             modelMap.put("isSearching", false);
             return "redirect: /material/getAll";
         }else {
-            List<T_Material> materials = materialService.findMaterialByPartialName(searchKey);
+            List<T_Material> materials = materialService.findMaterialByPartialName(searchKey, searchKey);
             modelMap.put("materials", materials);
             modelMap.put("materialsCount", materials.size());
             modelMap.put("isSearching", true);

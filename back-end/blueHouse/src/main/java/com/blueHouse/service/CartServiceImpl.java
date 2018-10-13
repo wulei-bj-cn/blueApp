@@ -15,7 +15,7 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private CartMapper cartMapper;
 
-    public Cart findCartByUserId(String user_id) { return cartMapper.findCartByUserId(user_id); }
+    public List<Cart> findCartByUserId(String user_id) { return cartMapper.findCartByUserId(user_id); }
 
     public List<Cart> findAllCarts() { return cartMapper.findAllCarts(); }
 

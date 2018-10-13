@@ -1,7 +1,6 @@
 package com.blueHouse.test;
 
-import com.blueHouse.pojo.orders.Contract;
-import com.blueHouse.pojo.orders.Design;
+import com.blueHouse.pojo.browse.T_Design;
 import com.blueHouse.service.DesignService;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +20,7 @@ public class TestDesignService {
     @Test
     public void findDesignById() throws Exception {
         DesignService designService= (DesignService) applicationContext.getBean("designService");
-        Design design = designService.findDesignById("des1");
+        T_Design design = designService.findDesignById("des1");
         System.out.println(design.getId());
     }
 }

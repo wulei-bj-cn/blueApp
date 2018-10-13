@@ -1,6 +1,6 @@
 package com.blueHouse.test;
 
-import com.blueHouse.pojo.orders.Measure;
+import com.blueHouse.pojo.browse.T_Measure;
 import com.blueHouse.service.MeasureService;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class TestMeasureService {
     @Test
     public void findMeasureById() throws Exception {
         MeasureService measureService= (MeasureService) applicationContext.getBean("measureService");
-        Measure measure = measureService.findMeasureById("mea1");
+        T_Measure measure = measureService.findMeasureById("mea1");
         System.out.println(measure.getId());
     }
 }
