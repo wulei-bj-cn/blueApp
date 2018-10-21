@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/collectionService")
+@RequestMapping("/favoriteService")
 public class S_FavoriteController {
 
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
@@ -42,8 +42,8 @@ public class S_FavoriteController {
         int httpCode = 200;
         int error_type = 1;
 
-        FavoriteService collectionService = (FavoriteService) applicationContext.getBean("collectionService");
-        List<Favorite> favorites = collectionService.findCollectionByUserId(user_id);
+        FavoriteService favoriteService = (FavoriteService) applicationContext.getBean("favoriteService");
+        List<Favorite> favorites = favoriteService.findCollectionByUserId(user_id);
 
         map.put("status", returnStatus);
         map.put("message", message);
@@ -69,8 +69,8 @@ public class S_FavoriteController {
         int httpCode = 200;
         int error_type = 1;
 
-        FavoriteService collectionService = (FavoriteService) applicationContext.getBean("collectionService");
-        List<Favorite> favorites = collectionService.findCollectionByCategory(category);
+        FavoriteService favoriteService = (FavoriteService) applicationContext.getBean("favoriteService");
+        List<Favorite> favorites = favoriteService.findCollectionByCategory(category);
 
         map.put("status", returnStatus);
         map.put("message", message);
@@ -95,12 +95,12 @@ public class S_FavoriteController {
         int httpCode = 200;
         int error_type = 1;
 
-        FavoriteService collectionService = (FavoriteService) applicationContext.getBean("collectionService");
+        FavoriteService favoriteService = (FavoriteService) applicationContext.getBean("favoriteService");
         Favorite favorite = new Favorite();
         favorite.setUser_id(user_id);
         favorite.setItem_id(item_id);
         try {
-            collectionService.deleteCollection(favorite);
+            favoriteService.deleteCollection(favorite);
         } catch (RuntimeException re) {
             returnStatus = false;
         }
@@ -129,14 +129,14 @@ public class S_FavoriteController {
         int httpCode = 200;
         int error_type = 1;
 
-        FavoriteService collectionService = (FavoriteService) applicationContext.getBean("collectionService");
+        FavoriteService favoriteService = (FavoriteService) applicationContext.getBean("favoriteService");
         Favorite favorite = new Favorite();
         favorite.setUser_id(user_id);
         favorite.setItem_id(item_id);
         favorite.setItem_class(item_class);
         favorite.setAdd_time((Timestamp) new Date());
         try {
-            collectionService.insertCollection(favorite);
+            favoriteService.insertCollection(favorite);
         } catch (RuntimeException re) {
             returnStatus = false;
         }

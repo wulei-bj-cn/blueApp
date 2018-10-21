@@ -49,5 +49,9 @@
     <bean id="projectService" class="com.blueHouse.service.ProjectServiceImpl"/>
     <bean id="md5Service" class="com.blueHouse.service.MD5ServiceImpl"/>
     <bean id="brandService" class="com.blueHouse.service.BrandServiceImpl"/>
+    <bean id="articleService" class="com.blueHouse.service.ArticleServiceImpl"/>
+    <bean id="cartService" class="com.blueHouse.service.CartServiceImpl"/>
+    <bean id="favoriteService" class="com.blueHouse.service.FavoriteServiceImpl"/>
+    <bean id="solutionService" class="com.blueHouse.service.SolutionServiceImpl"/>
 
 </beans>
