@@ -17,3 +17,4 @@ DROP TABLE t_brands;
 DROP TABLE t_cart;
 DROP TABLE t_collections;
 DROP TABLE t_solutions;
+DROP TABLE t_favorites;
