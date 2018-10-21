@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,15 +75,15 @@ public class S_ProjectController {
 
         //生产新的Project对象，并对其赋值，尤其是ID
         T_Project t_project = new T_Project();
-        String project_name = "for user " + user_id + " for order " + order_id;
+        String project_name = "项目名称：待命名";
         t_project.setName(project_name);
-        Timestamp ts = (Timestamp) new Date();
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
         t_project.setTs(ts);
         t_project.setCategory(category);
         t_project.setStatus("进行中");
         //要保证有唯一的Project id，这里通过MD5结合固定字符串"mea"的方法来大概率保证id唯一。
-        String project_id = md5Service.encodeByMD5(project_name + category + ts);
-        t_project.setId("pro" + project_id);
+        String project_id = "pro" + md5Service.encodeByMD5(project_name + category + ts);
+        t_project.setId(project_id);
 
         //生产新的订单项，就是将订单id，用户id，item的id插入到订单项表中。
         OrderItem orderItem = new OrderItem();
@@ -99,6 +98,7 @@ public class S_ProjectController {
             //根据订单id和project id，将该测量项加入order item表
             orderItemService.insertOrderItem(orderItem);
         } catch (RuntimeException re) {
+            System.out.println(re);
             returnStatus = false;
         }
 

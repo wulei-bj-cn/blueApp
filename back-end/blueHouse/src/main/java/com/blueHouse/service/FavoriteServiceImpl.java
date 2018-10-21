@@ -15,16 +15,16 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Autowired
     private FavoriteMapper favoriteMapper;
 
-    public List<Favorite> findCollectionByUserId(String user_id) { return favoriteMapper.findCollectionByUserId(user_id); }
+    public List<Favorite> findFavoriteByUserId(String user_id) { return favoriteMapper.findFavoriteByUserId(user_id); }
 
-    public List<Favorite> findCollectionByCategory(String category) { return favoriteMapper.findCollectionByCategory(category); }
+    public List<Favorite> findFavoriteByCategory(String category) { return favoriteMapper.findFavoriteByCategory(category); }
 
-    public List<Favorite> findAllCollections() { return favoriteMapper.findAllCollections(); }
+    public List<Favorite> findAllFavorites() { return favoriteMapper.findAllFavorites(); }
 
-    public void insertCollection(Favorite favorite) { favoriteMapper.insertCollection(favorite); }
+    public void insertFavorite(Favorite favorite) { favoriteMapper.insertFavorite(favorite); }
 
-    public void deleteCollection(Favorite favorite) { favoriteMapper.deleteCollection(favorite); }
+    public void deleteFavorite(Favorite favorite) { favoriteMapper.deleteFavorite(favorite); }
 
-    public void deleteAllCollectionByUser(Favorite favorite) { favoriteMapper.deleteAllCollectionByUser(favorite); }
+    public void deleteAllFavoriteByUser(Favorite favorite) { favoriteMapper.deleteAllFavoriteByUser(favorite); }
 
 }

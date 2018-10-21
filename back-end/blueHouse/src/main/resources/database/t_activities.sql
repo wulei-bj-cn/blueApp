@@ -1,6 +1,6 @@
 create table if not exists t_activities
 (
-	id varchar(20) not null,
+	id varchar(64) not null,
 	des varchar(256),
 	url varchar(256),
 	start_time timestamp,

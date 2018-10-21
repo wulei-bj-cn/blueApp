@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface MaterialService {
     T_Material finaMaterialById(String id);
-    List<T_Material> findMaterialByPartialName(String name, String brand);
+    List<T_Material> findMaterialByPartialName(String name);
     List<T_Material> findMaterialByBrand(String name);
     List<T_Material> findMaterialByCategory(String name);
     List<T_Material> findAllMaterials();

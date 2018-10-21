@@ -1,4 +1,4 @@
-create table t_order_items (order_id varchar(20), item_id varchar(20), item_class varchar(20), start_time timestamp, end_time timestamp, status varchar(32));
+create table t_order_items (order_id varchar(64), item_id varchar(64), item_class varchar(20), start_time timestamp, end_time timestamp, status varchar(32));
 
 insert into t_order_items values ("ord1", "des1", "designs", "2018-08-04 15:32:24", "2018-08-04 15:32:24", "进行中");
 insert into t_order_items values ("ord1", "des2", "designs", "2018-08-04 15:32:24", "2018-08-04 15:32:24", "进行中");

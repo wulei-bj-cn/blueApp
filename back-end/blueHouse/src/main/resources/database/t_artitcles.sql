@@ -1,4 +1,4 @@
-create table t_articles(id varchar(20), title varchar(32), digest varchar(32), url varchar(256), content varchar(4096));
+create table t_articles(id varchar(64), title varchar(32), digest varchar(32), url varchar(256), content varchar(4096));
 
 insert into t_articles values ("art1", "家装有哪些坑", "软文-a2b19e8f.jpg", 1, "<p>　　从公众视野里消失100多天的范冰冰终于有了消息。</p>
 <p>　　税务部门3日公布范冰冰案情况，范冰冰被责令按期缴纳税款、滞纳金、罚款8亿余元。</p>

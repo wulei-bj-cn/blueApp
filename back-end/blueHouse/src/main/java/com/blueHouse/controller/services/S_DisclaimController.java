@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,12 +76,12 @@ public class S_DisclaimController {
         T_Disclaim t_disclaim = new T_Disclaim();
         String disclaim_name = "for user " + user_id + " for order " + order_id;
         t_disclaim.setName(disclaim_name);
-        Timestamp ts = (Timestamp) new Date();
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
         t_disclaim.setTs(ts);
         t_disclaim.setStatus("进行中");
         //要保证有唯一的Disclaim id，这里通过MD5结合固定字符串"mea"的方法来大概率保证id唯一。
-        String disclaim_id = md5Service.encodeByMD5(disclaim_name + ts);
-        t_disclaim.setId("dis" + disclaim_id);
+        String disclaim_id = "dis" + md5Service.encodeByMD5(disclaim_name + ts);
+        t_disclaim.setId(disclaim_id);
 
         //生产新的订单项，就是将订单id，用户id，item的id插入到订单项表中。
         OrderItem orderItem = new OrderItem();

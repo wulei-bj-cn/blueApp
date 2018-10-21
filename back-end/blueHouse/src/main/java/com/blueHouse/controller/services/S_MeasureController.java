@@ -11,7 +11,6 @@ import com.blueHouse.service.MD5Service;
 import com.blueHouse.service.MeasureService;
 import com.blueHouse.service.OrderItemService;
 import com.blueHouse.service.OrderService;
-import com.blueHouse.utils.Encypt;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,11 +54,11 @@ public class S_MeasureController {
         T_Measure t_measure = new T_Measure();
         t_measure.setAddress(address);
         t_measure.setName(address);
-        Timestamp ts = (Timestamp) new Date();
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
         t_measure.setTs(ts);
         //要保证有唯一的Measure id，这里通过MD5结合固定字符串"mea"的方法来大概率保证id唯一。
-        String measure_id = md5Service.encodeByMD5(address + ts);
-        t_measure.setId("mea" + measure_id);
+        String measure_id = "mea" + md5Service.encodeByMD5(address + ts);
+        t_measure.setId(measure_id);
 
         //生产新的订单，主要是订单id
         Order order = new Order();

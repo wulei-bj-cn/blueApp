@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +26,9 @@ public class S_FavoriteController {
 
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
 
-    @RequestMapping(value = "/findCollectionByUserId", method = RequestMethod.GET)
+    @RequestMapping(value = "/findFavoriteByUserId", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> getCollectionByUserId(
+    public Map<String, Object> getFavoriteByUserId(
             @RequestParam(value = "page", required = false) int page,
             @RequestParam(value = "size", required = false) int size,
             @RequestParam(value = "user_id") String user_id,
@@ -43,7 +42,7 @@ public class S_FavoriteController {
         int error_type = 1;
 
         FavoriteService favoriteService = (FavoriteService) applicationContext.getBean("favoriteService");
-        List<Favorite> favorites = favoriteService.findCollectionByUserId(user_id);
+        List<Favorite> favorites = favoriteService.findFavoriteByUserId(user_id);
 
         map.put("status", returnStatus);
         map.put("message", message);
@@ -54,9 +53,9 @@ public class S_FavoriteController {
         return map;
     }
 
-    @RequestMapping(value = "/findCollectionByCategory", method = RequestMethod.GET)
+    @RequestMapping(value = "/findFavoriteByCategory", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> getCollectionByCategory(
+    public Map<String, Object> getFavoriteByCategory(
             @RequestParam(value = "page", required = false) int page,
             @RequestParam(value = "size", required = false) int size,
             @RequestParam(value = "category") String category,
@@ -70,7 +69,7 @@ public class S_FavoriteController {
         int error_type = 1;
 
         FavoriteService favoriteService = (FavoriteService) applicationContext.getBean("favoriteService");
-        List<Favorite> favorites = favoriteService.findCollectionByCategory(category);
+        List<Favorite> favorites = favoriteService.findFavoriteByCategory(category);
 
         map.put("status", returnStatus);
         map.put("message", message);
@@ -81,9 +80,9 @@ public class S_FavoriteController {
         return map;
     }
 
-    @RequestMapping(value = "/deleteCollection", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteFavorite", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> deleteCollection(
+    public Map<String, Object> deleteFavorite(
             @RequestParam(value = "user_id") String user_id,
             @RequestParam(value = "item_id") String item_id,
             HttpServletRequest req
@@ -100,7 +99,7 @@ public class S_FavoriteController {
         favorite.setUser_id(user_id);
         favorite.setItem_id(item_id);
         try {
-            favoriteService.deleteCollection(favorite);
+            favoriteService.deleteFavorite(favorite);
         } catch (RuntimeException re) {
             returnStatus = false;
         }
@@ -114,9 +113,9 @@ public class S_FavoriteController {
         return map;
     }
 
-    @RequestMapping(value = "/insertCollection", method = RequestMethod.GET)
+    @RequestMapping(value = "/insertFavorite", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> insertCollection(
+    public Map<String, Object> insertFavorite(
             @RequestParam(value = "user_id") String user_id,
             @RequestParam(value = "item_id") String item_id,
             @RequestParam(value = "item_class") String item_class,
@@ -134,9 +133,9 @@ public class S_FavoriteController {
         favorite.setUser_id(user_id);
         favorite.setItem_id(item_id);
         favorite.setItem_class(item_class);
-        favorite.setAdd_time((Timestamp) new Date());
+        favorite.setAdd_time(new Timestamp(System.currentTimeMillis()));
         try {
-            favoriteService.insertCollection(favorite);
+            favoriteService.insertFavorite(favorite);
         } catch (RuntimeException re) {
             returnStatus = false;
         }

@@ -81,10 +81,9 @@ public class S_MaterialController {
 
     @RequestMapping(value = "/findMaterialByPartialName", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> getMaterialByBrand(
+    public Map<String, Object> findMaterialByPartialName(
             @RequestParam(value = "page", required = false) int page,
             @RequestParam(value = "size", required = false) int size,
-            @RequestParam(value = "brand") String brand,
             @RequestParam(value = "name") String name,
             HttpServletRequest req
     ) {
@@ -96,7 +95,7 @@ public class S_MaterialController {
         int error_type = 1;
 
         MaterialService materialService = (MaterialService) applicationContext.getBean("materialService");
-        List<T_Material> materials = materialService.findMaterialByPartialName(name, brand);
+        List<T_Material> materials = materialService.findMaterialByPartialName(name);
 
         map.put("status", returnStatus);
         map.put("message", message);

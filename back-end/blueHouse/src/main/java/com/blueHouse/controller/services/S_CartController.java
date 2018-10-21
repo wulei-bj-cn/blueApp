@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,12 +67,12 @@ public class S_CartController {
         int httpCode = 200;
         int error_type = 1;
 
-        CartService collectionService = (CartService) applicationContext.getBean("collectionService");
+        CartService cartService = (CartService) applicationContext.getBean("cartService");
         Cart collection = new Cart();
         collection.setUser_id(user_id);
         collection.setItem_id(item_id);
         try {
-            collectionService.deleteCart(collection);
+            cartService.deleteCart(collection);
         } catch (RuntimeException re) {
             returnStatus = false;
         }
@@ -102,14 +101,14 @@ public class S_CartController {
         int httpCode = 200;
         int error_type = 1;
 
-        CartService collectionService = (CartService) applicationContext.getBean("collectionService");
+        CartService cartService = (CartService) applicationContext.getBean("cartService");
         Cart collection = new Cart();
         collection.setUser_id(user_id);
         collection.setItem_id(item_id);
         collection.setItem_class(item_class);
-        collection.setAdd_time((Timestamp) new Date());
+        collection.setAdd_time(new Timestamp(System.currentTimeMillis()));
         try {
-            collectionService.insertCart(collection);
+            cartService.insertCart(collection);
         } catch (RuntimeException re) {
             returnStatus = false;
         }

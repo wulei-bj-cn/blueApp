@@ -10,10 +10,10 @@ import java.util.List;
  */
 public interface FavoriteService {
 
-    List<Favorite> findCollectionByUserId(String user_id);
-    List<Favorite> findCollectionByCategory(String category);
-    List<Favorite> findAllCollections();
-    void insertCollection(Favorite cart);
-    void deleteCollection(Favorite cart);
-    void deleteAllCollectionByUser(Favorite cart);
+    List<Favorite> findFavoriteByUserId(String user_id);
+    List<Favorite> findFavoriteByCategory(String category);
+    List<Favorite> findAllFavorites();
+    void insertFavorite(Favorite cart);
+    void deleteFavorite(Favorite cart);
+    void deleteAllFavoriteByUser(Favorite cart);
 }
