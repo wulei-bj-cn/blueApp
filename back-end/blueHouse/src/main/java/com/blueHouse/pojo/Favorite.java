@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 /**
  * Created by wulei on 23/07/2018.
  */
-public class Collection {
+public class Favorite {
     private String user_id;
     private String item_id;
     private String item_class;

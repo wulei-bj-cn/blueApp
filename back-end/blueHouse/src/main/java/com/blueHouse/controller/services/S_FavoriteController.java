@@ -4,8 +4,8 @@ package com.blueHouse.controller.services;
  * Created by wulei on 27/07/2018.
  */
 
-import com.blueHouse.pojo.Collection;
-import com.blueHouse.service.CollectionService;
+import com.blueHouse.pojo.Favorite;
+import com.blueHouse.service.FavoriteService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/collectionService")
-public class S_CollectionController {
+public class S_FavoriteController {
 
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
 
@@ -42,14 +42,14 @@ public class S_CollectionController {
         int httpCode = 200;
         int error_type = 1;
 
-        CollectionService collectionService = (CollectionService) applicationContext.getBean("collectionService");
-        List<Collection> collections = collectionService.findCollectionByUserId(user_id);
+        FavoriteService collectionService = (FavoriteService) applicationContext.getBean("collectionService");
+        List<Favorite> favorites = collectionService.findCollectionByUserId(user_id);
 
         map.put("status", returnStatus);
         map.put("message", message);
         map.put("code", httpCode);
         map.put("error_type", error_type);
-        map.put("data", collections);
+        map.put("data", favorites);
 
         return map;
     }
@@ -69,14 +69,14 @@ public class S_CollectionController {
         int httpCode = 200;
         int error_type = 1;
 
-        CollectionService collectionService = (CollectionService) applicationContext.getBean("collectionService");
-        List<Collection> collections = collectionService.findCollectionByCategory(category);
+        FavoriteService collectionService = (FavoriteService) applicationContext.getBean("collectionService");
+        List<Favorite> favorites = collectionService.findCollectionByCategory(category);
 
         map.put("status", returnStatus);
         map.put("message", message);
         map.put("code", httpCode);
         map.put("error_type", error_type);
-        map.put("data", collections);
+        map.put("data", favorites);
 
         return map;
     }
@@ -95,12 +95,12 @@ public class S_CollectionController {
         int httpCode = 200;
         int error_type = 1;
 
-        CollectionService collectionService = (CollectionService) applicationContext.getBean("collectionService");
-        Collection collection = new Collection();
-        collection.setUser_id(user_id);
-        collection.setItem_id(item_id);
+        FavoriteService collectionService = (FavoriteService) applicationContext.getBean("collectionService");
+        Favorite favorite = new Favorite();
+        favorite.setUser_id(user_id);
+        favorite.setItem_id(item_id);
         try {
-            collectionService.deleteCollection(collection);
+            collectionService.deleteCollection(favorite);
         } catch (RuntimeException re) {
             returnStatus = false;
         }
@@ -129,14 +129,14 @@ public class S_CollectionController {
         int httpCode = 200;
         int error_type = 1;
 
-        CollectionService collectionService = (CollectionService) applicationContext.getBean("collectionService");
-        Collection collection = new Collection();
-        collection.setUser_id(user_id);
-        collection.setItem_id(item_id);
-        collection.setItem_class(item_class);
-        collection.setAdd_time((Timestamp) new Date());
+        FavoriteService collectionService = (FavoriteService) applicationContext.getBean("collectionService");
+        Favorite favorite = new Favorite();
+        favorite.setUser_id(user_id);
+        favorite.setItem_id(item_id);
+        favorite.setItem_class(item_class);
+        favorite.setAdd_time((Timestamp) new Date());
         try {
-            collectionService.insertCollection(collection);
+            collectionService.insertCollection(favorite);
         } catch (RuntimeException re) {
             returnStatus = false;
         }

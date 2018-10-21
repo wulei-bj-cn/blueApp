@@ -45,6 +45,8 @@
     <bean id="materialService" class="com.blueHouse.service.MaterialServiceImpl"/>
     <bean id="measureService" class="com.blueHouse.service.MeasureServiceImpl"/>
     <bean id="orderService" class="com.blueHouse.service.OrderServiceImpl"/>
+    <bean id="orderItemService" class="com.blueHouse.service.OrderItemServiceImpl"/>
     <bean id="projectService" class="com.blueHouse.service.ProjectServiceImpl"/>
+    <bean id="md5Service" class="com.blueHouse.service.MD5ServiceImpl"/>
 
 </beans>

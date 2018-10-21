@@ -7,7 +7,7 @@
     <select id="finaMaterialById" parameterType="String" resultType="com.blueHouse.pojo.browse.T_Material">
         select id,brand,name,url,category,price from t_materials where id = #{id}
     </select>
-    <select id="findMaterialByPartialName" parameterType="String, String" resultType="com.blueHouse.pojo.browse.T_Material">
+    <select id="findMaterialByPartialName" parameterType="String" resultType="com.blueHouse.pojo.browse.T_Material">
         select id,brand,name,url,category,price from t_materials where name LIKE  CONCAT(CONCAT('%',#{name},'%')) or brand LIKE CONCAT(CONCAT('%',#{brand},'%'))
     </select>
     <select id="findMaterialByBrand" parameterType="String" resultType="com.blueHouse.pojo.browse.T_Material">
