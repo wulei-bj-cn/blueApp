@@ -26,7 +26,7 @@ public class T_Design {
     public void setTs(Timestamp ts) { this.ts = ts; }
 
     public String getDesigner() { return this.designer; }
-    public void setDesigner() { this.designer = designer; }
+    public void setDesigner(String designer) { this.designer = designer; }
 
     public String getStatus() { return this.status; }
     public void setStatus(String status) { this.status = status; }
