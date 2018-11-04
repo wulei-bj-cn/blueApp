@@ -11,13 +11,13 @@
         select id, login, name, password, role, status, last_log_on from t_admins
     </select>
     <select id="findAdminByNameOrID" parameterType="string"  resultType="com.blueHouse.pojo.Admin">
-        select id, login, name, password, role, status, last_log_on from t_admins where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
+        select id, login, name, password, role, status, last_log_on from t_admins where name LIKE  CONCAT(CONCAT('%',#{name},'%')) or login LIKE CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <insert id="insertAdmin" parameterType="com.blueHouse.pojo.Admin">
-        insert into t_admins(id, login, name, password, role, status, last_log_on  values(#{id}, #{login}, #{name}, #{password},#{role} ,#{status},#{last_log_on})
+        insert into t_admins(id, login, name, password, role, status, last_log_on)  values(#{id}, #{login}, #{name}, #{password},#{role} ,#{status},#{last_log_on})
     </insert>
     <update id="updateAdmin" parameterType="com.blueHouse.pojo.Admin">
-        update t_admins set password = #{password} where name = #{name}
+        update t_admins set login = #{login} ,name = #{name},password = #{password},role = #{role},status = #{status},last_log_on = #{last_log_on} where id = #{id}
     </update>
     <delete id="deleteAdmin" parameterType="com.blueHouse.pojo.Admin">
         DELETE FROM t_admins where id = #{id}

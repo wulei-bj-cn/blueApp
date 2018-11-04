@@ -98,12 +98,14 @@
             </div>
         </div>
         <div class="card mb-4">
-            <div class="card-header alert-light">
+            <div class="card-header alert-dark">
                 <h4>添加角色</h4>
             </div>
             <div class="card-body">
-                <p>只有超级管理员能够进入该入口，通过该入口添加各种角色，如管理员、设计师等。</p>
-                <button type="button" class="btn btn-lg btn-block btn-outline-light">进入入口</button>
+                <form class="form-inline mt-2 mt-md-0" action="/admin/getAll" method="get">
+                    <p>只有超级管理员能够进入，该入口添加各种角色，如管理员、设计师等。</p>
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-dark">进入入口</button>
+                </form>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@ public interface DesignMapper {
     T_Design findDesignById(String id);
     List<T_Design> findDesignByUseName(String name);
     List<T_Design> findAllDesign();
-    List<T_Design> finaDesignByDesignerName(String name);
+    List<T_Design> findDesignByT_DesignerName(String name);
     void insertDesign(T_Design design);
     void updateDesign(T_Design design);
     void deleteDesign(T_Design design);

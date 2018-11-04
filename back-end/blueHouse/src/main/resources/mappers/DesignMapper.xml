@@ -4,13 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.blueHouse.mapper.DesignMapper">
+    <select id="findAllDesign" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Design">
+        select id,name,url,ts,designer from t_designs
+    </select>
     <select id="findDesignById" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Design">
         select id,name,url,ts,designer from t_designs where id = #{id}
     </select>
     <select id="findDesignByUseName" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Design">
         select id,name,url,ts,designer from t_designs where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
-    <select id="finaDesignByDesignerName" parameterType="string"  resultType="com.blueHouse.pojo.browse.T_Design">
+    <select id="findDesignByT_DesignerName" parameterType="string"  resultType="com.blueHouse.pojo.browse.T_Design">
         select id,name,url,ts,designer from t_designs where designer LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <insert id="insertDesign" parameterType="com.blueHouse.pojo.browse.T_Design">

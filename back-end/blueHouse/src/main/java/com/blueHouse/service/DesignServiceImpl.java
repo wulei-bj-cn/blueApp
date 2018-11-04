@@ -31,8 +31,8 @@ public class DesignServiceImpl implements DesignService{
     }
 
     @Override
-    public List<T_Design> finaDesignByT_DesignerName(String name) {
-        return designMapper.finaDesignByDesignerName(name);
+    public List<T_Design> findDesignByT_DesignerName(String name) {
+        return designMapper.findDesignByT_DesignerName(name);
     }
 
     @Override
