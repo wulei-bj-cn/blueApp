@@ -53,5 +53,6 @@
     <bean id="cartService" class="com.blueHouse.service.CartServiceImpl"/>
     <bean id="favoriteService" class="com.blueHouse.service.FavoriteServiceImpl"/>
     <bean id="solutionService" class="com.blueHouse.service.SolutionServiceImpl"/>
+    <bean id="loginService" class="com.blueHouse.service.LoginServiceImpl"/>
 
 </beans>

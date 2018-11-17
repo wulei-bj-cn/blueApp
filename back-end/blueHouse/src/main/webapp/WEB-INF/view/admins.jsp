@@ -22,10 +22,12 @@
         <header>
             <h1><a href="/console/getAll">蓝房子后台管理中心</a></h1>
             <p class="lead">管理者管理</p>
+            <p><%=session.getAttribute("user")%> : 您好! </p>
         </header>
     </div>
 </section>
 <div class="container">
+    <c:if test="false" >
     <ul class="nav nav-tabs nav-justified" role="tablist">
         <li class="nav-item active">
             <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">
@@ -48,7 +50,7 @@
             </c:if>
             <c:if test="${isSearching == true }">
                 <div class="alert alert-light">
-                    <strong>老板您好!</strong> 根据关键词"${searchKey}"，搜索到<%=request.getAttribute("activitiesCount")%>个管理者，您可以通过将搜索框置空，并点击"搜索"重新获取所有管理者！
+                    <strong>老板您好!</strong> 根据关键词"${searchKey}"，搜索到<%=request.getAttribute("adminsCount")%>个管理者，您可以通过将搜索框置空，并点击"搜索"重新获取所有管理者！
                 </div>
             </c:if>
             <div class="row">
@@ -229,6 +231,12 @@
             </div>
         </div>
     </div>
+    </c:if>
+    <c:if test="true">
+        <div class="alert alert-warning">
+            <p>抱歉！系统中没有搜索到相关管理员！请重新选择搜索条件并继续搜索！</p>
+        </div>
+    </c:if>
 </div>
 </body>
 </html>

@@ -13,6 +13,9 @@
     <select id="findAdminByNameOrID" parameterType="string"  resultType="com.blueHouse.pojo.Admin">
         select id, login, name, password, role, status, last_log_on from t_admins where name LIKE  CONCAT(CONCAT('%',#{name},'%')) or login LIKE CONCAT(CONCAT('%',#{name},'%'))
     </select>
+    <select id="findAdminByLoginUser" parameterType="string"  resultType="com.blueHouse.pojo.Admin">
+        select id, login, name, password, role, status, last_log_on from t_admins where login = #{user}
+    </select>
     <insert id="insertAdmin" parameterType="com.blueHouse.pojo.Admin">
         insert into t_admins(id, login, name, password, role, status, last_log_on)  values(#{id}, #{login}, #{name}, #{password},#{role} ,#{status},#{last_log_on})
     </insert>

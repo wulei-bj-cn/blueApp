@@ -15,4 +15,5 @@ public interface MeasureService {
     void insertMeasure(T_Measure measure);
     void updateMeasure(T_Measure measure);
     void deleteMeasure(T_Measure measure);
+
 }

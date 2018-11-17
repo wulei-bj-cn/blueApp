@@ -11,6 +11,7 @@ public interface AdminMapper {
     Admin findAdminById(String id);
     List<Admin> findAllAdmin();
     List<Admin> findAdminByNameOrID(String name);
+    Admin findAdminByLoginUser(String user);
     void insertAdmin(Admin admin);
     void updateAdmin(Admin admin);
 }

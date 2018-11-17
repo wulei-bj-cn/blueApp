@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blueHouse.mapper.LoginMapper">
+    <select id="getLoginPermissions" parameterType="string" resultType="string">
+      select permissions from t_roles where id in (select role from t_admins where login = #{user} group by login);
+    </select>
+</mapper>

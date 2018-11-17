@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>欢迎进入蓝房子-用户管理</title>
+    <title>欢迎进入蓝房子-总控制台</title>
     <link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/popper.min.js"></script>
@@ -22,6 +22,7 @@
         <header>
             <h1><a href="/console/getAll">蓝房子后台管理中心</a></h1>
             <p class="lead">总控制台</p>
+            <p><%=session.getAttribute("user")%> : 您好! </p>
         </header>
     </div>
 </section>

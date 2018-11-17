@@ -21,6 +21,7 @@
         <header>
             <h1><a href="/console/getAll">蓝房子后台管理中心</a></h1>
             <p class="lead">施工管理</p>
+            <p><%=session.getAttribute("user")%> : 您好! </p>
         </header>
     </div>
 </section>
