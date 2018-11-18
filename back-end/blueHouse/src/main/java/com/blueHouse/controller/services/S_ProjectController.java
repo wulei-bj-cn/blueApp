@@ -5,7 +5,9 @@ package com.blueHouse.controller.services;
  */
 
 import com.blueHouse.pojo.browse.T_Project;
+import com.blueHouse.pojo.orders.Order;
 import com.blueHouse.pojo.orders.OrderItem;
+import com.blueHouse.service.OrderService;
 import com.blueHouse.service.ProjectService;
 import com.blueHouse.service.MD5Service;
 import com.blueHouse.service.OrderItemService;
@@ -29,6 +31,7 @@ public class S_ProjectController {
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
 
     ProjectService projectService = (ProjectService) applicationContext.getBean("projectService");
+    OrderService orderService = (OrderService) applicationContext.getBean("orderService");
     OrderItemService orderItemService = (OrderItemService) applicationContext.getBean("orderItemService");
     MD5Service md5Service = (MD5Service) applicationContext.getBean("md5Service");
 
@@ -92,7 +95,12 @@ public class S_ProjectController {
         try {
             //更新Project表，向Project表中插入相关记录。
             projectService.insertProject(t_project);
-            //走到这一步的时候，不需要新建订单了，因为订单在预约测量环节中已经创建了。
+            //已经走到施工工程这一阶段，需要更新订单状态到7 。
+            Order order = new Order();
+            order.setId(order_id);
+            order.setUser_id(user_id);
+            order.setStatus("7");
+            orderService.updateOrderStatus(order);
             //根据订单id和project id，将该测量项加入order item表
             orderItemService.insertOrderItem(orderItem);
         } catch (RuntimeException re) {

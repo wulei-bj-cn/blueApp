@@ -5,10 +5,12 @@ package com.blueHouse.controller.services;
  */
 
 import com.blueHouse.pojo.browse.T_Contract;
+import com.blueHouse.pojo.orders.Order;
 import com.blueHouse.pojo.orders.OrderItem;
 import com.blueHouse.service.ContractService;
 import com.blueHouse.service.MD5Service;
 import com.blueHouse.service.OrderItemService;
+import com.blueHouse.service.OrderService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,7 @@ public class S_ContractController {
 
     ContractService contractService = (ContractService) applicationContext.getBean("contractService");
     OrderItemService orderItemService = (OrderItemService) applicationContext.getBean("orderItemService");
+    OrderService orderService = (OrderService) applicationContext.getBean("orderService");
     MD5Service md5Service = (MD5Service) applicationContext.getBean("md5Service");
 
     @RequestMapping(value = "/findContractById", method = RequestMethod.GET)
@@ -92,7 +95,12 @@ public class S_ContractController {
         try {
             //更新Contract表，向Contract表中插入相关记录。
             contractService.insertContract(t_contract);
-            //走到这一步的时候，不需要新建订单了，因为订单在预约测量环节中已经创建了。
+            //设计合同、施工合同已经签订了，需要更新订单状态到3，这里需要细化，区分设计合同和施工合同。
+            Order order = new Order();
+            order.setId(order_id);
+            order.setUser_id(user_id);
+            order.setStatus("3");
+            orderService.updateOrderStatus(order);
             //根据订单id和测量id，将该测量项加入order item表
             orderItemService.insertOrderItem(orderItem);
         } catch (RuntimeException re) {

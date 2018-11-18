@@ -79,6 +79,9 @@ public class S_MeasureController {
             measureService.insertMeasure(t_measure);
             //由于预约测量是整个订单流程的第一环节，所以需要创建订单
             orderService.insertOrder(order);
+            //预约测量是订单的第一步，插入订单项后，需要更新订单的状态到0 。
+            order.setStatus("0");
+            orderService.updateOrderStatus(order);
             //根据订单id和测量id，将该测量项加入order item表
             orderItemService.insertOrderItem(orderItem);
         } catch (RuntimeException re) {
