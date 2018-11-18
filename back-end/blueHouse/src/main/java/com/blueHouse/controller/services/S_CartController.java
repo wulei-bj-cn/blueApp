@@ -29,8 +29,6 @@ public class S_CartController {
     @RequestMapping(value = "/findCartByUserId", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getCartByCategory(
-            @RequestParam(value = "page", required = false) int page,
-            @RequestParam(value = "size", required = false) int size,
             @RequestParam(value = "user_id") String user_id,
             HttpServletRequest req
     ) {

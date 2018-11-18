@@ -2,6 +2,7 @@ package com.blueHouse.service;
 
 import com.blueHouse.mapper.OrderMapper;
 import com.blueHouse.pojo.orders.Order;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -39,4 +40,7 @@ public class OrderServiceImpl implements  OrderService{
     public void updateOrder(Order order) {
         orderMapper.updateOrder(order);
     }
+
+    @Override
+    public void updateOrderStatus(Order order) { orderMapper.updateOrderStatus(order); }
 }

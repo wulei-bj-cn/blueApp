@@ -13,4 +13,5 @@ public interface OrderMapper {
     List<Order> findOrderByUserName(String name);
     void insertOrder(Order order);
     void updateOrder(Order order);
+    void updateOrderStatus(Order order);
 }
