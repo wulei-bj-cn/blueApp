@@ -1,6 +1,7 @@
 package com.blueHouse.controller;
 
 import com.blueHouse.pojo.browse.T_Material;
+import com.blueHouse.service.LoginService;
 import com.blueHouse.service.MaterialService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -21,13 +23,30 @@ public class MaterialController {
     @Resource
     private MaterialService materialService;
 
+    @Resource
+    private LoginService loginService;
+
+    private int PAGEPERMISSIONCODE = 6;
+
     @RequestMapping(value="/getAll",method = RequestMethod.GET)
-    public String getAllMaterial(ModelMap modelMap){
-        List<T_Material> materials = materialService.findAllMaterials();
-        modelMap.put("materials",materials);
-        modelMap.put("materialsCount",materials.size());
-        modelMap.put("isSearching",false);
-        return "materials";
+    public String getAllMaterial(HttpServletRequest req ,ModelMap modelMap){
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")){
+            if(loginService.permissionCheck(user,PAGEPERMISSIONCODE)){
+                modelMap.put("permissionCode", true);
+            }else{
+                modelMap.put("permissionCode", false);
+            }
+            List<T_Material> materials = materialService.findAllMaterials();
+            modelMap.put("materials",materials);
+            modelMap.put("materialsCount",materials.size());
+            modelMap.put("isSearching",false);
+            return "materials";
+        }else{
+            return "redirect: /login/logins";
+        }
     }
 
     @RequestMapping(value="/searchMaterials",method = RequestMethod.GET)

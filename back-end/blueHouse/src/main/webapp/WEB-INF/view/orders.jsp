@@ -26,11 +26,12 @@
         <header>
             <h1><a href="/console/getAll">蓝房子后台管理中心</a></h1>
             <p class="lead">订单管理</p>
-            <p><%=session.getAttribute("user")%> : 您好! </p>
+            <p><%=session.getAttribute("username")%> : 您好! </p>
         </header>
     </div>
 </section>
 <div class="container">
+    <c:if test="${permissionCode == true}" >
     <div class="navbar col-md-12 bg-dark">
         <form class="form-inline my-2 my-lg-0 float-right">
             <input class="form-control mr-sm-2" type="text" placeholder="订单号/用户名" aria-label="Search">
@@ -679,6 +680,12 @@
             </div>
         </c:forEach>
     </div>
+    </c:if>
+    <c:if test="${permissionCode == false }">
+        <div class="alert alert-warning">
+            <p>抱歉！你没有此模块的登录权限,请联系管理员添加!</p>
+        </div>
+    </c:if>
 </div>
 
 </body>

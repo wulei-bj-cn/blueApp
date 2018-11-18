@@ -2,6 +2,7 @@ package com.blueHouse.controller;
 
 import com.blueHouse.pojo.browse.T_Design;
 import com.blueHouse.service.DesignService;
+import com.blueHouse.service.LoginService;
 import com.blueHouse.utils.TimeStampUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -23,13 +25,30 @@ public class DesignController  {
     @Resource
     private DesignService designService;
 
+    @Resource
+    private LoginService loginService;
+
+    private int PAGEPERMISSIONCODE = 5;
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public String getAllDesigns(ModelMap modelMap){
-        List<T_Design> designs = designService.findAllDesign();
-        modelMap.put("designs", designs);
-        modelMap.put("designsCount", designs.size());
-        modelMap.put("isSearching", false);
-        return "designs";
+    public String getAllDesigns(HttpServletRequest req,ModelMap modelMap){
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")){
+            if(loginService.permissionCheck(user,PAGEPERMISSIONCODE)){
+                modelMap.put("permissionCode", true);
+            }else{
+                modelMap.put("permissionCode", false);
+            }
+            List<T_Design> designs = designService.findAllDesign();
+            modelMap.put("designs", designs);
+            modelMap.put("designsCount", designs.size());
+            modelMap.put("isSearching", false);
+            return "designs";
+        }else{
+            return "redirect: /login/logins";
+        }
     }
 
     @RequestMapping(value = "/searchDesigns" , method = RequestMethod.GET)

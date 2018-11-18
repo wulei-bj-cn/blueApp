@@ -2,6 +2,7 @@ package com.blueHouse.controller;
 
 import com.blueHouse.pojo.browse.T_Activity;
 import com.blueHouse.service.ActivityService;
+import com.blueHouse.service.LoginService;
 import com.blueHouse.utils.TimeStampUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -26,13 +28,30 @@ public class ActivityController {
     @Resource
     private ActivityService activityService;
 
+    @Resource
+    private LoginService loginService;
+
+    private int PAGEPERMISSIONCODE = 3;
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public String getAllActivities(ModelMap modelMap){
-        List<T_Activity> activities = activityService.findAllActivity();
-        modelMap.put("activities", activities);
-        modelMap.put("activitiesCount", activities.size());
-        modelMap.put("isSearching", false);
-        return "activities";
+    public String getAllActivities(HttpServletRequest req, ModelMap modelMap){
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")){
+            if(loginService.permissionCheck(user,PAGEPERMISSIONCODE)){
+                modelMap.put("permissionCode", true);
+            }else{
+                modelMap.put("permissionCode", false);
+            }
+            List<T_Activity> activities = activityService.findAllActivity();
+            modelMap.put("activities", activities);
+            modelMap.put("activitiesCount", activities.size());
+            modelMap.put("isSearching", false);
+            return "activities";
+        }else{
+            return "redirect: /login/logins";
+        }
     }
 
     @RequestMapping(value = "/searchActivities" , method = RequestMethod.GET)

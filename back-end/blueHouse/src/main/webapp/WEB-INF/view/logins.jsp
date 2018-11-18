@@ -20,7 +20,7 @@
 <section class="jumbotron alert-info">
     <div class="container">
         <header>
-            <h1><a href="/login">蓝房子后台管理中心</a></h1>
+            <h1><a href="/login/logins">蓝房子后台管理中心</a></h1>
             <p class="lead">登录</p>
         </header>
     </div>
@@ -33,12 +33,12 @@
                 <h4>请登录</h4>
             </div>
             <div class="card-body">
-                <form class="form-inline mt-2 mt-md-0" action="/login/signin" method="get">
+                <form class="form-inline mt-2 mt-md-0" action="/login/signin" method="post">
                     <div class="col-md-6">
-                        账号: <input id="user" name="user" type="text" value="请输入账号">
+                        账号: <input id="user" name="user" type="text" placeholder="请输入账号" value="">
                     </div>
                     <div class="col-md-6">
-                        密码: <input id="password" name="password" type="text" value="请输入密码">
+                        密码: <input id="password" name="password" type="password"  placeholder="请输入密码" value="">
                     </div>
                     <button type="submit" class="btn btn-lg btn-block btn-outline-success">登录</button>
                 </form>
@@ -64,12 +64,28 @@
         <div class="card-deck mb-4">
             <div class="card mb-3">
                 <div class="card-header alert-error">
-                    <h4>登录成功,欢迎:${user}</h4>
+                    <h4>登录成功,欢迎:${username}</h4>
+                    <form class="form-inline mt-2 mt-md-0" action="/console/getAll" method="get">
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-success">进入控制台</button>
+                    </form>
                 </div>
             </div>
         </div>
     </c:if>
-
+    <c:if test="${loginStatus == '-2' }">
+        <div class="card-deck mb-4">
+            <div class="card mb-3">
+                <div class="card-header alert-sucess">
+                    <h4>注销成功,再见:${username}</h4>
+                </div>
+                <div class="card-body">
+                    <form class="form-inline mt-2 mt-md-0" action="/login/logins" method="get">
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-success">返回登录</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </c:if>
 
 </div>
 </body>

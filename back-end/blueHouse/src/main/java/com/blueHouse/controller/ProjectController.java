@@ -1,6 +1,7 @@
 package com.blueHouse.controller;
 
 import com.blueHouse.pojo.browse.T_Project;
+import com.blueHouse.service.LoginService;
 import com.blueHouse.service.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -23,14 +25,31 @@ public class ProjectController {
     @Resource
     private ProjectService projectService;
 
-    @RequestMapping(value = "/getAll"  , method = RequestMethod.GET)
-    public String getAllProjects(ModelMap modelMap) {
-        List<T_Project> projects = projectService.findAllProjects();
-        modelMap.put("projects", projects);
-        modelMap.put("projectsCount", projects.size());
-        modelMap.put("isSearching", false);
+    @Resource
+    private LoginService loginService;
 
-        return "projects";
+    private int PAGEPERMISSIONCODE = 4;
+
+    @RequestMapping(value = "/getAll"  , method = RequestMethod.GET)
+    public String getAllProjects(HttpServletRequest req,ModelMap modelMap) {
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")){
+            if(loginService.permissionCheck(user,PAGEPERMISSIONCODE)){
+                modelMap.put("permissionCode", true);
+            }else{
+                modelMap.put("permissionCode", false);
+            }
+            List<T_Project> projects = projectService.findAllProjects();
+            modelMap.put("projects", projects);
+            modelMap.put("projectsCount", projects.size());
+            modelMap.put("isSearching", false);
+
+            return "projects";
+        }else{
+            return "redirect: /login/logins";
+        }
     }
 
     @RequestMapping(value = "/searchProjects" , method = RequestMethod.GET)

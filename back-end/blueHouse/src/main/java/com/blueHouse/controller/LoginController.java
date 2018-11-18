@@ -25,17 +25,17 @@ public class LoginController {
     public String login(HttpServletRequest req,ModelMap modelMap) {
         HttpSession session = req.getSession();
         String loginStatus = (String) session.getAttribute("loginStatus");
-        if(loginStatus!= null && loginStatus.equals("1")){
-            String user = (String) req.getAttribute("user");
+        if(loginStatus != null && loginStatus.equals("1")){
+            String username = (String) req.getAttribute("username");
             modelMap.put("loginStatus","1");
-            modelMap.put("user",user);
+            modelMap.put("username",username);
         }else{
             modelMap.put("loginStatus","-1");
         }
         return "logins";
     }
 
-    @RequestMapping(value = "/signin", method = RequestMethod.GET)
+    @RequestMapping(value = "/signin", method = RequestMethod.POST)
     public String signIn(HttpServletRequest req, ModelMap modelMap) {
         String user = req.getParameter("user");
         String password = req.getParameter("password");
@@ -50,7 +50,20 @@ public class LoginController {
             modelMap.put("loginStatus","1");
             session.setAttribute("user",user);
             session.setAttribute("loginStatus","1");
+            String username = loginService.getNameByUser(user);
+            session.setAttribute("username",username);
+            modelMap.put("username",username);
             return "console";
         }
+    }
+
+    @RequestMapping(value = "/signout", method = RequestMethod.GET)
+    public String signOut(HttpServletRequest req, ModelMap modelMap) {
+        HttpSession session = req.getSession();
+        String username = (String) session.getAttribute("username");
+        modelMap.put("username", username);
+        modelMap.put("loginStatus", "-2");
+        session.setAttribute("loginStatus", "0");
+        return "logins";
     }
 }

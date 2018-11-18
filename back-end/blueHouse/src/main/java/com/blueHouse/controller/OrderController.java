@@ -5,6 +5,7 @@ package com.blueHouse.controller;
  */
 
 import com.blueHouse.pojo.orders.*;
+import com.blueHouse.service.LoginService;
 import com.blueHouse.service.OMService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,28 +29,45 @@ public class OrderController {
     @Resource
     private OMService omService;
 
+    @Resource
+    private LoginService loginService;
+
+    private int PAGEPERMISSIONCODE = 2;
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public String getAllOrders(ModelMap modelMap) {
+    public String getAllOrders(HttpServletRequest req,ModelMap modelMap) {
         System.out.println("======Hey, SOB, I'm in /order/getAll ======");
-        List<Order> orders = omService.findAllOrders();
-        List<OrderItems> orderItems = new ArrayList();
-        if (orders != null) {
-            for (Order order: orders) {
-                String user_id = order.getUser_id();
-                String order_id = order.getId();
-                List<Measure> measures = omService.findMeasure(user_id, order_id);
-                List<Contract> contracts = omService.findContract(user_id, order_id);
-                List<Design> designs = omService.findDesign(user_id, order_id);
-                List<Disclaim> disclaims = omService.findDisclaim(user_id, order_id);
-                List<Project> projects = omService.findProject(user_id, order_id);
-                orderItems.add(
-                        new OrderItems(user_id, order_id, measures, contracts, designs, disclaims, projects));
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")){
+            if(loginService.permissionCheck(user,PAGEPERMISSIONCODE)){
+                modelMap.put("permissionCode", true);
+            }else{
+                modelMap.put("permissionCode", false);
             }
+            List<Order> orders = omService.findAllOrders();
+            List<OrderItems> orderItems = new ArrayList();
+            if (orders != null) {
+                for (Order order: orders) {
+                    String user_id = order.getUser_id();
+                    String order_id = order.getId();
+                    List<Measure> measures = omService.findMeasure(user_id, order_id);
+                    List<Contract> contracts = omService.findContract(user_id, order_id);
+                    List<Design> designs = omService.findDesign(user_id, order_id);
+                    List<Disclaim> disclaims = omService.findDisclaim(user_id, order_id);
+                    List<Project> projects = omService.findProject(user_id, order_id);
+                    orderItems.add(
+                            new OrderItems(user_id, order_id, measures, contracts, designs, disclaims, projects));
+                }
+            }
+            modelMap.put("orderItems", orderItems);
+            modelMap.put("ordersCount", orders.size());
+            modelMap.put("isSearching", false);
+            return "orders";
+        }else{
+            return "redirect: /login/logins";
         }
-        modelMap.put("orderItems", orderItems);
-        modelMap.put("ordersCount", orders.size());
-        modelMap.put("isSearching", false);
-        return "orders";
     }
 
     @RequestMapping(value = "/uploadMeasure")

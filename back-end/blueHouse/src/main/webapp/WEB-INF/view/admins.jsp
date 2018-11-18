@@ -22,12 +22,12 @@
         <header>
             <h1><a href="/console/getAll">蓝房子后台管理中心</a></h1>
             <p class="lead">管理者管理</p>
-            <p><%=session.getAttribute("user")%> : 您好! </p>
+            <p><%=session.getAttribute("username")%> : 您好! </p>
         </header>
     </div>
 </section>
 <div class="container">
-    <c:if test="false" >
+    <c:if test="${permissionCode == true}" >
     <ul class="nav nav-tabs nav-justified" role="tablist">
         <li class="nav-item active">
             <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">
@@ -232,9 +232,9 @@
         </div>
     </div>
     </c:if>
-    <c:if test="true">
+    <c:if test="${permissionCode == false }">
         <div class="alert alert-warning">
-            <p>抱歉！系统中没有搜索到相关管理员！请重新选择搜索条件并继续搜索！</p>
+            <p>抱歉！你没有此模块的登录权限,请联系管理员添加!</p>
         </div>
     </c:if>
 </div>

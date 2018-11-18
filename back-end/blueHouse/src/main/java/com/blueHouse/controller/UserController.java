@@ -7,10 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.blueHouse.pojo.Access;
 import com.blueHouse.pojo.User;
 import com.blueHouse.service.AccessService;
+import com.blueHouse.service.LoginService;
 import com.blueHouse.service.UserService;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,17 +29,34 @@ public class UserController {
     @Resource
     private AccessService accessService;
 
+    @Resource
+    private LoginService loginService;
+
+    private int PAGEPERMISSIONCODE = 1;
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public String getAllUsers(ModelMap modelMap) {
+    public String getAllUsers(HttpServletRequest req,ModelMap modelMap) {
         System.out.println("======Hey, SOB, I'm in /user/getAll ======");
-        List<User> users = userService.findAllUsers();
-        List<Access> accesses = accessService.findAllAccesss();
-        modelMap.put("users", users);
-        modelMap.put("access", accesses);
-        modelMap.put("usersCount", users.size());
-        modelMap.put("accessCount", accesses.size());
-        modelMap.put("isSearching", false);
-        return "users";
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")){
+            if(loginService.permissionCheck(user,PAGEPERMISSIONCODE)){
+                modelMap.put("permissionCode", true);
+            }else{
+                modelMap.put("permissionCode", false);
+            }
+            List<User> users = userService.findAllUsers();
+            List<Access> accesses = accessService.findAllAccesss();
+            modelMap.put("users", users);
+            modelMap.put("access", accesses);
+            modelMap.put("usersCount", users.size());
+            modelMap.put("accessCount", accesses.size());
+            modelMap.put("isSearching", false);
+            return "users";
+        }else{
+            return "redirect: /login/logins";
+        }
     }
 
     @RequestMapping(value = "/searchUsers", method = RequestMethod.GET)

@@ -2,6 +2,7 @@ package com.blueHouse.controller;
 
 import com.blueHouse.pojo.Admin;
 import com.blueHouse.service.AdminService;
+import com.blueHouse.service.LoginService;
 import com.blueHouse.utils.TimeStampUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -23,13 +25,30 @@ public class AdminController {
     @Resource
     private AdminService adminService;
 
+    @Resource
+    private LoginService loginService;
+
+    private int PAGEPERMISSIONCODE = 7;
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public String getAllAdmins(ModelMap modelMap){
-        List<Admin> admins = adminService.findAllAdmin();
-        modelMap.put("admins", admins);
-        modelMap.put("adminsCount", admins.size());
-        modelMap.put("isSearching", false);
-        return "admins";
+    public String getAllAdmins(HttpServletRequest req,ModelMap modelMap){
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")){
+            if(loginService.permissionCheck(user,PAGEPERMISSIONCODE)){
+                modelMap.put("permissionCode", true);
+            }else{
+                modelMap.put("permissionCode", false);
+            }
+            List<Admin> admins = adminService.findAllAdmin();
+            modelMap.put("admins", admins);
+            modelMap.put("adminsCount", admins.size());
+            modelMap.put("isSearching", false);
+            return "admins";
+        }else{
+            return "redirect: /login/logins";
+        }
     }
 
     @RequestMapping(value = "/searchAdmins" , method = RequestMethod.GET)
