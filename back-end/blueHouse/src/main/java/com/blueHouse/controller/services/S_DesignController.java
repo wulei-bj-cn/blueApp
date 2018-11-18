@@ -35,8 +35,6 @@ public class S_DesignController {
     @RequestMapping(value = "/findDesignById", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> findDesignById(
-            @RequestParam(value = "page", required = false) int page,
-            @RequestParam(value = "size", required = false) int size,
             @RequestParam(value = "design_id") String design_id,
             HttpServletRequest req
     ) {

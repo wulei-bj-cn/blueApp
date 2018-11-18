@@ -29,8 +29,6 @@ public class S_FavoriteController {
     @RequestMapping(value = "/findFavoriteByUserId", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getFavoriteByUserId(
-            @RequestParam(value = "page", required = false) int page,
-            @RequestParam(value = "size", required = false) int size,
             @RequestParam(value = "user_id") String user_id,
             HttpServletRequest req
     ) {

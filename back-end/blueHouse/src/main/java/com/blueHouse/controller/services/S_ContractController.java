@@ -35,8 +35,6 @@ public class S_ContractController {
     @RequestMapping(value = "/findContractById", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getContractByCategory(
-            @RequestParam(value = "page", required = false) int page,
-            @RequestParam(value = "size", required = false) int size,
             @RequestParam(value = "contract_id") String contract_id,
             HttpServletRequest req
     ) {

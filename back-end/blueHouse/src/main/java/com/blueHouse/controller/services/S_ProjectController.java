@@ -35,8 +35,6 @@ public class S_ProjectController {
     @RequestMapping(value = "/findProjectById", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> findProjectById(
-            @RequestParam(value = "page", required = false) int page,
-            @RequestParam(value = "size", required = false) int size,
             @RequestParam(value = "project_id") String project_id,
             HttpServletRequest req
     ) {

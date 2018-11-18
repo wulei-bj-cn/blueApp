@@ -35,8 +35,6 @@ public class S_DisclaimController {
     @RequestMapping(value = "/findDisclaimById", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> findDisclaimById(
-            @RequestParam(value = "page", required = false) int page,
-            @RequestParam(value = "size", required = false) int size,
             @RequestParam(value = "disclaim_id") String disclaim_id,
             HttpServletRequest req
     ) {
