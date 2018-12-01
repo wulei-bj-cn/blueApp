@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -72,16 +75,35 @@ public class OrderController {
     @RequestMapping(value = "/uploadMeasure")
     public String uploadMeasureFile(@RequestParam("measure_file") MultipartFile measureFile, HttpServletRequest request) {
         System.out.println("======Hey, SOB, I'm in /order/uploadMeasure ======");
-        String filename = "YPP-007.jpg";
-        String targetPath = request.getContextPath() + "/resources/img/measures/" + filename;
-        File file = new File("/Users/wulei/" + targetPath);
-        System.out.println("=======Uploading MEASURE file=======");
-        try {
-            measureFile.transferTo(file);
-        } catch (IOException ex) {
-            System.out.println("IO exception detected when uploading Blue House MEASURE files!");
+        CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());
+
+        if(multipartResolver.isMultipart(request))
+        {
+            //将request变成多部分request
+            MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;
+            //获取multiRequest 中所有的文件名
+            Iterator iter=multiRequest.getFileNames();
+
+            while(iter.hasNext())
+            {
+                //一次遍历所有文件
+                MultipartFile file=multiRequest.getFile(iter.next().toString());
+                if(file!=null)
+                {
+                    String targetPath = request.getContextPath() + "/resources/img/measures/" + file.getOriginalFilename();
+                    System.out.println("==========Target file path:" + targetPath);
+                    File targetFile = new File(targetPath);
+                    //上传
+                    try {
+                        file.transferTo(targetFile);
+                    } catch (IOException ex) {
+                        System.out.println("IO exception detected when uploading Blue House MEASURE files!");
+                    }
+                }
+
+            }
+
         }
-        System.out.println("=======DONE Uploading MEASURE file=======");
 
         return "orders";
     }
