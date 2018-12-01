@@ -36,7 +36,6 @@ public class OrderController {
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public String getAllOrders(HttpServletRequest req,ModelMap modelMap) {
-        System.out.println("======Hey, SOB, I'm in /order/getAll ======");
         HttpSession session = req.getSession();
         String user = (String) session.getAttribute("user");
         String loginStatus = (String) session.getAttribute("loginStatus");
@@ -75,7 +74,7 @@ public class OrderController {
         System.out.println("======Hey, SOB, I'm in /order/uploadMeasure ======");
         String filename = "YPP-007.jpg";
         String targetPath = request.getContextPath() + "/resources/img/measures/" + filename;
-        File file = new File("/Users/wulei/" + filename);
+        File file = new File("/Users/wulei/" + targetPath);
         System.out.println("=======Uploading MEASURE file=======");
         try {
             measureFile.transferTo(file);
