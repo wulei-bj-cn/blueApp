@@ -129,7 +129,7 @@
                             <div class="tab-content">
                                 <div id="panel1_${orderItem.order_id}" class="container tab-pane active"><br>
                                     <c:choose>
-                                        <c:when test="${measure == null}">
+                                        <c:when test="${measure == null || measure.url == null}">
                                             <p>目前还没有对预约测量进行管理，点击<span class="badge badge-primary">新建预约测量</span>添加测量记录。</p>
                                             <br>
                                             <div class="col-md-3">
@@ -147,13 +147,13 @@
                                                                 <div class="form-group">
                                                                     <label for="measure_name">名称</label>
                                                                     &nbsp;
-                                                                    <input type="text" class="form-control" id="measure_name" placeholder="请输入名称">
+                                                                    <input type="text" class="form-control" id="measure_name" name="measure_name" placeholder="请输入名称">
                                                                 </div>
                                                                 <br>
                                                                 <div class="form-group">
                                                                     <label for="measure_address">地址</label>
                                                                     &nbsp;
-                                                                    <input type="text" class="form-control" id="measure_address" placeholder="请输入地址">
+                                                                    <input type="text" class="form-control" id="measure_address" name="measure_address" placeholder="请输入地址">
                                                                 </div>
                                                                 <br>
                                                                 <div class="form-group">

@@ -113,6 +113,7 @@ public class OrderController {
                     try {
                         file.transferTo(targetFile);
                         String measure_id = request.getParameter("measure_id");
+                        System.out.println("==========Measure ID:" + measure_id);
                         T_Measure t_measure = measureService.findMeasureById(measure_id);
                         t_measure.setUrl(targetPath);
                         measureService.updateMeasure(t_measure);
