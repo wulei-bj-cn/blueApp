@@ -4,6 +4,7 @@ import com.blueHouse.mapper.UserMapper;
 import com.blueHouse.pojo.User;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
@@ -17,6 +18,9 @@ import java.util.Properties;
  */
 public class TestProperty {
 
+    @Value("#{propertyConfigurer.img_address}")
+    private String img_address;
+
     @Test
     public void testProperty() throws Exception {
         Properties prop = null;
@@ -27,6 +31,12 @@ public class TestProperty {
             e.printStackTrace();
         }
         String img_address = prop.getProperty("img_address");
+        System.out.println(img_address);
+    }
+
+    @Test
+    public void testProperty2() throws Exception {
+
         System.out.println(img_address);
     }
 

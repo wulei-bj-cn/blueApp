@@ -35,6 +35,13 @@
         <property name="defaultEncoding" value="UTF-8"></property>
     </bean>
 
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <value>classpath:conf/blueHouse.properties</value>
+        </property>
+    </bean>
+
     <bean id="userService" class="com.blueHouse.service.UserServiceImpl"/>
     <bean id="accessService" class="com.blueHouse.service.AccessServiceImpl"/>
     <bean id="omService" class="com.blueHouse.service.OMServiceImpl"/>
