@@ -7,6 +7,7 @@ package com.blueHouse.controller;
 import com.blueHouse.pojo.orders.*;
 import com.blueHouse.service.LoginService;
 import com.blueHouse.service.OMService;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +20,11 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 @Controller
 @RequestMapping("/order")
@@ -74,8 +75,15 @@ public class OrderController {
 
     @RequestMapping(value = "/uploadMeasure", method = RequestMethod.POST)
     public String uploadMeasureFile(@RequestParam("measure_file") MultipartFile measureFile, HttpServletRequest request) {
-        System.out.println("======Hey, SOB, I'm in /order/uploadMeasure ======");
         CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());
+
+        Properties prop = null;
+        try {
+            prop = PropertiesLoaderUtils.loadAllProperties("conf/blueHouse.properties");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String img_address = prop.getProperty("img_address");
 
         if(multipartResolver.isMultipart(request))
         {
@@ -90,8 +98,7 @@ public class OrderController {
                 MultipartFile file=multiRequest.getFile(iter.next().toString());
                 if(file!=null)
                 {
-                    String contextPath = request.getSession().getServletContext().getRealPath("/");
-                    String targetPath = contextPath + "resources/img/measures/" + file.getOriginalFilename();
+                    String targetPath = img_address + "measures/" + file.getOriginalFilename();
                     System.out.println("==========Target file path:" + targetPath);
                     File targetFile = new File(targetPath);
                     //上传
