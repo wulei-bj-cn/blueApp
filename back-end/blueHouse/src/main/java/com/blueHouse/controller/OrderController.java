@@ -4,9 +4,13 @@ package com.blueHouse.controller;
  * Created by wulei on 27/07/2018.
  */
 
+import com.blueHouse.pojo.browse.T_Measure;
 import com.blueHouse.pojo.orders.*;
 import com.blueHouse.service.LoginService;
+import com.blueHouse.service.MeasureService;
 import com.blueHouse.service.OMService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,6 +33,10 @@ import java.util.Properties;
 @Controller
 @RequestMapping("/order")
 public class OrderController {
+
+    ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
+
+    MeasureService measureService = (MeasureService) applicationContext.getBean("measureService");
 
     @Resource
     private OMService omService;
@@ -104,6 +112,10 @@ public class OrderController {
                     //上传
                     try {
                         file.transferTo(targetFile);
+                        String measure_id = request.getParameter("measure_id");
+                        T_Measure t_measure = measureService.findMeasureById(measure_id);
+                        t_measure.setUrl(targetPath);
+                        measureService.updateMeasure(t_measure);
                     } catch (IOException ex) {
                         System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.getMessage());
                         System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.toString());
