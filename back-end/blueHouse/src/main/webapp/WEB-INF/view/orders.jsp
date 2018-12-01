@@ -165,7 +165,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-outline-primary" data-dismiss="modal">确定</button>
+                                                                <button type="submit" class="btn btn-outline-primary">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>

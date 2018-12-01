@@ -91,14 +91,15 @@ public class OrderController {
                 if(file!=null)
                 {
                     String contextPath = request.getSession().getServletContext().getRealPath("/");
-                    String targetPath = contextPath + "/resources/img/measures/" + file.getOriginalFilename();
+                    String targetPath = contextPath + "resources/img/measures/" + file.getOriginalFilename();
                     System.out.println("==========Target file path:" + targetPath);
                     File targetFile = new File(targetPath);
                     //上传
                     try {
                         file.transferTo(targetFile);
                     } catch (IOException ex) {
-                        System.out.println("IO exception detected when uploading Blue House MEASURE files!");
+                        System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.getMessage());
+                        System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.toString());
                     }
                 }
 
