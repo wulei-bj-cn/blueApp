@@ -72,7 +72,7 @@ public class OrderController {
         }
     }
 
-    @RequestMapping(value = "/uploadMeasure")
+    @RequestMapping(value = "/uploadMeasure", method = RequestMethod.POST)
     public String uploadMeasureFile(@RequestParam("measure_file") MultipartFile measureFile, HttpServletRequest request) {
         System.out.println("======Hey, SOB, I'm in /order/uploadMeasure ======");
         CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());
