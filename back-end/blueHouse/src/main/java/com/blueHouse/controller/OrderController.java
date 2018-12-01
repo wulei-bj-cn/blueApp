@@ -90,7 +90,8 @@ public class OrderController {
                 MultipartFile file=multiRequest.getFile(iter.next().toString());
                 if(file!=null)
                 {
-                    String targetPath = request.getContextPath() + "/resources/img/measures/" + file.getOriginalFilename();
+                    String contextPath = request.getSession().getServletContext().getRealPath("/");
+                    String targetPath = contextPath + "/resources/img/measures/" + file.getOriginalFilename();
                     System.out.println("==========Target file path:" + targetPath);
                     File targetFile = new File(targetPath);
                     //上传
