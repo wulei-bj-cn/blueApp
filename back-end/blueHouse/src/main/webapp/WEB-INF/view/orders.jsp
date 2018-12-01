@@ -2,6 +2,9 @@
 <%@ page import="java.util.stream.Collectors" %>
 <%@ page import="com.blueHouse.pojo.*" %>
 <%@ page import="com.blueHouse.pojo.orders.*" %>
+<%@ page import="java.util.Properties" %>
+<%@ page import="org.springframework.core.io.support.PropertiesLoaderUtils" %>
+<%@ page import="java.io.IOException" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -188,7 +191,7 @@
                                                                 <button type="button" class="btn btn-lg btn-block btn-outline-info">更新</button>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <img src="<%=request.getContextPath() %>/resources/img/measures/${measure.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#measure_${orderItem.order_id}">
+                                                                <img src="/img/measures/${measure.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#measure_${orderItem.order_id}">
                                                                 <div class="modal fade" id="measure_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
@@ -197,7 +200,7 @@
 
                                                                             </div>
                                                                             <div class="modal-body">
-                                                                                <img src="<%=request.getContextPath() %>/resources/img/measures/${measure.url}" alt="" style="width:100%;">
+                                                                                <img src="/img/measures/${measure.url}" alt="" style="width:100%;">
                                                                             </div>
                                                                             <div class="modal-footer">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

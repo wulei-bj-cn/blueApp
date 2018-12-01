@@ -37,7 +37,7 @@ private MeasureMapper measureMapper;
 
     @Override
     public void updateMeasure(T_Measure measure) {
-        measureMapper.insertMeasure(measure);
+        measureMapper.updateMeasure(measure);
     }
 
     @Override

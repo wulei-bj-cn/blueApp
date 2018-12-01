@@ -65,8 +65,8 @@ public class S_MeasureController {
         order.setUser_id(user_id);
         order.setStart_time(ts);
         order.setStatus("预约测量中");
-        String order_id = md5Service.encodeByMD5(user_id + measure_id);
-        order.setId("ord" + order_id);
+        String order_id = "ord" + md5Service.encodeByMD5(user_id + measure_id);
+        order.setId(order_id);
 
         //生产新的订单项，就是将订单id，用户id，item的id插入到订单项表中。
         OrderItem orderItem = new OrderItem();

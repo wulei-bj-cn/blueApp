@@ -85,6 +85,7 @@ public class OrderController {
     public String uploadMeasureFile(@RequestParam("measure_file") MultipartFile measureFile, HttpServletRequest request) {
         CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());
 
+        /**
         Properties prop = null;
         try {
             prop = PropertiesLoaderUtils.loadAllProperties("conf/blueHouse.properties");
@@ -92,6 +93,7 @@ public class OrderController {
             e.printStackTrace();
         }
         String img_address = prop.getProperty("img_address");
+         */
 
         if(multipartResolver.isMultipart(request))
         {
@@ -106,7 +108,7 @@ public class OrderController {
                 MultipartFile file=multiRequest.getFile(iter.next().toString());
                 if(file!=null)
                 {
-                    String targetPath = img_address + "measures/" + file.getOriginalFilename();
+                    String targetPath = file.getOriginalFilename();
                     System.out.println("==========Target file path:" + targetPath);
                     File targetFile = new File(targetPath);
                     //上传
