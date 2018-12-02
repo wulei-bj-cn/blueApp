@@ -7,6 +7,7 @@ package com.blueHouse.controller;
 import com.blueHouse.pojo.browse.T_Measure;
 import com.blueHouse.pojo.orders.*;
 import com.blueHouse.service.LoginService;
+import com.blueHouse.service.MD5Service;
 import com.blueHouse.service.MeasureService;
 import com.blueHouse.service.OMService;
 import org.springframework.context.ApplicationContext;
@@ -25,6 +26,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -37,6 +39,7 @@ public class OrderController {
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
 
     MeasureService measureService = (MeasureService) applicationContext.getBean("measureService");
+    MD5Service md5Service = (MD5Service) applicationContext.getBean("md5Service");
 
     @Resource
     private OMService omService;
@@ -106,14 +109,15 @@ public class OrderController {
                 MultipartFile file=multiRequest.getFile(iter.next().toString());
                 if(file!=null)
                 {
-                    String targetPath = file.getOriginalFilename();
+                    String measure_id = request.getParameter("measure_id");
+                    String targetPath = measure_id + ".jpeg";
                     System.out.println("==========Target file path:" + targetPath);
                     String writePath = img_address + "measures/" + targetPath;
                     File targetFile = new File(writePath);
                     //上传
                     try {
                         file.transferTo(targetFile);
-                        String measure_id = request.getParameter("measure_id");
+
                         System.out.println("==========Measure ID:" + measure_id);
                         T_Measure t_measure = measureService.findMeasureById(measure_id);
                         t_measure.setUrl(targetPath);
