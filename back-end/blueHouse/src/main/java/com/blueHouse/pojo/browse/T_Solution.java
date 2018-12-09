@@ -21,7 +21,7 @@ public class T_Solution {
     public void setName(String name) { this.name = name; }
 
     public String getCover() { return this.cover; }
-    public void setCover(String name) { this.cover = cover; }
+    public void setCover(String cover) { this.cover = cover; }
 
     public String getUrl() { return this.url; }
     public void setUrl(String url) { this.url = url; }
