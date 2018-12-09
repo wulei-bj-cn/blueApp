@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 public class T_Solution {
     private String id;
     private String name;
+    private String cover;
     private String url;
     private Timestamp ts;
     private String designer;
@@ -18,6 +19,9 @@ public class T_Solution {
 
     public String getName() { return this.name; }
     public void setName(String name) { this.name = name; }
+
+    public String getCover() { return this.cover; }
+    public void setCover(String name) { this.cover = cover; }
 
     public String getUrl() { return this.url; }
     public void setUrl(String url) { this.url = url; }

@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface SolutionMapper {
 
+    List<T_Solution> findAllSolutions();
     T_Solution findSolutionById(String id);
     List<T_Solution> findSolutionByName(String name);
     List<T_Solution> findSolutionByDesignerName(String designer);

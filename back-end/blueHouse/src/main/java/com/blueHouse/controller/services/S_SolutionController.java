@@ -24,6 +24,7 @@ import java.util.Map;
 public class S_SolutionController {
 
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
+    SolutionService solutionService = (SolutionService) applicationContext.getBean("solutionService");
 
     @RequestMapping(value = "/getByCategory", method = RequestMethod.GET)
     @ResponseBody
@@ -40,7 +41,6 @@ public class S_SolutionController {
         int httpCode = 200;
         int error_type = 1;
 
-        SolutionService solutionService = (SolutionService) applicationContext.getBean("solutionService");
         List<T_Solution> solutions = solutionService.findSolutionByCategory(category);
 
         map.put("status", returnStatus);
@@ -67,7 +67,6 @@ public class S_SolutionController {
         int httpCode = 200;
         int error_type = 1;
 
-        SolutionService solutionService = (SolutionService) applicationContext.getBean("solutionService");
         List<T_Solution> solutions = solutionService.findSolutionByDesignerName(designer);
 
         map.put("status", returnStatus);

@@ -37,6 +37,7 @@
             <a class="nav-link" href="/activity/getAll">活动管理</a>
             <a class="nav-link" href="/project/getAll">施工项目</a>
             <a class="nav-link" href="/design/getAll">设计方案</a>
+            <a class="nav-link" href="/solution/getAll">套餐管理</a>
             <a class="nav-link" href="/material/getAll">建材管理</a>
             <a class="nav-link" href="/admin/getAll">权限管理</a>
         </nav>
