@@ -23,7 +23,7 @@
             <h1><a href="/console/getAll">蓝房子后台管理中心</a></h1>
             <p class="lead">总控制台</p>
             <p><%=session.getAttribute("username")%> : 您好! </p>
-            <form class="form-inline mt-2 mt-md-0" action="/login/signout" method="get">
+            <form class="form-inline mt-2 mt-md-0 col-md-3" action="/login/signout" method="get">
                 <button type="submit" class="btn btn-lg btn-block btn-outline-warning">注销</button>
             </form>
         </header>
@@ -78,8 +78,8 @@
     </div>
 </div>
 <div class="container">
-    <div class="card-deck mb-3">
-        <div class="card mb-4">
+    <div class="card-deck mb-4">
+        <div class="card mb-3">
             <div class="card-header alert-info">
                 <h4>设计方案</h4>
             </div>
@@ -90,7 +90,18 @@
                 </form>
             </div>
         </div>
-        <div class="card mb-4">
+        <div class="card mb-3">
+            <div class="card-header alert-success">
+                <h4>套餐管理</h4>
+            </div>
+            <div class="card-body">
+                <form class="form-inline mt-2 mt-md-0" action="/solution/getAll" method="get">
+                    <p>通过套餐管理，定期对套餐模块进行维护，如套餐的上传和更新等。</p>
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-success">进入入口</button>
+                </form>
+            </div>
+        </div>
+        <div class="card mb-3">
             <div class="card-header alert-link">
                 <h4>建材管理</h4>
             </div>
@@ -101,7 +112,7 @@
                 </form>
             </div>
         </div>
-        <div class="card mb-4">
+        <div class="card mb-3">
             <div class="card-header alert-dark">
                 <h4>添加角色</h4>
             </div>

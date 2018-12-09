@@ -15,6 +15,7 @@ public class SolutionServiceImpl implements SolutionService {
     @Autowired
     private SolutionMapper solutionMapper;
 
+    public List<T_Solution> findAllSolutions() { return solutionMapper.findAllSolutions(); }
     public T_Solution findSolutionById(String id) { return solutionMapper.findSolutionById(id); }
     public List<T_Solution> findSolutionByName(String name) { return solutionMapper.findSolutionByName(name); }
     public List<T_Solution> findSolutionByDesignerName(String designer) { return solutionMapper.findSolutionByDesignerName(designer); }
