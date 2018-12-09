@@ -4,12 +4,10 @@ package com.blueHouse.controller;
  * Created by wulei on 27/07/2018.
  */
 
+import com.blueHouse.pojo.browse.T_Design;
 import com.blueHouse.pojo.browse.T_Measure;
 import com.blueHouse.pojo.orders.*;
-import com.blueHouse.service.LoginService;
-import com.blueHouse.service.MD5Service;
-import com.blueHouse.service.MeasureService;
-import com.blueHouse.service.OMService;
+import com.blueHouse.service.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
@@ -39,7 +37,9 @@ public class OrderController {
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
 
     MeasureService measureService = (MeasureService) applicationContext.getBean("measureService");
+    DesignService designService = (DesignService) applicationContext.getBean("designService");
     MD5Service md5Service = (MD5Service) applicationContext.getBean("md5Service");
+    OrderItemService orderItemService = (OrderItemService) applicationContext.getBean("orderItemService");
 
     @Resource
     private OMService omService;
@@ -122,6 +122,132 @@ public class OrderController {
                         T_Measure t_measure = measureService.findMeasureById(measure_id);
                         t_measure.setUrl(targetPath);
                         measureService.updateMeasure(t_measure);
+                    } catch (IOException ex) {
+                        System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.getMessage());
+                        System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.toString());
+                    }
+                }
+
+            }
+
+        }
+
+        return "orders";
+    }
+
+    @RequestMapping(value = "/insertDesign", method = RequestMethod.POST)
+    public String insertDesignFile(@RequestParam("design_file") MultipartFile designFile, HttpServletRequest request) {
+        String name = request.getParameter("design_name");
+        String designer = request.getParameter("designer");
+        String order_id = request.getParameter("design_order_id");
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        String design_id = "des" + md5Service.encodeByMD5(designer + name + ts);
+
+        T_Design t_design = new T_Design();
+        t_design.setId(design_id);
+        t_design.setName(name);
+        t_design.setStatus("进行中");
+        t_design.setTs(ts);
+        t_design.setDesigner(designer);
+        //t_design.setUrl();
+
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setOrder_id(order_id);
+        orderItem.setItem_id(design_id);
+        orderItem.setItem_class("designs");
+        orderItem.setStart_time(ts);
+
+        orderItemService.insertOrderItem(orderItem);
+
+
+        CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());
+
+        Properties prop = null;
+        try {
+            prop = PropertiesLoaderUtils.loadAllProperties("conf/blueHouse.properties");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String img_address = prop.getProperty("img_address");
+
+        if(multipartResolver.isMultipart(request))
+        {
+            //将request变成多部分request
+            MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;
+            //获取multiRequest 中所有的文件名
+            Iterator iter=multiRequest.getFileNames();
+
+            while(iter.hasNext())
+            {
+                //一次遍历所有文件
+                MultipartFile file=multiRequest.getFile(iter.next().toString());
+                if(file!=null)
+                {
+                    //String design_id = request.getParameter("design_id");
+                    String targetPath = design_id + ".jpeg";
+                    System.out.println("==========Target file path:" + targetPath);
+                    String writePath = img_address + "designs/" + targetPath;
+                    File targetFile = new File(writePath);
+                    //上传
+                    try {
+                        file.transferTo(targetFile);
+
+                        System.out.println("==========Design ID:" + design_id);
+                        //T_Design t_design = designService.findDesignById(design_id);
+                        t_design.setUrl(targetPath);
+                        designService.insertDesign(t_design);
+                    } catch (IOException ex) {
+                        System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.getMessage());
+                        System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.toString());
+                    }
+                }
+
+            }
+
+        }
+
+        return "orders";
+    }
+
+    @RequestMapping(value = "/uploadDesign", method = RequestMethod.POST)
+    public String uploadDesignFile(@RequestParam("design_file") MultipartFile designFile, HttpServletRequest request) {
+        CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());
+
+        Properties prop = null;
+        try {
+            prop = PropertiesLoaderUtils.loadAllProperties("conf/blueHouse.properties");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String img_address = prop.getProperty("img_address");
+
+        if(multipartResolver.isMultipart(request))
+        {
+            //将request变成多部分request
+            MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;
+            //获取multiRequest 中所有的文件名
+            Iterator iter=multiRequest.getFileNames();
+
+            while(iter.hasNext())
+            {
+                //一次遍历所有文件
+                MultipartFile file=multiRequest.getFile(iter.next().toString());
+                if(file!=null)
+                {
+                    String design_id = request.getParameter("design_id");
+                    String targetPath = design_id + ".jpeg";
+                    System.out.println("==========Target file path:" + targetPath);
+                    String writePath = img_address + "designs/" + targetPath;
+                    File targetFile = new File(writePath);
+                    //上传
+                    try {
+                        file.transferTo(targetFile);
+
+                        System.out.println("==========Design ID:" + design_id);
+                        T_Design t_design = designService.findDesignById(design_id);
+                        t_design.setUrl(targetPath);
+                        designService.updateDesign(t_design);
                     } catch (IOException ex) {
                         System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.getMessage());
                         System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.toString());
