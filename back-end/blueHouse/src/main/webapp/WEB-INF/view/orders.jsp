@@ -336,7 +336,7 @@
                                             <div class="col-md-3">
                                                 <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#new_design_modal_${orderItem.order_id}">新建设计方案</button>
                                             </div>
-                                            <form>
+                                            <form class="form-inline mt-2 mt-md-0" action="/order/insertDesign" method="post" enctype="multipart/form-data">
                                                 <div class="modal fade" id="new_design_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
@@ -348,13 +348,13 @@
                                                                 <div class="form-group">
                                                                     <label for="design_name">名称</label>
                                                                     &nbsp;
-                                                                    <input type="text" class="form-control" id="design_name" placeholder="请输入名称">
+                                                                    <input type="text" class="form-control" id="design_name" name="design_name" placeholder="请输入名称">
                                                                 </div>
                                                                 <br>
                                                                 <div class="form-group">
-                                                                    <label for="design_3d_url">设计方案3D图景链接</label>
+                                                                    <label for="designer">设计师</label>
                                                                     &nbsp;
-                                                                    <input type="text" class="form-control" id="design_3d_url" placeholder="请输入URL地址">
+                                                                    <input type="text" class="form-control" id="designer" name="designer" placeholder="请输入设计师名字">
                                                                 </div>
                                                                 <br>
                                                                 <div class="form-group">
@@ -363,10 +363,11 @@
                                                                     <input type="file" name="design_file" id="design_file" />
                                                                     &nbsp;
                                                                     <input type="text" id="design_order_id" name="design_order_id" value="${orderItem.order_id}" hidden="true"/>
+
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-outline-info" data-dismiss="modal">确定</button>
+                                                                <button type="submit" class="btn btn-outline-info">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -374,41 +375,41 @@
                                             </form>
                                         </c:when>
                                         <c:otherwise>
-                                            <div class="row">
-                                                <ul class="nav flex-column nav-justified" role="tablist">
-                                                    <c:forEach var="design" items="${designs}">
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#design_${orderItem.order_id}_${design.id}" data-toggle="tab" role="tab">设计方案_${design.id}</a>
-                                                        </li>
-                                                    </c:forEach>
-                                                    <li class="nav-item active">
-                                                        <a class="nav-link active" href="#" data-toggle="tab" role="tab">上传设计方案</a>
-                                                    </li>
-                                                </ul>
-                                                <div class="tab-content">
+                                            <div class="card-deck mb-1">
+                                                <div class="card mb-12">
                                                     <c:forEach var="design_index" begin="0" end="${designs.size() - 1}" step="1">
                                                         <c:set var="design" scope="session" value="${designs.get(design_index)}"/>
                                                         <c:set var="design_tab_state" scope="session" value="fade"/>
                                                         <c:if test="${design_index == 0}">
                                                             <c:set var="design_tab_state" scope="session" value="active"/>
                                                         </c:if>
-                                                        <div id="design_${orderItem.order_id}_${design.id}" class="col-md-8 container tab-pane ${design_tab_state}">
-                                                            <div><h5>${design.name}</h5></div>
-                                                            <div><h5>设计师: ${design.designer}</h5></div>
-                                                            <div><h5>出版时间: ${design.ts}</h5></div>
-                                                            <img src="<%=request.getContextPath() %>/resources/img/designs/${design.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_pic_${orderItem.order_id}_${design.id}">
-                                                            <div class="modal fade" id="design_pic_${orderItem.order_id}_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <img src="<%=request.getContextPath() %>/resources/img/designs/${design.url}" alt="" style="width:100%;">
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                        <!-- <div id="design_${orderItem.order_id}_${design.id}" class="col-md-8 container tab-pane ${design_tab_state}">-->
+                                                        <div class="card-header alert-info">
+                                                            <h4>${design.name}</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <p><label>设计师:</label> ${design.designer}</p>
+                                                                    <p><label>出版时间</label>: ${design.ts}</p>
+                                                                    <p><label>设计状态</label>: ${design.status}</p>
+                                                                    <button type="button" class="btn btn-lg btn-block btn-outline-info">更新</button>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                <img src="/img/designs/${design.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_pic_${orderItem.order_id}_${design.id}">
+                                                                    <div class="modal fade" id="design_pic_${orderItem.order_id}_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <img src="/img/designs/${design.url}" alt="" style="width:100%;">
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
