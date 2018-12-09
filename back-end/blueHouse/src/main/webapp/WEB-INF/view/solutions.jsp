@@ -1,3 +1,4 @@
+<%@ page import="com.blueHouse.pojo.browse.T_Solution" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -201,8 +202,8 @@
                                                                                         <p><label>套餐封面:</label>${solution.coverName}</p>
                                                                                     </div>
                                                                                     <div class="col-md-8">
-                                                                                        <img src="/img/solutions/${solution.cover}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#solution_${solution.id}">
-                                                                                        <div class="modal fade" id="solution_${solution.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                                        <img src="/img/solutions/${solution.cover}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#solution_cover_${solution.id}">
+                                                                                        <div class="modal fade" id="solution_cover_${solution.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                                                             <div class="modal-dialog">
                                                                                                 <div class="modal-content">
                                                                                                     <div class="modal-header">
@@ -228,7 +229,7 @@
                                                         </div>
                                                         <div id="panel2_${solution.id}" class="container tab-pane fade"><br>
                                                             <c:choose>
-                                                                <c:when test="${solution == null || solution.cover == null}">
+                                                                <c:when test="${solution == null || solution.url == null}">
                                                                     <p>目前该套餐还没有图集，点击<span class="badge badge-danger">添加图集</span>添加套餐图集</p>
                                                                     <br>
                                                                     <div class="col-md-3">
@@ -272,13 +273,19 @@
                                                                                 <h4>${solution.name}</h4>
                                                                             </div>
                                                                             <div class="card-body">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-4">
-                                                                                        <p><label>套餐图集:</label>${solution.coverName}</p>
-                                                                                    </div>
-                                                                                    <div class="col-md-8">
-                                                                                        <img src="/img/solutions/${solution.cover}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#solution_${solution.id}">
-                                                                                        <div class="modal fade" id="solution_${solution.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                                <div class="col-md-4">
+                                                                                    <p><label>套餐图集:</label>${solution.urlName}</p>
+                                                                                </div>
+                                                                                <%
+                                                                                    T_Solution t_solution = (T_Solution) pageContext.getAttribute("solution");
+
+                                                                                    String[] sol_pics = t_solution.getUrl().split(",");
+                                                                                    pageContext.setAttribute("sol_pics", sol_pics);
+                                                                                %>
+                                                                                <c:forEach var="sol_pic" items="${sol_pics}">
+                                                                                    <div class="col-md-12">
+                                                                                        <img src="/img/solutions/${sol_pic}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#solution_url_${solution.id}">
+                                                                                        <div class="modal fade" id="solution_url_${solution.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                                                             <div class="modal-dialog">
                                                                                                 <div class="modal-content">
                                                                                                     <div class="modal-header">
@@ -286,7 +293,7 @@
 
                                                                                                     </div>
                                                                                                     <div class="modal-body">
-                                                                                                        <img src="/img/solutions/${solution.cover}" alt="" style="width:100%;">
+                                                                                                        <img src="/img/solutions/${sol_pic}" alt="" style="width:100%;">
                                                                                                     </div>
                                                                                                     <div class="modal-footer">
                                                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -295,7 +302,7 @@
                                                                                             </div><!-- /.modal-dialog -->
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
+                                                                                </c:forEach>
                                                                             </div>
                                                                         </div>
                                                                     </div>
