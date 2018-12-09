@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -181,7 +182,7 @@ public class SolutionController {
     }
 
     @RequestMapping(value = "/uploadSolutionUrl", method = RequestMethod.POST)
-    public String uploadSolutionUrl(HttpServletRequest request) {
+    public String uploadSolutionUrl(@RequestParam("solution_files") MultipartFile[] solution_files, HttpServletRequest request) {
         CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());
 
         Properties prop = null;
@@ -194,27 +195,19 @@ public class SolutionController {
 
         if(multipartResolver.isMultipart(request))
         {
-            //将request变成多部分request
-            MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;
-            //获取multiRequest 中所有的文件名
-            Iterator iter=multiRequest.getFileNames();
 
             String solution_id = request.getParameter("solution_id");
             System.out.println("==========Solution ID:" + solution_id);
             T_Solution t_solution = solutionService.findSolutionById(solution_id);
             assert t_solution != null;
             String url = "";
-            int i = 0;
 
+            for (int i = 0; i < solution_files.length; i++) {
 
-            while(iter.hasNext())
-            {
-                i += 1;
-                //一次遍历所有文件
-                MultipartFile file=multiRequest.getFile(iter.next().toString());
-                System.out.println("=====Origin name:" + file.getOriginalFilename());
-                if(file!=null)
-                {
+                if(!solution_files[i].isEmpty()){
+
+                    MultipartFile file = solution_files[i];
+                    System.out.println("=====Origin name:" + file.getOriginalFilename());
 
                     Timestamp ts = new Timestamp(System.currentTimeMillis());
                     String picId = "sol_pic" + md5Service.encodeByMD5(solution_id + ts + i);
