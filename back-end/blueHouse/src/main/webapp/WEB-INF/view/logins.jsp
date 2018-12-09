@@ -25,7 +25,7 @@
         </header>
     </div>
 </section>
-<div class="container">
+<div class="container col-md-3">
     <c:if test="${loginStatus == '-1' }">
     <div class="card-deck mb-4">
         <div class="card mb-3">
@@ -34,12 +34,13 @@
             </div>
             <div class="card-body">
                 <form class="form-inline mt-2 mt-md-0" action="/login/signin" method="post">
-                    <div class="col-md-6">
+                    <div class="">
                         账号: <input id="user" name="user" type="text" placeholder="请输入账号" value="">
                     </div>
-                    <div class="col-md-6">
+                    <div class="">
                         密码: <input id="password" name="password" type="password"  placeholder="请输入密码" value="">
                     </div>
+                    <br>
                     <button type="submit" class="btn btn-lg btn-block btn-outline-success">登录</button>
                 </form>
             </div>
