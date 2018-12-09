@@ -53,6 +53,14 @@
     <br>
     <div class="tab-content">
         <div id="panel1" class="container tab-pane active">
+            <div class="navbar col-md-12 bg-dark">
+                <form class="form-inline mt-2 mt-md-0" action="/solution/searchSolutions" method="get">
+                    <input id="searchKey" name="searchKey" class="form-control mr-sm-2" type="text" placeholder="套餐号/套餐名称" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">搜索</button>
+                </form>
+                <label class="btn-outline-light">如果搜索条件为空，默认将列出所有订单！</label>
+            </div>
+            <br>
             <c:if test="${isSearching == false }">
                 <div class="alert alert-info">
                     <strong>老板您好!</strong> 我们蓝房子目前总共有<%=request.getAttribute("solutionsCount")%>个套餐方案，您可以通过搜索框对套餐进行搜索！如果搜索条件为空，那么系统将为您列出所有套餐方案！
@@ -64,15 +72,9 @@
                 </div>
             </c:if>
             <div class="row">
-                <div class="col-md-4">
-                    <form class="form-inline mt-2 mt-md-0" action="/solution/searchSolutions" method="get">
-                        <input id="searchKey" name="searchKey" class="form-control mr-sm-2" type="text" placeholder="套餐名称" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
-                    </form>
-                </div>
                 <c:choose>
                     <c:when test="${isSearching}">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <c:if test="${solutionsCount == 0}">
                                 <div class="alert alert-warning">
                                     <p>抱歉！系统中没有搜索到相关套餐方案！请重新选择搜索条件并继续搜索！</p>
@@ -83,7 +85,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <a class="card-link collapsed" data-toggle="collapse" href="#collapse${solution.id}">
-                                                套餐: (${solution.id})
+                                                套餐: (${solution.name})
                                             </a>
                                         </div>
                                         <div id="collapse${solution.id}" class="collapse" data-parent="#accordion1">
@@ -122,43 +124,186 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div id="accordion2">
                                 <c:forEach var="solution" items="${solutions}">
                                     <div class="card">
                                         <div class="card-header">
                                             <a class="card-link collapsed" data-toggle="collapse" href="#collapse${solution.id}">
-                                                套餐 :(${solution.id})
+                                                套餐 :(${solution.name})
                                             </a>
                                         </div>
                                         <div id="collapse${solution.id}" class="collapse" data-parent="#accordion2">
                                             <div class="card-body">
-                                                <form class="form-inline mt-2 mt-md-0" action="/solution/updateSolution" method="get">
-                                                    <blockquote class="blockquote mb-0">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>套餐名称: </label>
-                                                                <input id="name" name="name" type="text" value="${solution.name}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>链接: </label>
-                                                                <input id="url" name="url" type="text" value="${solution.url}">
-                                                            </div>
+                                                <blockquote class="blockquote mb-0">
+                                                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                                                        <li class="nav-item active">
+                                                            <a class="nav-link active" data-toggle="tab" href="#panel1_${solution.id}" role="tab">
+                                                                <h6 class="text-primary">套餐封面</h6>
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" data-toggle="tab" href="#panel2_${solution.id}" role="tab">
+                                                                <h6 class="text-danger">套餐详情</h6>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                    <br>
+                                                    <div class="tab-content">
+                                                        <div id="panel1_${solution.id}" class="container tab-pane active"><br>
+                                                            <c:choose>
+                                                                <c:when test="${solution == null || solution.cover == null}">
+                                                                    <p>目前该套餐还没有封面，点击<span class="badge badge-primary">添加封面</span>添加套餐封面</p>
+                                                                    <br>
+                                                                    <div class="col-md-3">
+                                                                        <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#add_solution_cover_${solution.id}">添加套餐封面</button>
+                                                                    </div>
+                                                                    <form class="form-inline mt-2 mt-md-0" action="/solution/uploadSolutionCover" method="post" enctype="multipart/form-data">
+                                                                        <div class="modal fade" id="add_solution_cover_${solution.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <span class="badge badge-primary float-left">添加套餐封面</span>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="form-group">
+                                                                                            <label for="solution_name">名称</label>
+                                                                                            &nbsp;
+                                                                                            <input type="text" class="form-control" id="solution_name" name="solution_name" placeholder="请输入名称">
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="form-group">
+                                                                                            <label for="solution_file">上传套餐封面</label>
+                                                                                            &nbsp;
+                                                                                            <input type="file" name="solution_file" id="solution_file" />
+                                                                                            &nbsp;
+                                                                                            <input type="text" id="solution_id" name="solution_id" value="${solution.id}" hidden="true"/>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="submit" class="btn btn-outline-primary">确定</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <div class="card-deck mb-1">
+                                                                        <div class="card mb-12">
+                                                                            <div class="card-header alert-info">
+                                                                                <h4>${solution.name}</h4>
+                                                                            </div>
+                                                                            <div class="card-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <p><label>套餐封面:</label>${solution.coverName}</p>
+                                                                                    </div>
+                                                                                    <div class="col-md-8">
+                                                                                        <img src="/img/solutions/${solution.cover}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#solution_${solution.id}">
+                                                                                        <div class="modal fade" id="solution_${solution.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                                            <div class="modal-dialog">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                                                                                    </div>
+                                                                                                    <div class="modal-body">
+                                                                                                        <img src="/img/solutions/${solution.cover}" alt="" style="width:100%;">
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                                                    </div>
+                                                                                                </div><!-- /.modal-content -->
+                                                                                            </div><!-- /.modal-dialog -->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>时间: </label>
-                                                                <input id="ts" name="ts" type="text" value="${solution.ts}" onfocus="setDate(this,'yyyy-MM-dd HH:mm')">
-                                                            </div>
+                                                        <div id="panel2_${solution.id}" class="container tab-pane fade"><br>
+                                                            <c:choose>
+                                                                <c:when test="${solution == null || solution.cover == null}">
+                                                                    <p>目前该套餐还没有图集，点击<span class="badge badge-primary">添加图集</span>添加套餐图集</p>
+                                                                    <br>
+                                                                    <div class="col-md-3">
+                                                                        <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#add_solution_url_${solution.id}">添加套餐图集</button>
+                                                                    </div>
+                                                                    <form class="form-inline mt-2 mt-md-0" action="/solution/uploadSolutionUrl" method="post" enctype="multipart/form-data">
+                                                                        <div class="modal fade" id="add_solution_url_${solution.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <span class="badge badge-primary float-left">添加套餐图集</span>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="form-group">
+                                                                                            <label for="solution_name">名称</label>
+                                                                                            &nbsp;
+                                                                                            <input type="text" class="form-control" id="solution_name" name="solution_name" placeholder="请输入名称">
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="form-group">
+                                                                                            <label for="solution_file">上传套餐图集</label>
+                                                                                            &nbsp;
+                                                                                            <input type="file" name="solution_files" id="solution_files" multiple="multiple" />
+                                                                                            &nbsp;
+                                                                                            <input type="text" id="solution_id" name="solution_id" value="${solution.id}" hidden="true"/>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="submit" class="btn btn-outline-primary">确定</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <div class="card-deck mb-1">
+                                                                        <div class="card mb-12">
+                                                                            <div class="card-header alert-info">
+                                                                                <h4>${solution.name}</h4>
+                                                                            </div>
+                                                                            <div class="card-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <p><label>套餐图集:</label>${solution.coverName}</p>
+                                                                                    </div>
+                                                                                    <div class="col-md-8">
+                                                                                        <img src="/img/solutions/${solution.cover}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#solution_${solution.id}">
+                                                                                        <div class="modal fade" id="solution_${solution.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                                            <div class="modal-dialog">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                                                                                    </div>
+                                                                                                    <div class="modal-body">
+                                                                                                        <img src="/img/solutions/${solution.cover}" alt="" style="width:100%;">
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                                                    </div>
+                                                                                                </div><!-- /.modal-content -->
+                                                                                            </div><!-- /.modal-dialog -->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </div>
-                                                        <br>
-                                                        <div class="col-md-3 float-right">
-                                                            <input type="hidden" id="solutionId" name="solutionId" value="${solution.id}"/>
-                                                            <button type="submit" class="btn btn-sm btn-block btn-outline-success">更新</button>
-                                                        </div>
-                                                        <br>
-                                                    </blockquote>
-                                                </form>
+                                                    </div>
+                                                </blockquote>
                                             </div>
                                         </div>
                                     </div>

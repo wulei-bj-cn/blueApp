@@ -91,13 +91,13 @@
             </div>
         </div>
         <div class="card mb-3">
-            <div class="card-header alert-dark">
+            <div class="card-header alert-success">
                 <h4>套餐管理</h4>
             </div>
             <div class="card-body">
                 <form class="form-inline mt-2 mt-md-0" action="/solution/getAll" method="get">
                     <p>通过套餐管理，定期对套餐模块进行维护，如套餐的上传和更新等。</p>
-                    <button type="submit" class="btn btn-lg btn-block btn-outline-dark">进入入口</button>
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-success">进入入口</button>
                 </form>
             </div>
         </div>
