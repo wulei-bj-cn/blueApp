@@ -160,8 +160,13 @@ public class SolutionController {
 
                         System.out.println("==========Solution ID:" + solution_id);
                         T_Solution t_solution = solutionService.findSolutionById(solution_id);
+                        assert t_solution != null;
                         t_solution.setCover(targetPath);
-                        solutionService.updateSolution(t_solution);
+                        try {
+                            solutionService.updateSolution(t_solution);
+                        } catch (Exception e) {
+                            System.out.println("Exception caught: " + e.toString());
+                        }
                     } catch (IOException ex) {
                         System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.getMessage());
                         System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.toString());
@@ -197,18 +202,21 @@ public class SolutionController {
             String solution_id = request.getParameter("solution_id");
             System.out.println("==========Solution ID:" + solution_id);
             T_Solution t_solution = solutionService.findSolutionById(solution_id);
+            assert t_solution != null;
             String url = "";
+            int i = 0;
 
 
             while(iter.hasNext())
             {
+                i += 1;
                 //一次遍历所有文件
                 MultipartFile file=multiRequest.getFile(iter.next().toString());
                 if(file!=null)
                 {
 
                     Timestamp ts = new Timestamp(System.currentTimeMillis());
-                    String picId = "sol_pic" + md5Service.encodeByMD5(solution_id + ts);
+                    String picId = "sol_pic" + md5Service.encodeByMD5(solution_id + ts + i);
                     String targetPath = picId + ".jpeg";
                     url += targetPath + ",";
                     System.out.println("==========Target file path:" + targetPath);
@@ -227,7 +235,11 @@ public class SolutionController {
             }
 
             t_solution.setUrl(url);
-            solutionService.updateSolution(t_solution);
+            try {
+                solutionService.updateSolution(t_solution);
+            } catch (Exception e) {
+                System.out.println("Exception caught: " + e.toString());
+            }
 
         }
 

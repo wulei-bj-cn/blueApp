@@ -229,17 +229,17 @@
                                                         <div id="panel2_${solution.id}" class="container tab-pane fade"><br>
                                                             <c:choose>
                                                                 <c:when test="${solution == null || solution.cover == null}">
-                                                                    <p>目前该套餐还没有图集，点击<span class="badge badge-primary">添加图集</span>添加套餐图集</p>
+                                                                    <p>目前该套餐还没有图集，点击<span class="badge badge-danger">添加图集</span>添加套餐图集</p>
                                                                     <br>
                                                                     <div class="col-md-3">
-                                                                        <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#add_solution_url_${solution.id}">添加套餐图集</button>
+                                                                        <button type="button" class="btn btn-block btn-outline-danger" data-toggle="modal" data-target="#add_solution_url_${solution.id}">添加套餐图集</button>
                                                                     </div>
                                                                     <form class="form-inline mt-2 mt-md-0" action="/solution/uploadSolutionUrl" method="post" enctype="multipart/form-data">
                                                                         <div class="modal fade" id="add_solution_url_${solution.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                                             <div class="modal-dialog modal-lg" role="document">
                                                                                 <div class="modal-content">
                                                                                     <div class="modal-header">
-                                                                                        <span class="badge badge-primary float-left">添加套餐图集</span>
+                                                                                        <span class="badge badge-danger float-left">添加套餐图集</span>
                                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                                     </div>
                                                                                     <div class="modal-body">
@@ -258,7 +258,7 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="modal-footer">
-                                                                                        <button type="submit" class="btn btn-outline-primary">确定</button>
+                                                                                        <button type="submit" class="btn btn-outline-danger">确定</button>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -268,7 +268,7 @@
                                                                 <c:otherwise>
                                                                     <div class="card-deck mb-1">
                                                                         <div class="card mb-12">
-                                                                            <div class="card-header alert-info">
+                                                                            <div class="card-header alert-danger">
                                                                                 <h4>${solution.name}</h4>
                                                                             </div>
                                                                             <div class="card-body">
