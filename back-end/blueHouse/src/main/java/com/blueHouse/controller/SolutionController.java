@@ -212,6 +212,7 @@ public class SolutionController {
                 i += 1;
                 //一次遍历所有文件
                 MultipartFile file=multiRequest.getFile(iter.next().toString());
+                System.out.println("=====Origin name:" + file.getOriginalFilename());
                 if(file!=null)
                 {
 
