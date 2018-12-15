@@ -16,23 +16,28 @@
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
 </head>
 <body>
-<section class="jumbotron alert-info">
-    <div class="container">
-        <header>
-            <h1><a href="/console/getAll">蓝房子后台管理中心</a></h1>
-            <p class="lead">建材管理</p>
-            <p><%=session.getAttribute("username")%> : 您好! </p>
-        </header>
-        <nav class="nav float-right">
-            <a class="nav-link" href="/user/getAll">用户管理</a>
-            <a class="nav-link active" href="/order/getAll">订单管理</a>
-            <a class="nav-link" href="/activity/getAll">活动管理</a>
-            <a class="nav-link" href="/project/getAll">施工项目</a>
-            <a class="nav-link" href="/design/getAll">设计方案</a>
-            <a class="nav-link" href="/solution/getAll">套餐管理</a>
-            <a class="nav-link" href="/material/getAll">建材管理</a>
-            <a class="nav-link" href="/admin/getAll">权限管理</a>
-        </nav>
+<section class="jumbotron alert-light">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="/img/common/logo.jpeg" class="rounded" width="320" height="150">
+        </div>
+        <div class="container col-md-9">
+            <header>
+                <h1><a href="/console/getAll">蓝房子后台管理中心</a></h1>
+                <p class="lead">建材管理</p>
+                <p><%=session.getAttribute("username")%> : 您好! </p>
+            </header>
+            <nav class="nav">
+                <a class="nav-link" href="/user/getAll">用户管理</a>
+                <a class="nav-link active" href="/order/getAll">订单管理</a>
+                <a class="nav-link" href="/activity/getAll">活动管理</a>
+                <a class="nav-link" href="/project/getAll">施工项目</a>
+                <a class="nav-link" href="/design/getAll">设计方案</a>
+                <a class="nav-link" href="/solution/getAll">套餐管理</a>
+                <a class="nav-link" href="/material/getAll">建材管理</a>
+                <a class="nav-link" href="/admin/getAll">权限管理</a>
+            </nav>
+        </div>
     </div>
 </section>
 <div class="container">

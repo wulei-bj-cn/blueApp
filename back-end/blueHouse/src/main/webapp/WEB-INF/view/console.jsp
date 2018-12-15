@@ -17,16 +17,21 @@
 </head>
 <body>
 
-<section class="jumbotron alert-info">
-    <div class="container">
-        <header>
-            <h1><a href="/console/getAll">蓝房子后台管理中心</a></h1>
-            <p class="lead">总控制台</p>
-            <p><%=session.getAttribute("username")%> : 您好! </p>
-            <form class="form-inline mt-2 mt-md-0 col-md-3" action="/login/signout" method="get">
-                <button type="submit" class="btn btn-lg btn-block btn-outline-warning">注销</button>
-            </form>
-        </header>
+<section class="jumbotron alert-light">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="/img/common/logo.jpeg" class="rounded" width="320" height="150">
+        </div>
+        <div class="container col-md-9">
+            <header>
+                <h1><a href="/console/getAll">蓝房子后台管理中心</a></h1>
+                <p class="lead">总控制台</p>
+                <p><%=session.getAttribute("username")%> : 您好! </p>
+                <form class="form-inline mt-2 mt-md-0 col-md-3" action="/login/signout" method="get">
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-warning">注销</button>
+                </form>
+            </header>
+        </div>
     </div>
 </section>
 <div class="container">

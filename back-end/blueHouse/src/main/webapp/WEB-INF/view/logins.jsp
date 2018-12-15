@@ -17,12 +17,17 @@
 </head>
 <body>
 
-<section class="jumbotron alert-info">
-    <div class="container">
-        <header>
-            <h1><a href="/login/logins">蓝房子后台管理中心</a></h1>
-            <p class="lead">登录</p>
-        </header>
+<section class="jumbotron alert-light">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="/img/common/logo.jpeg" class="rounded" width="320" height="150">
+        </div>
+        <div class="container col-md-9">
+            <header>
+                <h1><a href="/login/logins">蓝房子后台管理中心</a></h1>
+                <p class="lead">登录</p>
+            </header>
+        </div>
     </div>
 </section>
 <div class="container col-md-3">
