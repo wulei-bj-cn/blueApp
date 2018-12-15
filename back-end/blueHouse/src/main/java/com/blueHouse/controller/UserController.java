@@ -46,6 +46,7 @@ public class UserController {
             }else{
                 modelMap.put("permissionCode", false);
             }
+
             List<User> users = userService.findAllUsers();
             List<Access> accesses = accessService.findAllAccesss();
             modelMap.put("users", users);
@@ -61,21 +62,34 @@ public class UserController {
 
     @RequestMapping(value = "/searchUsers", method = RequestMethod.GET)
     public String searchUsers(HttpServletRequest req, ModelMap modelMap) {
-        String searchKey = req.getParameter("searchKey");
-        if (searchKey.isEmpty()) {
-            modelMap.put("isSearching", false);
-            return "redirect: /user/getAll";
-        } else {
-            List<User> userByNameOrID = userService.findUserByNameOrID(searchKey);
-            modelMap.put("searchKey", searchKey);
-            modelMap.put("usersCount", userByNameOrID.size());
-            modelMap.put("searchUsers", userByNameOrID);
-            modelMap.put("isSearching", true);
-            List<Access> accesses = accessService.findAllAccesss();
-            modelMap.put("access", accesses);
-            modelMap.put("accessCount", accesses.size());
-            return "users";
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")){
+            if(loginService.permissionCheck(user,PAGEPERMISSIONCODE)){
+                modelMap.put("permissionCode", true);
+            }else{
+                modelMap.put("permissionCode", false);
+            }
+            String searchKey = req.getParameter("searchKey");
+            if (searchKey.isEmpty()) {
+                modelMap.put("isSearching", false);
+                return "redirect: /user/getAll";
+            } else {
+                List<User> userByNameOrID = userService.findUserByNameOrID(searchKey);
+                modelMap.put("searchKey", searchKey);
+                modelMap.put("usersCount", userByNameOrID.size());
+                modelMap.put("searchUsers", userByNameOrID);
+                modelMap.put("isSearching", true);
+                List<Access> accesses = accessService.findAllAccesss();
+                modelMap.put("access", accesses);
+                modelMap.put("accessCount", accesses.size());
+                return "users";
+            }
+        }else{
+            return "redirect: /login/logins";
         }
+
     }
 
     @RequestMapping(value = "/updateUser", method = RequestMethod.GET)

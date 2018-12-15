@@ -4,6 +4,7 @@ package com.blueHouse.controller;
  * Created by wulei on 27/07/2018.
  */
 
+import com.blueHouse.pojo.User;
 import com.blueHouse.pojo.browse.T_Design;
 import com.blueHouse.pojo.browse.T_Measure;
 import com.blueHouse.pojo.orders.*;
@@ -40,6 +41,7 @@ public class OrderController {
     DesignService designService = (DesignService) applicationContext.getBean("designService");
     MD5Service md5Service = (MD5Service) applicationContext.getBean("md5Service");
     OrderItemService orderItemService = (OrderItemService) applicationContext.getBean("orderItemService");
+    UserService userService = (UserService) applicationContext.getBean("userService");
 
     @Resource
     private OMService omService;
@@ -65,6 +67,7 @@ public class OrderController {
             if (orders != null) {
                 for (Order order: orders) {
                     String user_id = order.getUser_id();
+                    User pojoUser = userService.findUserById(user_id);
                     String order_id = order.getId();
                     List<Measure> measures = omService.findMeasure(user_id, order_id);
                     List<Contract> contracts = omService.findContract(user_id, order_id);
@@ -72,7 +75,7 @@ public class OrderController {
                     List<Disclaim> disclaims = omService.findDisclaim(user_id, order_id);
                     List<Project> projects = omService.findProject(user_id, order_id);
                     orderItems.add(
-                            new OrderItems(user_id, order_id, measures, contracts, designs, disclaims, projects));
+                            new OrderItems(pojoUser, order, measures, contracts, designs, disclaims, projects));
                 }
             }
             modelMap.put("orderItems", orderItems);

@@ -5,6 +5,8 @@
 <%@ page import="java.util.Properties" %>
 <%@ page import="org.springframework.core.io.support.PropertiesLoaderUtils" %>
 <%@ page import="java.io.IOException" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Map" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -95,66 +97,84 @@
 
                 List<Project> projects = (orderItem.getProjects().size() == 0)? null: orderItem.getProjects();
 
+                User user = orderItem.getUser();
+                Order order = orderItem.getOrder();
+                Map<String,String> orderStatusMap = new HashMap<>();
+                orderStatusMap.put("0", "预约成功，待分配测量师");
+                orderStatusMap.put("1", "完成测量");
+                orderStatusMap.put("2", "确认设计合同");
+                orderStatusMap.put("3", "已支付定金");
+                orderStatusMap.put("4", "完成设计方案上传");
+                orderStatusMap.put("5", "用户已确认设计方案");
+                orderStatusMap.put("6", "确认施工合同");
+                orderStatusMap.put("7", "施工交底完成上传");
+                orderStatusMap.put("8", "施工中");
+                orderStatusMap.put("9", "施工完成，待双方确认");
+                orderStatusMap.put("10", "订单已完成");
+
                 pageContext.setAttribute("measure", measure);
                 pageContext.setAttribute("designContracts", designContracts);
                 pageContext.setAttribute("designs", designs);
                 pageContext.setAttribute("projectContracts", projectContracts);
                 pageContext.setAttribute("disclaim", disclaim);
                 pageContext.setAttribute("projects", projects);
+                pageContext.setAttribute("user", user);
+                pageContext.setAttribute("order", order);
+                pageContext.setAttribute("orderStatusMap", orderStatusMap);
             %>
             <div class="card">
                 <div class="card-header">
-                    <a class="card-link collapsed" data-toggle="collapse" href="#Collapse_${orderItem.order_id}_${orderItem.user_id}">
-                        订单: ${orderItem.order_id} / 用户: ${orderItem.user_id}
+                    <a class="card-link collapsed" data-toggle="collapse" href="#Collapse_${orderItem.order}_${orderItem.user}">
+                        用户: ${user.name} (下单时间: ${order.start_time} / 订单状态: ${orderStatusMap.get(order.status)})
                     </a>
                 </div>
-                <div id="Collapse_${orderItem.order_id}_${orderItem.user_id}" class="collapse" data-parent="#accordion">
+                <div id="Collapse_${orderItem.order}_${orderItem.user}" class="collapse" data-parent="#accordion">
                     <div class="card-body">
                         <blockquote class="blockquote mb-0">
                             <ul class="nav nav-tabs nav-justified" role="tablist">
                                 <li class="nav-item active">
-                                    <a class="nav-link active" data-toggle="tab" href="#panel1_${orderItem.order_id}" role="tab">
+                                    <a class="nav-link active" data-toggle="tab" href="#panel1_${orderItem.order}" role="tab">
                                         <h6 class="text-primary">预约测量</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel2_${orderItem.order_id}" role="tab">
+                                    <a class="nav-link" data-toggle="tab" href="#panel2_${orderItem.order}" role="tab">
                                         <h6 class="text-danger">设计合同</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel3_${orderItem.order_id}" role="tab">
+                                    <a class="nav-link" data-toggle="tab" href="#panel3_${orderItem.order}" role="tab">
                                         <h6 class="text-info">设计方案</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel4_${orderItem.order_id}" role="tab">
+                                    <a class="nav-link" data-toggle="tab" href="#panel4_${orderItem.order}" role="tab">
                                         <h6 class="text-secondary">施工交底</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel5_${orderItem.order_id}" role="tab">
+                                    <a class="nav-link" data-toggle="tab" href="#panel5_${orderItem.order}" role="tab">
                                         <h6 class="text-success">施工合同</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel6_${orderItem.order_id}" role="tab">
+                                    <a class="nav-link" data-toggle="tab" href="#panel6_${orderItem.order}" role="tab">
                                         <h6 class="text-warning">施工项目</h6>
                                     </a>
                                 </li>
                             </ul>
                             <br>
                             <div class="tab-content">
-                                <div id="panel1_${orderItem.order_id}" class="container tab-pane active"><br>
+                                <div id="panel1_${orderItem.order}" class="container tab-pane active"><br>
                                     <c:choose>
                                         <c:when test="${measure == null || measure.url == null}">
                                             <p>目前还没有对预约测量进行管理，点击<span class="badge badge-primary">新建预约测量</span>添加测量记录。</p>
                                             <br>
                                             <div class="col-md-3">
-                                                <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_measure_modal_${orderItem.order_id}">新建预约测量</button>
+                                                <button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#new_measure_modal_${orderItem.order}">新建预约测量</button>
                                             </div>
                                             <form class="form-inline mt-2 mt-md-0" action="/order/uploadMeasure" method="post" enctype="multipart/form-data">
-                                                <div class="modal fade" id="new_measure_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal fade" id="new_measure_modal_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -179,7 +199,7 @@
                                                                     &nbsp;
                                                                     <input type="file" name="measure_file" id="measure_file" />
                                                                     &nbsp;
-                                                                    <input type="text" id="measure_order_id" name="measure_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                    <input type="text" id="measure_order_id" name="measure_order_id" value="${orderItem.order}" hidden="true"/>
                                                                     <input type="text" id="measure_id" name="measure_id" value="${measure.id}" hidden="true"/>
                                                                 </div>
                                                             </div>
@@ -206,8 +226,8 @@
                                                                 <button type="button" class="btn btn-lg btn-block btn-outline-info">更新</button>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <img src="/img/measures/${measure.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#measure_${orderItem.order_id}">
-                                                                <div class="modal fade" id="measure_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                <img src="/img/measures/${measure.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#measure_${orderItem.order}">
+                                                                <div class="modal fade" id="measure_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
@@ -231,16 +251,16 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
-                                <div id="panel2_${orderItem.order_id}" class="container tab-pane fade"><br>
+                                <div id="panel2_${orderItem.order}" class="container tab-pane fade"><br>
                                     <c:choose>
                                         <c:when test="${designContracts == null}">
                                             <p>目前还没有对设计合同进行管理，点击<span class="badge badge-danger">新建设计合同</span>添加合同记录。</p>
                                             <br>
                                             <div class="col-md-3">
-                                                <button type="button" class="btn btn-block btn-outline-danger" data-toggle="modal" data-target="#new_design_contr_modal_${orderItem.order_id}">新建设计合同</button>
+                                                <button type="button" class="btn btn-block btn-outline-danger" data-toggle="modal" data-target="#new_design_contr_modal_${orderItem.order}">新建设计合同</button>
                                             </div>
                                             <form>
-                                                <div class="modal fade" id="new_design_contr_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal fade" id="new_design_contr_modal_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -269,7 +289,7 @@
                                                                     &nbsp;
                                                                     <input type="file" name="design_contr_file" id="design_contr_file" />
                                                                     &nbsp;
-                                                                    <input type="text" id="design_contr_order_id" name="design_contr_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                    <input type="text" id="design_contr_order_id" name="design_contr_order_id" value="${orderItem.order}" hidden="true"/>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -287,12 +307,12 @@
                                                         <c:choose>
                                                             <c:when test="${designContract.type == '设计合同'}">
                                                                 <li class="nav-item active">
-                                                                    <a class="nav-link active" href="#design_contr_${orderItem.order_id}_${designContract.id}" data-toggle="tab" role="tab">设计合同</a>
+                                                                    <a class="nav-link active" href="#design_contr_${orderItem.order}_${designContract.id}" data-toggle="tab" role="tab">设计合同</a>
                                                                 </li>
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <li class="nav-item">
-                                                                    <a class="nav-link" href="#design_contr_${orderItem.order_id}_${designContract.id}" data-toggle="tab" role="tab">补充合同</a>
+                                                                    <a class="nav-link" href="#design_contr_${orderItem.order}_${designContract.id}" data-toggle="tab" role="tab">补充合同</a>
                                                                 </li>
                                                             </c:otherwise>
                                                         </c:choose>
@@ -307,10 +327,10 @@
                                                         <c:if test="${designContract.type == '设计合同'}">
                                                             <c:set var="design_contr_tab_state" scope="session" value="active"/>
                                                         </c:if>
-                                                        <div id="design_contr_${orderItem.order_id}_${designContract.id}" class="col-md-8 container tab-pane ${design_contr_tab_state}">
+                                                        <div id="design_contr_${orderItem.order}_${designContract.id}" class="col-md-8 container tab-pane ${design_contr_tab_state}">
                                                             <div><h5>${designContract.name}</h5></div>
-                                                            <img src="<%=request.getContextPath() %>/resources/img/contracts/${designContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_con_${orderItem.order_id}_${designContract.id}">
-                                                            <div class="modal fade" id="design_con_${orderItem.order_id}_${designContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <img src="<%=request.getContextPath() %>/resources/img/contracts/${designContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_con_${orderItem.order}_${designContract.id}">
+                                                            <div class="modal fade" id="design_con_${orderItem.order}_${designContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -333,16 +353,16 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
-                                <div id="panel3_${orderItem.order_id}" class="container tab-pane fade"><br>
+                                <div id="panel3_${orderItem.order}" class="container tab-pane fade"><br>
                                     <c:choose>
                                         <c:when test="${designs == null}">
                                             <p>目前还没有对设计方案进行管理，点击<span class="badge badge-info">新建设计方案</span>添加设计方案记录。</p>
                                             <br>
                                             <div class="col-md-3">
-                                                <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#new_design_modal_${orderItem.order_id}">新建设计方案</button>
+                                                <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#new_design_modal_${orderItem.order}">新建设计方案</button>
                                             </div>
                                             <form class="form-inline mt-2 mt-md-0" action="/order/insertDesign" method="post" enctype="multipart/form-data">
-                                                <div class="modal fade" id="new_design_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal fade" id="new_design_modal_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -367,7 +387,7 @@
                                                                     &nbsp;
                                                                     <input type="file" name="design_file" id="design_file" />
                                                                     &nbsp;
-                                                                    <input type="text" id="design_order_id" name="design_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                    <input type="text" id="design_order_id" name="design_order_id" value="${orderItem.order}" hidden="true"/>
 
                                                                 </div>
                                                             </div>
@@ -388,7 +408,7 @@
                                                         <c:if test="${design_index == 0}">
                                                             <c:set var="design_tab_state" scope="session" value="active"/>
                                                         </c:if>
-                                                        <!-- <div id="design_${orderItem.order_id}_${design.id}" class="col-md-8 container tab-pane ${design_tab_state}">-->
+                                                        <!-- <div id="design_${orderItem.order}_${design.id}" class="col-md-8 container tab-pane ${design_tab_state}">-->
                                                         <div class="card-header alert-info">
                                                             <h4>${design.name}</h4>
                                                         </div>
@@ -401,8 +421,8 @@
                                                                     <button type="button" class="btn btn-lg btn-block btn-outline-info">更新</button>
                                                                 </div>
                                                                 <div class="col-md-8">
-                                                                <img src="/img/designs/${design.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_pic_${orderItem.order_id}_${design.id}">
-                                                                    <div class="modal fade" id="design_pic_${orderItem.order_id}_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                <img src="/img/designs/${design.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_pic_${orderItem.order}_${design.id}">
+                                                                    <div class="modal fade" id="design_pic_${orderItem.order}_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                                         <div class="modal-dialog">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
@@ -426,16 +446,16 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
-                                <div id="panel4_${orderItem.order_id}" class="container tab-pane fade"><br>
+                                <div id="panel4_${orderItem.order}" class="container tab-pane fade"><br>
                                     <c:choose>
                                         <c:when test="${disclaim == null}">
                                             <p>目前还没有对施工交底进行管理，点击<span class="badge badge-secondary">新建施工交底</span>添加交底记录。</p>
                                             <br>
                                             <div class="col-md-3">
-                                                <button type="button" class="btn btn-block btn-outline-secondary" data-toggle="modal" data-target="#new_disclaim_modal_${orderItem.order_id}">新建施工交底</button>
+                                                <button type="button" class="btn btn-block btn-outline-secondary" data-toggle="modal" data-target="#new_disclaim_modal_${orderItem.order}">新建施工交底</button>
                                             </div>
                                             <form>
-                                                <div class="modal fade" id="new_disclaim_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal fade" id="new_disclaim_modal_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -454,7 +474,7 @@
                                                                     &nbsp;
                                                                     <input type="file" name="disclaim_file" id="disclaim_file" />
                                                                     &nbsp;
-                                                                    <input type="text" id="disclaim_order_id" name="disclaim_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                    <input type="text" id="disclaim_order_id" name="disclaim_order_id" value="${orderItem.order}" hidden="true"/>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -479,8 +499,8 @@
                                                                 <button type="button" class="btn btn-lg btn-block btn-outline-info">更新</button>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <img src="<%=request.getContextPath() %>/resources/img/disclaims/${disclaim.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#disclaim_${orderItem.order_id}">
-                                                                <div class="modal fade" id="disclaim_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                <img src="<%=request.getContextPath() %>/resources/img/disclaims/${disclaim.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#disclaim_${orderItem.order}">
+                                                                <div class="modal fade" id="disclaim_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
@@ -504,16 +524,16 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
-                                <div id="panel5_${orderItem.order_id}" class="container tab-pane fade"><br>
+                                <div id="panel5_${orderItem.order}" class="container tab-pane fade"><br>
                                     <c:choose>
                                         <c:when test="${projectContracts == null}">
                                             <p>目前还没有对施工合同进行管理，点击<span class="badge badge-success">新建施工合同</span>添加合同记录。</p>
                                             <br>
                                             <div class="col-md-3">
-                                                <button type="button" class="btn btn-block btn-outline-success" data-toggle="modal" data-target="#new_project_contr_modal_${orderItem.order_id}">新建施工合同</button>
+                                                <button type="button" class="btn btn-block btn-outline-success" data-toggle="modal" data-target="#new_project_contr_modal_${orderItem.order}">新建施工合同</button>
                                             </div>
                                             <form>
-                                                <div class="modal fade" id="new_project_contr_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal fade" id="new_project_contr_modal_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -542,7 +562,7 @@
                                                                     &nbsp;
                                                                     <input type="file" name="project_contr_file" id="project_contr_file" />
                                                                     &nbsp;
-                                                                    <input type="text" id="project_contr_order_id" name="project_contr_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                    <input type="text" id="project_contr_order_id" name="project_contr_order_id" value="${orderItem.order}" hidden="true"/>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -560,12 +580,12 @@
                                                         <c:choose>
                                                             <c:when test="${projectContract.type == '施工合同'}">
                                                                 <li class="nav-item active">
-                                                                    <a class="nav-link active" href="#project_${orderItem.order_id}_${projectContract.id}" data-toggle="tab" role="tab">施工合同</a>
+                                                                    <a class="nav-link active" href="#project_${orderItem.order}_${projectContract.id}" data-toggle="tab" role="tab">施工合同</a>
                                                                 </li>
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <li class="nav-item">
-                                                                    <a class="nav-link" href="#project_${orderItem.order_id}_${projectContract.id}" data-toggle="tab" role="tab">补充合同</a>
+                                                                    <a class="nav-link" href="#project_${orderItem.order}_${projectContract.id}" data-toggle="tab" role="tab">补充合同</a>
                                                                 </li>
                                                             </c:otherwise>
                                                         </c:choose>
@@ -580,10 +600,10 @@
                                                         <c:if test="${projectContract.type == '施工合同'}">
                                                             <c:set var="project_contr_tab_state" scope="session" value="active"/>
                                                         </c:if>
-                                                        <div id="project_${orderItem.order_id}_${projectContract.id}" class="col-md-8 container tab-pane ${project_contr_tab_state}">
+                                                        <div id="project_${orderItem.order}_${projectContract.id}" class="col-md-8 container tab-pane ${project_contr_tab_state}">
                                                             <div><h5>${projectContract.name}</h5></div>
-                                                            <img src="<%=request.getContextPath() %>/resources/img/contracts/${projectContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#project_con_${orderItem.order_id}_${projectContract.id}">
-                                                            <div class="modal fade" id="project_con_${orderItem.order_id}_${projectContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <img src="<%=request.getContextPath() %>/resources/img/contracts/${projectContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#project_con_${orderItem.order}_${projectContract.id}">
+                                                            <div class="modal fade" id="project_con_${orderItem.order}_${projectContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -606,16 +626,16 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
-                                <div id="panel6_${orderItem.order_id}" class="container tab-pane fade"><br>
+                                <div id="panel6_${orderItem.order}" class="container tab-pane fade"><br>
                                     <c:choose>
                                         <c:when test="${projects == null}">
                                             <p>目前还没有对施工项目进行管理，点击<span class="badge badge-warning">新建施工项目</span>添加项目记录。</p>
                                             <br>
                                             <div class="col-md-3">
-                                                <button type="button" class="btn btn-block btn-outline-warning" data-toggle="modal" data-target="#new_project_modal_${orderItem.order_id}">新建施工项目</button>
+                                                <button type="button" class="btn btn-block btn-outline-warning" data-toggle="modal" data-target="#new_project_modal_${orderItem.order}">新建施工项目</button>
                                             </div>
                                             <form>
-                                                <div class="modal fade" id="new_project_modal_${orderItem.order_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal fade" id="new_project_modal_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -642,7 +662,7 @@
                                                                     &nbsp;
                                                                     <input type="file" name="project_file" id="project_file" />
                                                                     &nbsp;
-                                                                    <input type="text" id="project_order_id" name="project_order_id" value="${orderItem.order_id}" hidden="true"/>
+                                                                    <input type="text" id="project_order_id" name="project_order_id" value="${orderItem.order}" hidden="true"/>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -670,8 +690,8 @@
                                                     <c:set var="project" scope="session" value="${projects.get(project_index)}"/>
                                                     <tr><td>00${project_index + 1}</td><td>${project.name}</td><td>${project.category}</td><td>${project.status}</td>
                                                         <td><button type="button" class="btn btn-block btn-outline-success">标记完成</button></td>
-                                                        <td><button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#project_modal_${orderItem.order_id}_${project.id}">查看截图</button></td>
-                                                        <div class="modal fade" id="project_modal_${orderItem.order_id}_${project.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <td><button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#project_modal_${orderItem.order}_${project.id}">查看截图</button></td>
+                                                        <div class="modal fade" id="project_modal_${orderItem.order}_${project.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
