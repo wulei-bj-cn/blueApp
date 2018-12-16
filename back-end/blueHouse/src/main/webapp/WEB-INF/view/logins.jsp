@@ -39,14 +39,21 @@
             </div>
             <div class="card-body">
                 <form class="form-inline mt-2 mt-md-0" action="/login/signin" method="post">
-                    <div class="">
-                        账号: <input id="user" name="user" type="text" placeholder="请输入账号" value="">
+                    <div class="input-group mb-3 col-md-12">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">用户名</span>
+                        </div>
+                        <input class="form-control" id="user" name="user" type="text" placeholder="请输入账号" value="">
                     </div>
-                    <div class="">
-                        密码: <input id="password" name="password" type="password"  placeholder="请输入密码" value="">
+                    <div class="input-group mb-3 col-md-12">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">密码</span>
+                        </div>
+                        <input class="form-control" id="password" name="password" type="password"  placeholder="请输入密码" value="">
                     </div>
-                    <br>
-                    <button type="submit" class="btn btn-lg btn-block btn-outline-success">登录</button>
+                    <div class="col-md-3 float-left">
+                        <button type="submit" class="btn btn-block btn-outline-success">登录</button>
+                    </div>
                 </form>
             </div>
         </div>

@@ -1,3 +1,9 @@
+<%@ page import="com.blueHouse.pojo.orders.Order" %>
+<%@ page import="com.blueHouse.pojo.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="org.springframework.web.context.WebApplicationContext" %>
+<%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
+<%@ page import="com.blueHouse.service.OrderService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -94,34 +100,34 @@
                                         <div id="collapse${user.id}" class="collapse" data-parent="#accordion1">
                                             <div class="card-body">
                                                 <form class="form-inline mt-2 mt-md-0" action="/user/updateUser" method="get">
-                                                    <blockquote class="blockquote mb-0">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>姓名: </label>
-                                                                <input id="userName" name="userName" type="text" value="${user.name}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>年龄: </label>
-                                                                <input id="userAge" name="userAge" type="text" value="${user.age}">
-                                                            </div>
+                                                    <div class="input-group mb-3 col-md-6">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">用户姓名</span>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>电话: </label>
-                                                                <input id="userPhone" name="userPhone" type="text" value="${user.phone}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>住址: </label>
-                                                                <input id="userAddress" name="userAddress" type="text" value="${user.address}">
-                                                            </div>
+                                                        <input type="text" class="form-control" value="${user.name}" id="userName" name="userName">
+                                                    </div>
+                                                    <div class="input-group mb-3 col-md-6">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">用户年龄</span>
                                                         </div>
-                                                        <br>
-                                                        <div class="col-md-3 float-right">
-                                                            <input type="hidden" id="userID" name="userID" value="${user.id}"/>
-                                                            <button type="submit" class="btn btn-sm btn-block btn-outline-success">更新</button>
+                                                        <input type="text" class="form-control" value="${user.age}" id="userAge" name="userAge">
+                                                    </div>
+                                                    <div class="input-group mb-3 col-md-6">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">用户电话</span>
                                                         </div>
-                                                        <br>
-                                                    </blockquote>
+                                                        <input type="text" class="form-control" value="${user.phone}" id="userPhone" name="userPhone">
+                                                    </div>
+                                                    <div class="input-group mb-3 col-md-6">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">用户地址</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" value="${user.address}" id="userAddress" name="userAddress">
+                                                    </div>
+                                                    <div class="col-md-3 float-left">
+                                                        <input type="hidden" id="userID" name="userID" value="${user.id}"/>
+                                                        <button type="submit" class="btn btn-sm btn-block btn-outline-success">更新</button>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>
@@ -143,35 +149,52 @@
                                         <div id="collapse${user.id}" class="collapse" data-parent="#accordion2">
                                             <div class="card-body">
                                                 <form class="form-inline mt-2 mt-md-0" action="/user/updateUser" method="get">
-                                                    <blockquote class="blockquote mb-0">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>姓名: </label>
-                                                                <input id="userName" name="userName" type="text" value="${user.name}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>年龄: </label>
-                                                                <input id="userAge" name="userAge" type="text" value="${user.age}">
-                                                            </div>
+                                                    <div class="input-group mb-3 col-md-6">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">用户姓名</span>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>电话: </label>
-                                                                <input id="userPhone" name="userPhone" type="text" value="${user.phone}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>住址: </label>
-                                                                <input id="userAddress" name="userAddress" type="text" value="${user.address}">
-                                                            </div>
+                                                        <input type="text" class="form-control" value="${user.name}" id="userName" name="userName">
+                                                    </div>
+                                                    <div class="input-group mb-3 col-md-6">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">用户年龄</span>
                                                         </div>
-                                                        <br>
-                                                        <div class="col-md-3 float-right">
-                                                            <input type="hidden" id="userID" name="userID" value="${user.id}"/>
-                                                            <button type="submit" class="btn btn-sm btn-block btn-outline-success">保存</button>
+                                                        <input type="text" class="form-control" value="${user.age}" id="userAge" name="userAge">
+                                                    </div>
+                                                    <div class="input-group mb-3 col-md-6">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">用户电话</span>
                                                         </div>
-                                                        <br>
-                                                    </blockquote>
+                                                        <input type="text" class="form-control" value="${user.phone}" id="userPhone" name="userPhone">
+                                                    </div>
+                                                    <div class="input-group mb-3 col-md-6">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">用户地址</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" value="${user.address}" id="userAddress" name="userAddress">
+                                                    </div>
+                                                    <div class="col-md-3 float-left">
+                                                        <input type="hidden" id="userID" name="userID" value="${user.id}"/>
+                                                        <button type="submit" class="btn btn-sm btn-block btn-outline-success">更新</button>
+                                                    </div>
                                                 </form>
+                                            </div>
+                                            <div class="card-footer">
+                                                <%
+                                                    WebApplicationContext springContext =  WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
+                                                    OrderService orderService = (OrderService) springContext.getBean("orderService");
+                                                    User user = (User) pageContext.getAttribute("user");
+                                                    List<Order> orders = orderService.findOrderByUserId(user.getId());
+
+                                                    pageContext.setAttribute("orders", orders);
+                                                %>
+                                                <c:forEach var="order" items="${orders}">
+                                                        <div class="input-group mb-3 col-md-6">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><a href="/order/searchOrders?order_id=${order.id}&user_id=${user.id}&searchKey='users.jsp'">订单: ${order.id}</a></span>
+                                                            </div>
+                                                        </div>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                     </div>

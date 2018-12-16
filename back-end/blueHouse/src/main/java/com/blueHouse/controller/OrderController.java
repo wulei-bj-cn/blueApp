@@ -87,6 +87,84 @@ public class OrderController {
         }
     }
 
+    @RequestMapping(value = "/searchOrders", method = RequestMethod.GET)
+    public String searchUsers(HttpServletRequest req, ModelMap modelMap) {
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if (loginStatus != null && loginStatus.equals("1")) {
+            if (loginService.permissionCheck(user, PAGEPERMISSIONCODE)) {
+                modelMap.put("permissionCode", true);
+            } else {
+                modelMap.put("permissionCode", false);
+            }
+            String searchKey = req.getParameter("searchKey");
+            String order_id = req.getParameter("order_id");
+            String user_id = req.getParameter("user_id");
+            boolean searchFromUsersPage = !order_id.isEmpty() && !user_id.isEmpty() && searchKey.equals("users.jsp");
+            boolean searchFromOrdersPage = !searchKey.equals("users.jsp");
+            if (searchKey.isEmpty()) {
+                modelMap.put("isSearching", false);
+                return "redirect: /order/getAll";
+            } else if (searchFromUsersPage) {
+                List<Order> orders = omService.findOrder(user_id, order_id);
+                List<OrderItems> orderItems = new ArrayList();
+                if (orders != null && orders.size() != 0) {
+                    for (Order order : orders) {
+                        String userId = order.getUser_id();
+                        String orderId = order.getId();
+                        User pojoUser = userService.findUserById(userId);
+                        List<Measure> measures = omService.findMeasure(userId, orderId);
+                        List<Contract> contracts = omService.findContract(userId, orderId);
+                        List<Design> designs = omService.findDesign(userId, orderId);
+                        List<Disclaim> disclaims = omService.findDisclaim(userId, orderId);
+                        List<Project> projects = omService.findProject(userId, orderId);
+                        orderItems.add(
+                                new OrderItems(pojoUser, order, measures, contracts, designs, disclaims, projects));
+                    }
+                }
+                modelMap.put("orderItems", orderItems);
+                modelMap.put("ordersCount", orders.size());
+                modelMap.put("searchKey", searchKey);
+                modelMap.put("isSearching", true);
+                return "orders";
+            } else if (searchFromOrdersPage) {
+                List<User> searchUsers = userService.findUserByNameOrID(searchKey);
+                List<Order> orders = new ArrayList<>();
+                for (User searchUser: searchUsers) {
+                    List<Order> userOrders = omService.findOrderByUser(searchUser.getId());
+                    if(userOrders != null) {
+                        orders.addAll(userOrders);
+                    }
+                }
+                List<OrderItems> orderItems = new ArrayList();
+                if (orders.size() != 0 ) {
+                    for (Order order : orders) {
+                        String userId = order.getUser_id();
+                        String orderId = order.getId();
+                        User pojoUser = userService.findUserById(userId);
+                        List<Measure> measures = omService.findMeasure(userId, orderId);
+                        List<Contract> contracts = omService.findContract(userId, orderId);
+                        List<Design> designs = omService.findDesign(userId, orderId);
+                        List<Disclaim> disclaims = omService.findDisclaim(userId, orderId);
+                        List<Project> projects = omService.findProject(userId, orderId);
+                        orderItems.add(
+                                new OrderItems(pojoUser, order, measures, contracts, designs, disclaims, projects));
+                    }
+                }
+                modelMap.put("orderItems", orderItems);
+                modelMap.put("ordersCount", orders.size());
+                modelMap.put("searchKey", searchKey);
+                modelMap.put("isSearching", true);
+                return "orders";
+            }
+        } else {
+            return "redirect: /login/logins";
+        }
+        return "orders";
+    }
+
+
     @RequestMapping(value = "/uploadMeasure", method = RequestMethod.POST)
     public String uploadMeasureFile(@RequestParam("measure_file") MultipartFile measureFile, HttpServletRequest request) {
         CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());

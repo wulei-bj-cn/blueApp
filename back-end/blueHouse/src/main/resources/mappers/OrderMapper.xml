@@ -7,6 +7,9 @@
     <select id="findOrderById" parameterType="string" resultType="com.blueHouse.pojo.orders.Order">
         select id,user_id,start_time,end_time,status from t_orders where id = #{id}
     </select>
+    <select id="findOrderByUserId" parameterType="string" resultType="com.blueHouse.pojo.orders.Order">
+        select id,user_id,start_time,end_time,status from t_orders where user_id = #{user_id}
+    </select>
     <select id="findOrderByPartialId" parameterType="string" resultType="com.blueHouse.pojo.orders.Order">
         select id,user_id,start_time,end_time,status from t_orders where user_id LIKE  CONCAT(CONCAT('%',#{id},'%'))
     </select>
