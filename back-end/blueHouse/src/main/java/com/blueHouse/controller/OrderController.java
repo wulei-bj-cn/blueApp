@@ -154,6 +154,7 @@ public class OrderController {
                                 new OrderItems(pojoUser, order, measures, contracts, designs, disclaims, projects));
                     }
                 }
+                System.out.println("===== Order counts: " + orders.size());
                 modelMap.put("orderItems", orderItems);
                 modelMap.put("ordersCount", orders.size());
                 modelMap.put("searchKey", searchKey);
