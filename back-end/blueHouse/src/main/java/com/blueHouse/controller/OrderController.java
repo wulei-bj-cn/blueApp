@@ -130,8 +130,6 @@ public class OrderController {
                 return "orders";
             } else if (searchFromOrdersPage) {
                 List<User> searchUsers = userService.findUserByNameOrID(searchKey);
-                System.out.println("===== Search key: " + searchKey);
-                System.out.println("===== Found User name:" + searchUsers.get(0).getName());
                 List<Order> orders = new ArrayList<>();
                 for (User searchUser: searchUsers) {
                     List<Order> userOrders = omService.findOrderByUser(searchUser.getId());
@@ -145,8 +143,6 @@ public class OrderController {
                         String userId = order.getUser_id();
                         String orderId = order.getId();
                         User pojoUser = userService.findUserById(userId);
-                        System.out.println("===== userId: " + userId);
-                        System.out.println("===== user Object: " + pojoUser);
                         List<Measure> measures = omService.findMeasure(userId, orderId);
                         List<Contract> contracts = omService.findContract(userId, orderId);
                         List<Design> designs = omService.findDesign(userId, orderId);
@@ -156,7 +152,6 @@ public class OrderController {
                                 new OrderItems(pojoUser, order, measures, contracts, designs, disclaims, projects));
                     }
                 }
-                System.out.println("===== Order counts: " + orders.size());
                 modelMap.put("orderItems", orderItems);
                 modelMap.put("ordersCount", orders.size());
                 modelMap.put("searchKey", searchKey);
@@ -204,7 +199,6 @@ public class OrderController {
                     try {
                         file.transferTo(targetFile);
 
-                        System.out.println("==========Measure ID:" + measure_id);
                         T_Measure t_measure = measureService.findMeasureById(measure_id);
                         t_measure.setUrl(targetPath);
                         measureService.updateMeasure(t_measure);
