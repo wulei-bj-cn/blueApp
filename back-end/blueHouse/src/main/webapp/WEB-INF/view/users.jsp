@@ -20,6 +20,10 @@
     <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/popper.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
+    <%
+        WebApplicationContext springContext =  WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
+        OrderService orderService = (OrderService) springContext.getBean("orderService");
+    %>
 </head>
 <body>
 
@@ -130,6 +134,21 @@
                                                     </div>
                                                 </form>
                                             </div>
+                                            <div class="card-footer">
+                                                <%
+                                                    User user = (User) pageContext.getAttribute("user");
+                                                    List<Order> orders = orderService.findOrderByUserId(user.getId());
+
+                                                    pageContext.setAttribute("orders", orders);
+                                                %>
+                                                <c:forEach var="order" items="${orders}">
+                                                    <div class="input-group mb-3 col-md-6">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><a href="/order/searchOrders?order_id=${order.id}&user_id=${user.id}&searchKey=users.jsp">订单: ${order.id}</a></span>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -181,8 +200,6 @@
                                             </div>
                                             <div class="card-footer">
                                                 <%
-                                                    WebApplicationContext springContext =  WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
-                                                    OrderService orderService = (OrderService) springContext.getBean("orderService");
                                                     User user = (User) pageContext.getAttribute("user");
                                                     List<Order> orders = orderService.findOrderByUserId(user.getId());
 
