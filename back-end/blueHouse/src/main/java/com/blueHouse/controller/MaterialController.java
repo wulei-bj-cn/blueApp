@@ -51,17 +51,29 @@ public class MaterialController {
 
     @RequestMapping(value="/searchMaterials",method = RequestMethod.GET)
     public String searchMaterials(HttpServletRequest req ,ModelMap modelMap){
-        String searchKey = req.getParameter("searchKey");
-        if (searchKey.isEmpty()){
-            modelMap.put("isSearching", false);
-            return "redirect: /material/getAll";
-        }else {
-            List<T_Material> materials = materialService.findMaterialByPartialName(searchKey);
-            modelMap.put("materials", materials);
-            modelMap.put("materialsCount", materials.size());
-            modelMap.put("isSearching", true);
-            modelMap.put("searchKey", searchKey);
-            return "materials";
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")) {
+            if (loginService.permissionCheck(user, PAGEPERMISSIONCODE)) {
+                modelMap.put("permissionCode", true);
+            } else {
+                modelMap.put("permissionCode", false);
+            }
+            String searchKey = req.getParameter("searchKey");
+            if (searchKey.isEmpty()) {
+                modelMap.put("isSearching", false);
+                return "redirect: /material/getAll";
+            } else {
+                List<T_Material> materials = materialService.findMaterialByPartialName(searchKey);
+                modelMap.put("materials", materials);
+                modelMap.put("materialsCount", materials.size());
+                modelMap.put("isSearching", true);
+                modelMap.put("searchKey", searchKey);
+                return "materials";
+            }
+        }else{
+            return "redirect: /login/logins";
         }
     }
 

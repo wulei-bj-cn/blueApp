@@ -5,22 +5,22 @@
 
 <mapper namespace="com.blueHouse.mapper.DesignMapper">
     <select id="findAllDesign" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Design">
-        select id,name,url,ts,designer from t_designs
+        select id,name,url,ts,designer,details from t_designs
     </select>
     <select id="findDesignById" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Design">
-        select id,name,url,ts,designer from t_designs where id = #{id}
+        select id,name,url,ts,designer,details from t_designs where id = #{id}
     </select>
     <select id="findDesignByUseName" parameterType="string" resultType="com.blueHouse.pojo.browse.T_Design">
-        select id,name,url,ts,designer from t_designs where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
+        select id,name,url,ts,designer,details from t_designs where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <select id="findDesignByT_DesignerName" parameterType="string"  resultType="com.blueHouse.pojo.browse.T_Design">
-        select id,name,url,ts,designer from t_designs where designer LIKE  CONCAT(CONCAT('%',#{name},'%'))
+        select id,name,url,ts,designer,details from t_designs where designer LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <insert id="insertDesign" parameterType="com.blueHouse.pojo.browse.T_Design">
-        insert into t_designs(id,name,url,ts,designer) values(#{id}, #{name}, #{url}, #{ts},#{designer})
+        insert into t_designs(id,name,url,ts,designer,details) values(#{id}, #{name}, #{url}, #{ts},#{designer},#{details})
     </insert>
     <update id="updateDesign" parameterType="com.blueHouse.pojo.browse.T_Design">
-        UPDATE t_designs SET name = #{name}, url = #{url}, ts = #{ts}, designer = #{designer} WHERE id = #{id}
+        UPDATE t_designs SET name = #{name}, url = #{url}, ts = #{ts}, designer = #{designer},details = #{details} WHERE id = #{id}
     </update>
     <delete id="deleteDesign" parameterType="com.blueHouse.pojo.browse.T_Design">
         DELETE FROM t_designs WHERE id = #{id}

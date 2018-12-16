@@ -41,4 +41,18 @@ public class TimeStampUtil {
         java.sql.Timestamp dateSQL = new java.sql.Timestamp(date.getTime());
         return dateSQL;
     }
+
+    /**
+     * 获取当前时间,转换为java.sql.Timestamp格式日期,用于数据库保存
+     * @return java.sql.Timestamp类型日期对象（如果转换失败则返回null）
+     */
+    public static java.sql.Timestamp localTimToSqlDate(){
+        java.sql.Timestamp dateSQL = new java.sql.Timestamp(System.currentTimeMillis());
+        return dateSQL;
+    }
+
+    public static void main(String[] args){
+        java.sql.Timestamp dateSQL = localTimToSqlDate();
+        System.out.println(dateSQL.getTime());
+    }
 }

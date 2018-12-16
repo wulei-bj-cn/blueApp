@@ -12,6 +12,15 @@ public class T_Design {
     private Timestamp ts;
     private String designer;
     private String status;
+    private String details;
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
 
     public String getId() { return this.id; }
     public void setId(String id) { this.id = id; }

@@ -67,18 +67,30 @@ public class SolutionController {
 
     @RequestMapping(value = "/searchSolutions" , method = RequestMethod.GET)
     public String searchSolutions(HttpServletRequest req, ModelMap modelMap) {
-        String searchKey = req.getParameter("searchKey");
-        if (searchKey.isEmpty()) {
-            modelMap.put("isSearching", false);
-            return "redirect: /solution/getAll";
-        } else {
-            List<T_Solution> solutions = solutionService.findSolutionByName(searchKey);
-            modelMap.put("searchKey", searchKey);
-            modelMap.put("solutionsCount", solutions.size());
-            modelMap.put("searchSolutions", solutions);
-            modelMap.put("isSearching", true);
-            return "solutions";
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")) {
+            if (loginService.permissionCheck(user, PAGEPERMISSIONCODE)) {
+                modelMap.put("permissionCode", true);
+            } else {
+                modelMap.put("permissionCode", false);
+            }
+            String searchKey = req.getParameter("searchKey");
+            if (searchKey.isEmpty()) {
+                modelMap.put("isSearching", false);
+                return "redirect: /solution/getAll";
+            } else {
+                List<T_Solution> solutions = solutionService.findSolutionByName(searchKey);
+                modelMap.put("searchKey", searchKey);
+                modelMap.put("solutionsCount", solutions.size());
+                modelMap.put("searchSolutions", solutions);
+                modelMap.put("isSearching", true);
+                return "solutions";
 
+            }
+        }else{
+            return "redirect: /login/logins";
         }
     }
 
