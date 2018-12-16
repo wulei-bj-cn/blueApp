@@ -130,6 +130,7 @@ public class OrderController {
                 return "orders";
             } else if (searchFromOrdersPage) {
                 List<User> searchUsers = userService.findUserByNameOrID(searchKey);
+                System.out.println("===== Search key: " + searchKey);
                 System.out.println("===== Found User name:" + searchUsers.get(0).getName());
                 List<Order> orders = new ArrayList<>();
                 for (User searchUser: searchUsers) {
