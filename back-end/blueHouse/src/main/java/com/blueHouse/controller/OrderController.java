@@ -99,14 +99,14 @@ public class OrderController {
                 modelMap.put("permissionCode", false);
             }
             String searchKey = req.getParameter("searchKey");
-            String order_id = req.getParameter("order_id");
-            String user_id = req.getParameter("user_id");
-            boolean searchFromUsersPage = !order_id.isEmpty() && !user_id.isEmpty() && searchKey.equals("users.jsp");
+            boolean searchFromUsersPage = searchKey.equals("users.jsp");
             boolean searchFromOrdersPage = !searchKey.equals("users.jsp");
             if (searchKey.isEmpty()) {
                 modelMap.put("isSearching", false);
                 return "redirect: /order/getAll";
             } else if (searchFromUsersPage) {
+                String order_id = req.getParameter("order_id");
+                String user_id = req.getParameter("user_id");
                 List<Order> orders = omService.findOrder(user_id, order_id);
                 List<OrderItems> orderItems = new ArrayList();
                 if (orders != null && orders.size() != 0) {

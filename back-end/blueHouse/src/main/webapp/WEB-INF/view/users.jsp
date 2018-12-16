@@ -191,7 +191,7 @@
                                                 <c:forEach var="order" items="${orders}">
                                                         <div class="input-group mb-3 col-md-6">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text"><a href="/order/searchOrders?order_id=${order.id}&user_id=${user.id}&searchKey='users.jsp'">订单: ${order.id}</a></span>
+                                                                <span class="input-group-text"><a href="/order/searchOrders?order_id=${order.id}&user_id=${user.id}&searchKey=users.jsp">订单: ${order.id}</a></span>
                                                             </div>
                                                         </div>
                                                 </c:forEach>

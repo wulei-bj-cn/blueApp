@@ -53,7 +53,7 @@
 <div class="container">
     <c:if test="${permissionCode == true}" >
     <div class="navbar col-md-12 bg-dark">
-        <form class="form-inline my-2 my-lg-0 float-right">
+        <form class="form-inline my-2 my-lg-0 float-right" action="/order/searchOrders" method="get">
             <input class="form-control mr-sm-2" type="text" placeholder="订单号/用户名" aria-label="Search">
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">搜索</button>
         </form>
@@ -67,7 +67,12 @@
     </c:if>
     <c:if test="${isSearching == true }">
         <div class="alert alert-success">
-            <strong>老板您好!</strong> 根据关键词"${searchKey}"，搜索到<%=request.getAttribute("ordersCount")%>个相关订单，您可以通过将搜索框置空，并点击"搜索"重新获取所有订单！
+            <c:if test="${searchKey == 'users.jsp'}">
+                <strong>老板您好!</strong> 您搜索的相关用户的订单如下；如果需要获取所有订单，您可以通过将搜索框置空，并点击"搜索"！
+            </c:if>
+            <c:if test="${searchKey != 'users.jsp'}">
+                <strong>老板您好!</strong> 根据关键词"${searchKey}"，搜索到<%=request.getAttribute("ordersCount")%>个相关订单，您可以通过将搜索框置空，并点击"搜索"重新获取所有订单！
+            </c:if>
         </div>
     </c:if>
     <div id="accordion">
