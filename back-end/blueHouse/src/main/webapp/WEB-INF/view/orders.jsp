@@ -422,22 +422,22 @@
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                 <img src="/img/designs/${design.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_pic_${orderItem.order}_${design.id}">
-                                                                    <div class="modal fade" id="design_pic_${orderItem.order}_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                        <div class="modal-dialog">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                                                </div>
-                                                                                <div class="modal-body">
-                                                                                    <img src="/img/designs/${design.url}" alt="" style="width:100%;">
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                                                </div>
+                                                                <div class="modal fade" id="design_pic_${orderItem.order}_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <img src="/img/designs/${design.url}" alt="" style="width:100%;">
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
                                                             </div>
                                                         </div>
                                                     </c:forEach>

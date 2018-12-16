@@ -49,11 +49,13 @@
                 <h4>设计列表</h4>
             </a>
         </li>
+        <!--
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#panel2" role="tab">
                 <h4>添加设计</h4>
             </a>
         </li>
+        -->
     </ul>
     <br>
     <div class="tab-content">
@@ -97,30 +99,99 @@
                                                     <blockquote class="blockquote mb-0">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label>设计名称: </label>
-                                                                <input id="name" name="name" type="text" value="${design.name}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>链接: </label>
-                                                                <input id="url" name="url" type="text" value="${design.url}">
+                                                                <div class="">设计名称:${design.name}</div>
+                                                                <div class="">设计师:${design.designer}</div>
+                                                                <div class="">设计详情:${design.details}</div>
+                                                                <div class="">设计时间:${design.ts}</div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label>时间: </label>
-                                                                <input id="ts" name="ts" type="text" value="${design.ts}" onfocus="setDate(this,'yyyy-MM-dd HH:mm')">
+                                                                <c:if test="${design.url != null && design.url != ''}">
+                                                                    <img src="/img/designs/${design.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_pic_inline_${design.id}">
+                                                                    <div class="col-md-6">
+                                                                        <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#upload_design_modal_${design.id}">上传图片</button>
+                                                                    </div>
+                                                                    <form class="form-inline mt-2 mt-md-0" action="/design/uploadDesignWithFile" method="post" enctype="multipart/form-data">
+                                                                    <div class="modal fade" id="upload_design_modal_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                        <div class="modal-dialog modal-lg" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <span class="badge badge-info float-left">上传设计图片</span>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="">设计名称:<input id="name" name="name" type="text" value="${design.name}"></div>
+                                                                                    <div class="">设计师:<input id="designer" name="designer" type="text" value="${design.designer}"></div>
+                                                                                    <div class="">设计说明:<input id="details" name="details" type="text" value="${design.details}"></div>
+                                                                                    <br>
+                                                                                    <div class="form-group">
+                                                                                        <label for="design_file">上传设计方案截图</label>
+                                                                                        &nbsp;
+                                                                                        <input type="file" name="design_file" id="design_file" />
+                                                                                        &nbsp;
+                                                                                        <input type="text" id="design_id" name="design_id" value="${design.id}" hidden="true"/>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="submit" class="btn btn-outline-info">确定</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    </form>
+                                                                    <div class="modal fade" id="design_pic_inline_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <img src="/img/designs/${design.url}" alt="" style="width:100%;">
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:if>
+                                                                <c:if test="${design.url == null || design.url == ''}">
+                                                                    <p>目前还没有对设计方案上传图片，点击<span class="badge badge-info">上传设计图片</span>添加设计图片。</p>
+                                                                    <br>
+                                                                    <div class="col-md-6">
+                                                                        <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#new_design_modal_${design.id}">上传图片</button>
+                                                                    </div>
+                                                                    <form class="form-inline mt-2 mt-md-0" action="/design/uploadDesignWithFile" method="post" enctype="multipart/form-data">
+                                                                        <div class="modal fade" id="new_design_modal_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <span class="badge badge-info float-left">上传设计图片</span>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="">设计名称:<input id="name" name="name" type="text" value="${design.name}"></div>
+                                                                                        <div class="">设计师:<input id="designer" name="designer" type="text" value="${design.designer}"></div>
+                                                                                        <div class="">设计说明:<input id="details" name="details" type="text" value="${design.details}"></div>
+                                                                                        <br>
+                                                                                        <div class="form-group">
+                                                                                            <label for="design_file">上传设计方案截图</label>
+                                                                                            &nbsp;
+                                                                                            <input type="file" name="design_file" id="design_file" />
+                                                                                            &nbsp;
+                                                                                            <input type="text" id="design_id" name="design_id" value="${design.id}" hidden="true"/>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="submit" class="btn btn-outline-info">确定</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </c:if>
                                                             </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>设计师: </label>
-                                                                <input id="designer" name="designer" type="text" value="${design.designer}">
-                                                            </div>
-                                                        </div>
-                                                        <br>
-                                                        <div class="col-md-3 float-right">
-                                                            <input type="hidden" id="designId" name="designId" value="${design.id}"/>
-                                                            <button type="submit" class="btn btn-sm btn-block btn-outline-success">更新</button>
                                                         </div>
                                                         <br>
                                                     </blockquote>
@@ -144,38 +215,106 @@
                                         </div>
                                         <div id="collapse${design.id}" class="collapse" data-parent="#accordion2">
                                             <div class="card-body">
-                                                <form class="form-inline mt-2 mt-md-0" action="/design/updateDesign" method="get">
-                                                    <blockquote class="blockquote mb-0">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>设计名称: </label>
-                                                                <input id="name" name="name" type="text" value="${design.name}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>链接: </label>
-                                                                <input id="url" name="url" type="text" value="${design.url}">
-                                                            </div>
+                                                <blockquote class="blockquote mb-0">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="">设计名称:${design.name}</div>
+                                                            <div class="">设计师:${design.designer}</div>
+                                                            <div class="">设计详情:${design.details}</div>
+                                                            <div class="">设计时间:${design.ts}</div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>时间: </label>
-                                                                <input id="ts" name="ts" type="text" value="${design.ts}" onfocus="setDate(this,'yyyy-MM-dd HH:mm')">
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <c:if test="${design.url != null && design.url != ''}">
+                                                            <img src="/img/designs/${design.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_pic_inline_${design.id}">
+                                                                <div class="col-md-6">
+                                                                    <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#upload_design_modal_${design.id}">上传图片</button>
+                                                                </div>
+                                                                <form class="form-inline mt-2 mt-md-0" action="/design/uploadDesignWithFile" method="post" enctype="multipart/form-data">
+                                                                <div class="modal fade" id="upload_design_modal_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                    <div class="modal-dialog modal-lg" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <span class="badge badge-info float-left">上传设计图片</span>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="">设计名称:<input id="name" name="name" type="text" value="${design.name}"></div>
+                                                                                <div class="">设计师:<input id="designer" name="designer" type="text" value="${design.designer}"></div>
+                                                                                <div class="">设计说明:<input id="details" name="details" type="text" value="${design.details}"></div>
+                                                                                <br>
+                                                                                <div class="form-group">
+                                                                                    <label for="design_file">上传设计方案截图</label>
+                                                                                    &nbsp;
+                                                                                    <input type="file" name="design_file" id="design_file" />
+                                                                                    &nbsp;
+                                                                                    <input type="text" id="design_id" name="design_id" value="${design.id}" hidden="true"/>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="submit" class="btn btn-outline-info">确定</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                </form>
+
+                                                            <div class="modal fade" id="design_pic_inline_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <img src="/img/designs/${design.url}" alt="" style="width:100%;">
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
                                                             </div>
+                                                            </c:if>
+                                                            <c:if test="${design.url == null || design.url == ''}">
+                                                                <p>目前还没有对设计方案上传图片，点击<span class="badge badge-info">上传设计图片</span>添加设计图片。</p>
+                                                                <br>
+                                                                <div class="col-md-6">
+                                                                    <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#new_design_modal_${design.id}">上传图片</button>
+                                                                </div>
+                                                                <form class="form-inline mt-2 mt-md-0" action="/design/uploadDesignWithFile" method="post" enctype="multipart/form-data">
+                                                                    <div class="modal fade" id="new_design_modal_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                        <div class="modal-dialog modal-lg" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <span class="badge badge-info float-left">上传设计图片</span>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="">设计名称:<input id="name" name="name" type="text" value="${design.name}"></div>
+                                                                                    <div class="">设计师:<input id="designer" name="designer" type="text" value="${design.designer}"></div>
+                                                                                    <div class="">设计说明:<input id="details" name="details" type="text" value="${design.details}"></div>
+                                                                                    <br>
+                                                                                    <div class="form-group">
+                                                                                        <label for="design_file">上传设计方案截图</label>
+                                                                                        &nbsp;
+                                                                                        <input type="file" name="design_file" id="design_file" />
+                                                                                        &nbsp;
+                                                                                        <input type="text" id="design_id" name="design_id" value="${design.id}" hidden="true"/>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="submit" class="btn btn-outline-info">确定</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </c:if>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>设计师: </label>
-                                                                <input id="designer" name="designer" type="text" value="${design.designer}">
-                                                            </div>
-                                                        </div>
-                                                        <br>
-                                                        <div class="col-md-3 float-right">
-                                                            <input type="hidden" id="designId" name="designId" value="${design.id}"/>
-                                                            <button type="submit" class="btn btn-sm btn-block btn-outline-success">更新</button>
-                                                        </div>
-                                                        <br>
-                                                    </blockquote>
-                                                </form>
+                                                    </div>
+                                                    <br>
+                                                </blockquote>
                                             </div>
                                         </div>
                                     </div>

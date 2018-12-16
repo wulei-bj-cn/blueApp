@@ -56,18 +56,30 @@ public class ActivityController {
 
     @RequestMapping(value = "/searchActivities" , method = RequestMethod.GET)
     public String searchActivities(HttpServletRequest req, ModelMap modelMap) {
-        String searchKey = req.getParameter("searchKey");
-        if (searchKey.isEmpty()) {
-            modelMap.put("isSearching", false);
-            return "redirect: /activity/getAll";
-        } else {
-            List<T_Activity> activities = activityService.findActivityByPartialName(searchKey);
-            modelMap.put("searchKey", searchKey);
-            modelMap.put("activitiesCount", activities.size());
-            modelMap.put("searchActivities", activities);
-            modelMap.put("isSearching", true);
-            return "activities";
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")) {
+            if (loginService.permissionCheck(user, PAGEPERMISSIONCODE)) {
+                modelMap.put("permissionCode", true);
+            } else {
+                modelMap.put("permissionCode", false);
+            }
+            String searchKey = req.getParameter("searchKey");
+            if (searchKey.isEmpty()) {
+                modelMap.put("isSearching", false);
+                return "redirect: /activity/getAll";
+            } else {
+                List<T_Activity> activities = activityService.findActivityByPartialName(searchKey);
+                modelMap.put("searchKey", searchKey);
+                modelMap.put("activitiesCount", activities.size());
+                modelMap.put("searchActivities", activities);
+                modelMap.put("isSearching", true);
+                return "activities";
 
+            }
+        }else{
+            return "redirect: /login/logins";
         }
     }
 

@@ -53,18 +53,30 @@ public class AdminController {
 
     @RequestMapping(value = "/searchAdmins" , method = RequestMethod.GET)
     public String searchAdmins(HttpServletRequest req, ModelMap modelMap) {
-        String searchKey = req.getParameter("searchKey");
-        if (searchKey.isEmpty()) {
-            modelMap.put("isSearching", false);
-            return "redirect: /admin/getAll";
-        } else {
-            List<Admin> admins = adminService.findAdminByNameOrID(searchKey);
-            modelMap.put("searchKey", searchKey);
-            modelMap.put("adminsCount", admins.size());
-            modelMap.put("searchAdmins", admins);
-            modelMap.put("isSearching", true);
-            return "admins";
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")) {
+            if (loginService.permissionCheck(user, PAGEPERMISSIONCODE)) {
+                modelMap.put("permissionCode", true);
+            } else {
+                modelMap.put("permissionCode", false);
+            }
+            String searchKey = req.getParameter("searchKey");
+            if (searchKey.isEmpty()) {
+                modelMap.put("isSearching", false);
+                return "redirect: /admin/getAll";
+            } else {
+                List<Admin> admins = adminService.findAdminByNameOrID(searchKey);
+                modelMap.put("searchKey", searchKey);
+                modelMap.put("adminsCount", admins.size());
+                modelMap.put("searchAdmins", admins);
+                modelMap.put("isSearching", true);
+                return "admins";
 
+            }
+        }else{
+            return "redirect: /login/logins";
         }
     }
 

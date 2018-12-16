@@ -54,17 +54,29 @@ public class ProjectController {
 
     @RequestMapping(value = "/searchProjects" , method = RequestMethod.GET)
     public String searchProjects(HttpServletRequest request ,ModelMap modelMap){
-        String searchKey = request.getParameter("searchKey");
-        if (searchKey.isEmpty()){
-            modelMap.put("isSearching",false);
-            return "redirect: /project/getAll";
-        }else {
-            List<T_Project> projects = projectService.findProjectByName(searchKey);
-            modelMap.put("projects", projects);
-            modelMap.put("projectsCount", projects.size());
-            modelMap.put("isSearching", true);
-            modelMap.put("searchKey", searchKey);
-            return "projects";
+        HttpSession session = request.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if(loginStatus != null && loginStatus.equals("1")) {
+            if (loginService.permissionCheck(user, PAGEPERMISSIONCODE)) {
+                modelMap.put("permissionCode", true);
+            } else {
+                modelMap.put("permissionCode", false);
+            }
+            String searchKey = request.getParameter("searchKey");
+            if (searchKey.isEmpty()) {
+                modelMap.put("isSearching", false);
+                return "redirect: /project/getAll";
+            } else {
+                List<T_Project> projects = projectService.findProjectByName(searchKey);
+                modelMap.put("projects", projects);
+                modelMap.put("projectsCount", projects.size());
+                modelMap.put("isSearching", true);
+                modelMap.put("searchKey", searchKey);
+                return "projects";
+            }
+        }else{
+            return "redirect: /login/logins";
         }
     }
 
