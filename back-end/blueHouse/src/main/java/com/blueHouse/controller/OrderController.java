@@ -145,6 +145,8 @@ public class OrderController {
                         String userId = order.getUser_id();
                         String orderId = order.getId();
                         User pojoUser = userService.findUserById(userId);
+                        System.out.println("===== userId: " + userId);
+                        System.out.println("===== user Object: " + pojoUser);
                         List<Measure> measures = omService.findMeasure(userId, orderId);
                         List<Contract> contracts = omService.findContract(userId, orderId);
                         List<Design> designs = omService.findDesign(userId, orderId);

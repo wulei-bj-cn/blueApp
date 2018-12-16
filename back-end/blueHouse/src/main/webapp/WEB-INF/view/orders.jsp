@@ -67,12 +67,14 @@
     </c:if>
     <c:if test="${isSearching == true}">
         <div class="alert alert-success">
-            <c:if test="${searchKey == 'users.jsp'}">
-                <strong>老板您好!</strong> 您搜索的相关用户的订单如下；如果需要获取所有订单，您可以通过将搜索框置空，并点击"搜索"！
-            </c:if>
-            <c:if test="${searchKey != 'users.jsp'}">
-                <strong>老板您好!</strong> 根据关键词"${searchKey}"，搜索到<%=request.getAttribute("ordersCount")%>个相关订单，您可以通过将搜索框置空，并点击"搜索"重新获取所有订单！
-            </c:if>
+            <c:choose>
+                <c:when test="${searchKey == 'users.jsp'}">
+                    <strong>老板您好!</strong> 您搜索的相关用户的订单如下；如果需要获取所有订单，您可以通过将搜索框置空，并点击"搜索"！
+                </c:when>
+                <c:otherwise>
+                    <strong>老板您好!</strong> 根据关键词"${searchKey}"，搜索到<%=request.getAttribute("ordersCount")%>个相关订单，您可以通过将搜索框置空，并点击"搜索"重新获取所有订单！
+                </c:otherwise>
+            </c:choose>
         </div>
     </c:if>
     <div id="accordion">
@@ -102,7 +104,7 @@
 
                 List<Project> projects = (orderItem.getProjects().size() == 0)? null: orderItem.getProjects();
 
-                User user = orderItem.getUser();
+                User pojoUser = orderItem.getUser();
                 Order order = orderItem.getOrder();
                 Map<String,String> orderStatusMap = new HashMap<>();
                 orderStatusMap.put("0", "预约成功，待分配测量师");
@@ -123,14 +125,14 @@
                 pageContext.setAttribute("projectContracts", projectContracts);
                 pageContext.setAttribute("disclaim", disclaim);
                 pageContext.setAttribute("projects", projects);
-                pageContext.setAttribute("user", user);
+                pageContext.setAttribute("pojoUser", pojoUser);
                 pageContext.setAttribute("order", order);
                 pageContext.setAttribute("orderStatusMap", orderStatusMap);
             %>
             <div class="card">
                 <div class="card-header">
                     <a class="card-link collapsed" data-toggle="collapse" href="#Collapse_${orderItem.order}_${orderItem.user}">
-                        用户: ${user.name} (下单时间: ${order.start_time} / 订单状态: ${orderStatusMap.get(order.status)})
+                        用户: ${pojoUser.name} (下单时间: ${order.start_time} / 订单状态: ${orderStatusMap.get(order.status)})
                     </a>
                 </div>
                 <div id="Collapse_${orderItem.order}_${orderItem.user}" class="collapse" data-parent="#accordion">
