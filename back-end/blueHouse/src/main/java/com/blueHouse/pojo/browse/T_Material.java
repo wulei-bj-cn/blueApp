@@ -9,8 +9,10 @@ public class T_Material {
     private String category;
     private String brand;
     private String name;
-    private double price;
+    private double prePrice;
+    private double newPrice;
     private String url;
+    private String details;
 
     public String getId() { return this.id; }
     public void setId(String id) { this.id = id; }
@@ -24,14 +26,44 @@ public class T_Material {
     public String getBrand() { return this.brand; }
     public void setBrand(String brand) { this.brand = brand; }
 
+    public double getPrePrice() {
+        return prePrice;
+    }
+
+    public void setPrePrice(double prePrice) {
+        this.prePrice = prePrice;
+    }
+
+    public double getNewPrice() {
+        return newPrice;
+    }
+
+    public void setNewPrice(double newPrice) {
+        this.newPrice = newPrice;
+    }
+
+    public double getPrice() {
+        return newPrice;
+    }
+
+    public void setPrice(double newPrice) {
+        this.newPrice = newPrice;
+    }
+
     public String getName() { return this.name; }
     public void setName(String name) { this.name = name; }
 
-    public double getPrice() { return this.price; }
-    public void setPrice(double price) { this.price = price; }
+
 
     public String getUrl() { return this.url; }
     public void setUrl(String url) { this.url = url; }
 
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
 }
 

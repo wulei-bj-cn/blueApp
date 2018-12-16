@@ -92,40 +92,115 @@
                                         </div>
                                         <div id="collapse${material.id}" class="collapse" data-parent="#accordion1">
                                             <div class="card-body">
-                                                <form class="form-inline mt-2 mt-md-0" action="/material/updateMaterial" method="get">
-                                                    <blockquote class="blockquote mb-0">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>建材品牌: </label>
-                                                                <input id="brand" name="brand" type="text" value="${material.brand}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>建材名称: </label>
-                                                                <input id="name" name="name" type="text" value="${material.name}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>建材链接: </label>
-                                                                <input id="url" name="url" type="text" value="${material.url}">
-                                                            </div>
+                                                <blockquote class="blockquote mb-0">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="">建材品牌:${material.brand}</div>
+                                                            <div class="">建材名称:${material.name}</div>
+                                                            <div class="">建材原价:${material.prePrice}</div>
+                                                            <div class="">建材现价:${material.newPrice}</div>
+                                                            <div class="">建材详情:${material.details}</div>
+                                                            <div class="">建材分类:${material.category}</div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>建材分类: </label>
-                                                                <input id="category" name="category" type="text" value="${material.category}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>建材价格: </label>
-                                                                <input id="price" name="price" type="text" value="${material.price}">
-                                                            </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <c:if test="${material.url != null && material.url != ''}">
+                                                                <img src="/img/materials/${material.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#material_pic_inline_${material.id}">
+                                                                <div class="col-md-6">
+                                                                    <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#upload_material_modal_${material.id}">上传图片</button>
+                                                                </div>
+                                                                <form class="form-inline mt-2 mt-md-0" action="/material/updateMaterialWithFile" method="post" enctype="multipart/form-data">
+                                                                    <div class="modal fade" id="upload_material_modal_${material.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                        <div class="modal-dialog modal-lg" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <span class="badge badge-info float-left">上传建材图片</span>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+
+                                                                                    <div class="">建材品牌:<input id="brand" name="brand" type="text" value="${material.brand}"></div>
+                                                                                    <div class="">建材名称:<input id="name" name="name" type="text" value="${material.name}"></div>
+                                                                                    <div class="">建材原价:<input id="prePrice" name="prePrice" type="text" value="${material.prePrice}"></div>
+                                                                                    <div class="">建材现价:<input id="newPrice" name="newPrice" type="text" value="${material.newPrice}"></div>
+                                                                                    <div class="">建材详情:<input id="details" name="details" type="text" value="${material.details}"></div>
+                                                                                    <div class="">建材分类:<input id="category" name="category" type="text" value="${material.category}"></div>
+                                                                                    <br>
+                                                                                    <div class="form-group">
+                                                                                        <label for="material_file">上传建材图片</label>
+                                                                                        &nbsp;
+                                                                                        <input type="file" name="material_file" id="material_file" />
+                                                                                        &nbsp;
+                                                                                        <input type="text" id="material_id" name="material_id" value="${material.id}" hidden="true"/>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="submit" class="btn btn-outline-info">确定</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+
+                                                                <div class="modal fade" id="material_pic_inline_${material.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <img src="/img/materials/${material.url}" alt="" style="width:100%;">
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </c:if>
+                                                            <c:if test="${material.url == null || material.url == ''}">
+                                                                <p>目前还没有对建材上传图片，点击<span class="badge badge-info">上传图片</span>添加建材图片。</p>
+                                                                <br>
+                                                                <div class="col-md-6">
+                                                                    <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#new_material_modal_${material.id}">上传图片</button>
+                                                                </div>
+                                                                <form class="form-inline mt-2 mt-md-0" action="/material/updateMaterialWithFile" method="post" enctype="multipart/form-data">
+                                                                    <div class="modal fade" id="new_material_modal_${material.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                        <div class="modal-dialog modal-lg" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <span class="badge badge-info float-left">上传建材图片</span>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="">建材品牌:<input id="brand" name="brand" type="text" value="${material.brand}"></div>
+                                                                                    <div class="">建材名称:<input id="name" name="name" type="text" value="${material.name}"></div>
+                                                                                    <div class="">建材原价:<input id="prePrice" name="prePrice" type="text" value="${material.prePrice}"></div>
+                                                                                    <div class="">建材现价:<input id="newPrice" name="newPrice" type="text" value="${material.newPrice}"></div>
+                                                                                    <div class="">建材详情:<input id="details" name="details" type="text" value="${material.details}"></div>
+                                                                                    <div class="">建材分类:<input id="category" name="category" type="text" value="${material.category}"></div>
+                                                                                    <br>
+                                                                                    <div class="form-group">
+                                                                                        <label for="material_file">上传建材图片</label>
+                                                                                        &nbsp;
+                                                                                        <input type="file" name="material_file" id="material_file" />
+                                                                                        &nbsp;
+                                                                                        <input type="text" id="material_id" name="material_id" value="${material.id}" hidden="true"/>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="submit" class="btn btn-outline-info">确定</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </c:if>
                                                         </div>
-                                                        <br>
-                                                        <div class="col-md-3 float-right">
-                                                            <input type="hidden" id="materialId" name="materialId" value="${material.id}"/>
-                                                            <button type="submit" class="btn btn-sm btn-block btn-outline-success">更新</button>
-                                                        </div>
-                                                        <br>
-                                                    </blockquote>
-                                                </form>
+                                                    </div>
+                                                    <br>
+                                                </blockquote>
                                             </div>
                                         </div>
                                     </div>
@@ -145,40 +220,146 @@
                                         </div>
                                         <div id="collapse${material.id}" class="collapse" data-parent="#accordion1">
                                             <div class="card-body">
-                                                <form class="form-inline mt-2 mt-md-0" action="/material/updateMaterial" method="get">
                                                     <blockquote class="blockquote mb-0">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label>建材品牌: </label>
-                                                                <input id="brand" name="brand" type="text" value="${material.brand}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>建材名称: </label>
-                                                                <input id="name" name="name" type="text" value="${material.name}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>建材链接: </label>
-                                                                <input id="url" name="url" type="text" value="${material.url}">
+                                                                <div class="">建材品牌:${material.brand}</div>
+                                                                <div class="">建材名称:${material.name}</div>
+                                                                <div class="">建材原价:${material.prePrice}</div>
+                                                                <div class="">建材现价:${material.newPrice}</div>
+                                                                <div class="">建材详情:${material.details}</div>
+                                                                <div class="">建材分类:${material.category}</div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label>建材分类: </label>
-                                                                <input id="category" name="category" type="text" value="${material.category}">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>建材价格: </label>
-                                                                <input id="price" name="price" type="text" value="${material.price}">
+                                                                <c:if test="${material.url != null && material.url != ''}">
+                                                                    <img src="/img/materials/${material.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#material_pic_inline_${material.id}">
+                                                                    <div class="col-md-6">
+                                                                        <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#upload_material_modal_${material.id}">上传图片</button>
+                                                                    </div>
+                                                                    <form class="form-inline mt-2 mt-md-0" action="/material/updateMaterialWithFile" method="post" enctype="multipart/form-data">
+                                                                        <div class="modal fade" id="upload_material_modal_${material.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <span class="badge badge-info float-left">上传建材图片</span>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+
+                                                                                        <div class="">建材品牌:<input id="brand" name="brand" type="text" value="${material.brand}"></div>
+                                                                                        <div class="">建材名称:<input id="name" name="name" type="text" value="${material.name}"></div>
+                                                                                        <div class="">建材原价:<input id="prePrice" name="prePrice" type="text" value="${material.prePrice}"></div>
+                                                                                        <div class="">建材现价:<input id="newPrice" name="newPrice" type="text" value="${material.newPrice}"></div>
+                                                                                        <div class="">建材详情:<input id="details" name="details" type="text" value="${material.details}"></div>
+                                                                                        <div class="">建材分类:<input id="category" name="category" type="text" value="${material.category}"></div>
+                                                                                        <br>
+                                                                                        <div class="form-group">
+                                                                                            <label for="material_file">上传建材图片</label>
+                                                                                            &nbsp;
+                                                                                            <input type="file" name="material_file" id="material_file" />
+                                                                                            &nbsp;
+                                                                                            <input type="text" id="material_id" name="material_id" value="${material.id}" hidden="true"/>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="submit" class="btn btn-outline-info">确定</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+
+                                                                    <div class="modal fade" id="material_pic_inline_${material.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <img src="/img/materials/${material.url}" alt="" style="width:100%;">
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:if>
+                                                                <c:if test="${material.url == null || material.url == ''}">
+                                                                    <p>目前还没有对建材上传图片，点击<span class="badge badge-info">上传图片</span>添加建材图片。</p>
+                                                                    <br>
+                                                                    <div class="col-md-6">
+                                                                        <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#new_material_modal_${material.id}">上传图片</button>
+                                                                    </div>
+                                                                    <form class="form-inline mt-2 mt-md-0" action="/material/updateMaterialWithFile" method="post" enctype="multipart/form-data">
+                                                                        <div class="modal fade" id="new_material_modal_${material.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <span class="badge badge-info float-left">上传建材图片</span>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="">建材品牌:<input id="brand" name="brand" type="text" value="${material.brand}"></div>
+                                                                                        <div class="">建材名称:<input id="name" name="name" type="text" value="${material.name}"></div>
+                                                                                        <div class="">建材原价:<input id="prePrice" name="prePrice" type="text" value="${material.prePrice}"></div>
+                                                                                        <div class="">建材现价:<input id="newPrice" name="newPrice" type="text" value="${material.newPrice}"></div>
+                                                                                        <div class="">建材详情:<input id="details" name="details" type="text" value="${material.details}"></div>
+                                                                                        <div class="">建材分类:<input id="category" name="category" type="text" value="${material.category}"></div>
+                                                                                        <br>
+                                                                                        <div class="form-group">
+                                                                                            <label for="material_file">上传建材图片</label>
+                                                                                            &nbsp;
+                                                                                            <input type="file" name="material_file" id="material_file" />
+                                                                                            &nbsp;
+                                                                                            <input type="text" id="material_id" name="material_id" value="${material.id}" hidden="true"/>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="submit" class="btn btn-outline-info">确定</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </c:if>
                                                             </div>
                                                         </div>
-                                                        <br>
-                                                        <div class="col-md-3 float-right">
-                                                            <input type="hidden" id="materialId" name="materialId" value="${material.id}"/>
-                                                            <button type="submit" class="btn btn-sm btn-block btn-outline-success">更新</button>
+                                                        <!--
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>建材品牌: </label>
+                                                            <input id="brand" name="brand" type="text" value="${material.brand}">
                                                         </div>
+                                                        <div class="col-md-6">
+                                                            <label>建材名称: </label>
+                                                            <input id="name" name="name" type="text" value="${material.name}">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label>建材链接: </label>
+                                                            <input id="url" name="url" type="text" value="${material.url}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>建材分类: </label>
+                                                            <input id="category" name="category" type="text" value="${material.category}">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label>建材价格: </label>
+                                                            <input id="price" name="price" type="text" value="${material.price}">
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-md-3 float-right">
+                                                        <input type="hidden" id="materialId" name="materialId" value="${material.id}"/>
+                                                        <button type="submit" class="btn btn-sm btn-block btn-outline-success">更新</button>
+                                                    </div>
+                                                    -->
                                                         <br>
                                                     </blockquote>
-                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -191,45 +372,47 @@
         </div>
         <div id="panel2" class="container tab-pane fade"><br>
             <div class="container">
-                <form class="form-inline mt-2 mt-md-0" action="/material/insertiMaterial" method="get">
+                <!-- <form class="form-inline mt-2 mt-md-0" action="/material/insertiMaterial" method="get">-->
                     <blockquote class="blockquote mb-0">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>建材ID: </label>
-                                <input id="materialId" name="materialId" type="text" value="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>建材品牌: </label>
-                                <input id="brand" name="brand" type="text" value="${material.brand}">
-                            </div>
-                            <div class="col-md-6">
-                                <label>建材名称: </label>
-                                <input id="name" name="name" type="text" value="${material.name}">
-                            </div>
-                            <div class="col-md-6">
-                                <label>建材链接: </label>
-                                <input id="url" name="url" type="text" value="${material.url}">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>建材分类: </label>
-                                <input id="category" name="category" type="text" value="${material.category}">
-                            </div>
-                            <div class="col-md-6">
-                                <label>建材价格: </label>
-                                <input id="price" name="price" type="text" value="${material.price}">
-                            </div>
-                        </div>
+                        <p>点击<span class="badge badge-info">新建建材</span>添加新的建材。</p>
                         <br>
-                        <div class="col-md-3 float-right">
-                            <button type="submit" class="btn btn-sm btn-block btn-outline-success">插入</button>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#new_material_modal_1">新建建材</button>
                         </div>
-                        <br>
+                        <form class="form-inline mt-2 mt-md-0" action="/material/insertMaterialWithFile" method="post" enctype="multipart/form-data">
+                            <div class="modal fade" id="new_material_modal_1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <span class="badge badge-info float-left">添加建材信息</span>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="">建材品牌:<input id="brand" name="brand" type="text"  placeholder="请输入建材品牌" ></div>
+                                            <div class="">建材名称:<input id="name" name="name" type="text"  placeholder="请输入建材名字"></div>
+                                            <div class="">建材原价:<input id="prePrice" name="prePrice" type="text" placeholder="请输入建材原价"></div>
+                                            <div class="">建材现价:<input id="newPrice" name="newPrice" type="text" placeholder="请输入建材现价"></div>
+                                            <div class="">建材详情:<input id="details" name="details" type="text" placeholder="请输入建材说明"></div>
+                                            <div class="">建材分类:<input id="category" name="category" type="text" placeholder="请输入建材种类"></div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label for="material_file">上传建材图片</label>
+                                                &nbsp;
+                                                <input type="file" name="material_file" id="material_file" />
+                                                &nbsp;
+                                               <!-- <input type="text" id="material_id" name="material_id" value="${material.id}" hidden="true"/> -->
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-outline-info">确定</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </blockquote>
-                </form>
+              <!--  </form> -->
             </div>
         </div>
     </div>

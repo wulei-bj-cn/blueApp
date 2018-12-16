@@ -95,7 +95,7 @@
                                         </div>
                                         <div id="collapse${design.id}" class="collapse" data-parent="#accordion1">
                                             <div class="card-body">
-                                                <form class="form-inline mt-2 mt-md-0" action="/design/updateDesign" method="get">
+                                            <!-- <form class="form-inline mt-2 mt-md-0" action="/design/updateDesign" method="get"> -->
                                                     <blockquote class="blockquote mb-0">
                                                         <div class="row">
                                                             <div class="col-md-6">
@@ -112,7 +112,7 @@
                                                                     <div class="col-md-6">
                                                                         <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#upload_design_modal_${design.id}">上传图片</button>
                                                                     </div>
-                                                                    <form class="form-inline mt-2 mt-md-0" action="/design/uploadDesignWithFile" method="post" enctype="multipart/form-data">
+                                                                    <form class="form-inline mt-2 mt-md-0" action="/design/updateDesignWithFile" method="post" enctype="multipart/form-data">
                                                                     <div class="modal fade" id="upload_design_modal_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                                         <div class="modal-dialog modal-lg" role="document">
                                                                             <div class="modal-content">
@@ -161,7 +161,7 @@
                                                                     <div class="col-md-6">
                                                                         <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#new_design_modal_${design.id}">上传图片</button>
                                                                     </div>
-                                                                    <form class="form-inline mt-2 mt-md-0" action="/design/uploadDesignWithFile" method="post" enctype="multipart/form-data">
+                                                                    <form class="form-inline mt-2 mt-md-0" action="/design/updateDesignWithFileupdateDesignWithFile" method="post" enctype="multipart/form-data">
                                                                         <div class="modal fade" id="new_design_modal_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                                             <div class="modal-dialog modal-lg" role="document">
                                                                                 <div class="modal-content">
@@ -195,7 +195,7 @@
                                                         </div>
                                                         <br>
                                                     </blockquote>
-                                                </form>
+                                                <!-- </form> -->
                                             </div>
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@
                                                                 <div class="col-md-6">
                                                                     <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#upload_design_modal_${design.id}">上传图片</button>
                                                                 </div>
-                                                                <form class="form-inline mt-2 mt-md-0" action="/design/uploadDesignWithFile" method="post" enctype="multipart/form-data">
+                                                                <form class="form-inline mt-2 mt-md-0" action="/design/updateDesignWithFile" method="post" enctype="multipart/form-data">
                                                                 <div class="modal fade" id="upload_design_modal_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                                     <div class="modal-dialog modal-lg" role="document">
                                                                         <div class="modal-content">
@@ -281,7 +281,7 @@
                                                                 <div class="col-md-6">
                                                                     <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#new_design_modal_${design.id}">上传图片</button>
                                                                 </div>
-                                                                <form class="form-inline mt-2 mt-md-0" action="/design/uploadDesignWithFile" method="post" enctype="multipart/form-data">
+                                                                <form class="form-inline mt-2 mt-md-0" action="/design/updateDesignWithFile" method="post" enctype="multipart/form-data">
                                                                     <div class="modal fade" id="new_design_modal_${design.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                                         <div class="modal-dialog modal-lg" role="document">
                                                                             <div class="modal-content">

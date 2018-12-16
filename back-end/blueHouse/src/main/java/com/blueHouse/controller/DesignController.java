@@ -119,9 +119,9 @@ public class DesignController  {
         return "redirect: /design/getAll";
     }
 
-    @RequestMapping(value = "/uploadDesignWithFile", method = RequestMethod.POST)
-    public String uploadDesignFile(@RequestParam("design_file") MultipartFile designFile, HttpServletRequest request) {
-        String designId = request.getParameter("design_id");
+    @RequestMapping(value = "/updateDesignWithFile", method = RequestMethod.POST)
+    public String updateDesignFile(@RequestParam("design_file") MultipartFile designFile, HttpServletRequest request) {
+        //String designId = request.getParameter("design_id");
         String name = request.getParameter("name");
         //String url = request.getParameter("url");
         String designer = request.getParameter("designer");
@@ -180,7 +180,7 @@ public class DesignController  {
 
         }
 
-        return "orders";
+        return "redirect: /design/getAll";
     }
 
     @RequestMapping(value = "/insertDesign", method = RequestMethod.GET)

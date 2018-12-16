@@ -5,25 +5,25 @@
 
 <mapper namespace="com.blueHouse.mapper.MaterialMapper">
     <select id="finaMaterialById" parameterType="String" resultType="com.blueHouse.pojo.browse.T_Material">
-        select id,brand,name,url,category,prePrice,newPrice from t_materials where id = #{id}
+        select id,brand,name,url,category,prePrice,newPrice,details from t_materials where id = #{id}
     </select>
     <select id="findMaterialByPartialName" parameterType="String" resultType="com.blueHouse.pojo.browse.T_Material">
-        select id,brand,name,url,category,prePrice,newPrice from t_materials where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
+        select id,brand,name,url,category,prePrice,newPrice,details from t_materials where name LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <select id="findMaterialByBrand" parameterType="String" resultType="com.blueHouse.pojo.browse.T_Material">
-        select id,brand,name,url,category,prePrice,newPrice from t_materials where brand LIKE CONCAT(CONCAT('%',#{brand},'%'))
+        select id,brand,name,url,category,prePrice,newPrice,details from t_materials where brand LIKE CONCAT(CONCAT('%',#{brand},'%'))
     </select>
     <select id="findMaterialByCategory" parameterType="String" resultType="com.blueHouse.pojo.browse.T_Material">
-        select id,brand,name,url,category,prePrice,newPrice from t_materials where category LIKE CONCAT(CONCAT('%',#{category},'%'))
+        select id,brand,name,url,category,prePrice,newPrice,details from t_materials where category LIKE CONCAT(CONCAT('%',#{category},'%'))
     </select>
     <select id="findAllMaterials" resultType="com.blueHouse.pojo.browse.T_Material">
-        select id,brand,name,url,category,prePrice,newPrice from t_materials
+        select id,brand,name,url,category,prePrice,newPrice,details from t_materials
     </select>
     <insert id="insertMaterial" parameterType="com.blueHouse.pojo.browse.T_Material">
-        insert into t_materials(id,brand,name,url,category,prePrice,newPrice)  values(#{id}, #{brand}, #{name}, #{url},#{category},#{prePrice},#{newPrice})
+        insert into t_materials(id,brand,name,url,category,prePrice,newPrice,details)  values(#{id}, #{brand}, #{name}, #{url},#{category},#{prePrice},#{newPrice},#{details})
     </insert>
     <update id="updateMaterial" parameterType="com.blueHouse.pojo.browse.T_Material">
-        update t_materials set brand = #{brand},name = #{name},url= #{url},category = #{category},prePrice = #{prePrice}, newPrice = #{newPrice} where id = #{id}
+        update t_materials set brand = #{brand},name = #{name},url= #{url},category = #{category},prePrice = #{prePrice}, newPrice = #{newPrice},details = #{details} where id = #{id}
     </update>
     <delete id="deleteMaterial" parameterType="com.blueHouse.pojo.browse.T_Material">
         DELETE FROM t_materials where id = #{id}
