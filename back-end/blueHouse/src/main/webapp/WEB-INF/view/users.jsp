@@ -64,12 +64,12 @@
     <br>
     <div class="tab-content">
         <div id="panel1" class="container tab-pane active">
-            <c:if test="${isSearching == false }">
+            <c:if test="${isSearching == false}">
                 <div class="alert alert-success">
                     <strong>老板您好!</strong> 我们蓝房子目前总共有<%=request.getAttribute("usersCount")%>位下单用户，您可以通过搜索框对某个用户进行搜索！如果搜索条件为空，那么系统将为您列出所有下单用户！
                 </div>
             </c:if>
-            <c:if test="${isSearching == true }">
+            <c:if test="${isSearching == true}">
                 <div class="alert alert-success">
                     <strong>老板您好!</strong> 根据关键词"${searchKey}"，搜索到<%=request.getAttribute("usersCount")%>位相关用户，您可以通过将搜索框置空，并点击"搜索"重新获取所有下单用户！
                 </div>

@@ -54,18 +54,18 @@
     <c:if test="${permissionCode == true}" >
     <div class="navbar col-md-12 bg-dark">
         <form class="form-inline my-2 my-lg-0 float-right" action="/order/searchOrders" method="get">
-            <input class="form-control mr-sm-2" type="text" placeholder="订单号/用户名" aria-label="Search">
+            <input class="form-control mr-sm-2" type="text" placeholder="订单号/用户名" id="searchKey" name="searchKey" aria-label="Search">
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">搜索</button>
         </form>
         <label class="btn-outline-light">如果搜索条件为空，默认将列出所有订单！</label>
     </div>
     <br>
-    <c:if test="${isSearching == false }">
+    <c:if test="${isSearching == false}">
         <div class="alert alert-success">
             <strong>老板您好!</strong> 我们蓝房子目前总共有<%=request.getAttribute("ordersCount")%>个订单，您可以通过搜索框对某个订单/用户进行搜索！如果搜索条件为空，那么系统将为您列出所有订单！
         </div>
     </c:if>
-    <c:if test="${isSearching == true }">
+    <c:if test="${isSearching == true}">
         <div class="alert alert-success">
             <c:if test="${searchKey == 'users.jsp'}">
                 <strong>老板您好!</strong> 您搜索的相关用户的订单如下；如果需要获取所有订单，您可以通过将搜索框置空，并点击"搜索"！

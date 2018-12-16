@@ -11,7 +11,7 @@
         select id, name, age, phone, address from t_users where id LIKE CONCAT(CONCAT('%',#{id},'%'))
     </select>
     <select id="findUserByNameOrID" parameterType="String" resultType="com.blueHouse.pojo.User">
-        select id, name, age, phone, address from t_users where name LIKE CONCAT(CONCAT('%',#{name},'%')) OR id LIKE CONCAT(CONCAT('%',#{id},'%'))
+        select id, name, age, phone, address from t_users where name LIKE CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <select id="findAllUsers" resultType="com.blueHouse.pojo.User">
         select id, name, age, phone, address from t_users
