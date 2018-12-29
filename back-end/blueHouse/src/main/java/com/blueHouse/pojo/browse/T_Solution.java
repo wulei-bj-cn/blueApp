@@ -12,7 +12,6 @@ public class T_Solution {
     private String url;
     private Timestamp ts;
     private String designer;
-    private String status;
 
     public String getId() { return this.id; }
     public void setId(String id) { this.id = id; }
@@ -32,7 +31,5 @@ public class T_Solution {
     public String getDesigner() { return this.designer; }
     public void setDesigner() { this.designer = designer; }
 
-    public String getStatus() { return this.status; }
-    public void setStatus(String status) { this.status = status; }
 }
 

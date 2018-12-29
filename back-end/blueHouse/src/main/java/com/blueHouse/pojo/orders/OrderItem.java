@@ -33,5 +33,9 @@ public class OrderItem {
     public Timestamp getEnd_time() { return this.end_time; }
 
     public void setEnd_time(Timestamp end_time) { this.end_time = end_time; }
+
+    public String getStatus() { return this.status; }
+
+    public void setStatus(String status) { this.status = status; }
 }
 

@@ -81,7 +81,6 @@ public class S_ContractController {
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         t_contract.setTs(ts);
         t_contract.setType(contract_type);
-        t_contract.setStatus("进行中");
         //要保证有唯一的Contract id，这里通过MD5结合固定字符串"mea"的方法来大概率保证id唯一。
         String contract_id = "con" + md5Service.encodeByMD5(contract_name + contract_type + ts);
         t_contract.setId(contract_id);
@@ -92,19 +91,54 @@ public class S_ContractController {
         orderItem.setItem_id(contract_id);
         orderItem.setItem_class("contracts");
         orderItem.setStart_time(ts);
+        orderItem.setStatus("0");
+
+        //更新订单状态，标记正在申请设计合同 - 也就是请求甲方出具设计方案
+        Order order = orderService.findOrderById(order_id);
+        order.setStatus("10");
+
         try {
             //更新Contract表，向Contract表中插入相关记录。
             contractService.insertContract(t_contract);
-            //设计合同、施工合同已经签订了，需要更新订单状态到3，这里需要细化，区分设计合同和施工合同。
-            Order order = new Order();
-            order.setId(order_id);
-            order.setUser_id(user_id);
-            order.setStatus("3");
-            orderService.updateOrderStatus(order);
-            //根据订单id和测量id，将该测量项加入order item表
+            //根据订单id和合同id，将该合同项加入order item表
             orderItemService.insertOrderItem(orderItem);
+            //用户发起设计合同请求，并与线下签订合同，等待线上上传合同截图；
+            orderService.updateOrderStatus(order);
         } catch (RuntimeException re) {
             System.out.println(re.toString());
+            returnStatus = false;
+        }
+
+        map.put("status", returnStatus);
+        map.put("message", message);
+        map.put("code", httpCode);
+        map.put("error_type", error_type);
+        map.put("data", "");
+
+        return map;
+    }
+
+    @RequestMapping(value = "/confirmContract", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> confirmContract(
+            @RequestParam(value = "order_id") String order_id,
+            HttpServletRequest req
+    ) {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        boolean returnStatus = true;
+        String message = "";
+        int httpCode = 200;
+        int error_type = 1;
+
+        //更新订单状态，标记合同已经完成，用户已经确认
+        Order order = orderService.findOrderById(order_id);
+        order.setStatus("12");
+
+        try {
+            //更新订单状态，标记合同已经完成，用户已经确认
+            orderService.updateOrderStatus(order);
+        } catch (RuntimeException re) {
             returnStatus = false;
         }
 

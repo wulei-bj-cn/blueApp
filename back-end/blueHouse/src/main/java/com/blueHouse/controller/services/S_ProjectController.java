@@ -81,7 +81,6 @@ public class S_ProjectController {
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         t_project.setTs(ts);
         t_project.setCategory(category);
-        t_project.setStatus("进行中");
         //要保证有唯一的Project id，这里通过MD5结合固定字符串"mea"的方法来大概率保证id唯一。
         String project_id = "pro" + md5Service.encodeByMD5(project_name + category + ts);
         t_project.setId(project_id);
@@ -92,6 +91,7 @@ public class S_ProjectController {
         orderItem.setItem_id(project_id);
         orderItem.setItem_class("projects");
         orderItem.setStart_time(ts);
+        orderItem.setStatus("0");
         try {
             //更新Project表，向Project表中插入相关记录。
             projectService.insertProject(t_project);

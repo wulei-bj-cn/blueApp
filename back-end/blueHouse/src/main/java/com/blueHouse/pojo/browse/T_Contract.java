@@ -11,7 +11,6 @@ public class T_Contract {
     private String url;
     private Timestamp ts;
     private String type;
-    private String status;
 
     public String getId() { return this.id; }
     public void setId(String id) { this.id = id; }
@@ -28,7 +27,5 @@ public class T_Contract {
     public String getType() { return this.type; }
     public void setType(String type) { this.type = type; }
 
-    public String getStatus() { return this.status; }
-    public void setStatus(String status) { this.status = status; }
 }
 

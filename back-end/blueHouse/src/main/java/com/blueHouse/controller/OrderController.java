@@ -5,6 +5,7 @@ package com.blueHouse.controller;
  */
 
 import com.blueHouse.pojo.User;
+import com.blueHouse.pojo.browse.T_Contract;
 import com.blueHouse.pojo.browse.T_Design;
 import com.blueHouse.pojo.browse.T_Measure;
 import com.blueHouse.pojo.orders.*;
@@ -43,6 +44,7 @@ public class OrderController {
     OrderItemService orderItemService = (OrderItemService) applicationContext.getBean("orderItemService");
     UserService userService = (UserService) applicationContext.getBean("userService");
     OrderService orderService = (OrderService) applicationContext.getBean("orderService");
+    ContractService contractService = (ContractService) applicationContext.getBean("contractService");
 
     @Resource
     private OMService omService;
@@ -207,11 +209,14 @@ public class OrderController {
                         t_measure.setUrl(targetPath);
                         measureService.updateMeasure(t_measure);
 
-                        Order order = new Order();
-                        order.setUser_id(user_id);
-                        order.setId(order_id);
+                        OrderItem orderItem = orderItemService.findOrderItemBy2Id(order_id, measure_id);
+                        orderItem.setStatus("1");
+
+                        Order order = orderService.findOrderById(order_id);
                         order.setStatus("01");
                         try {
+                            //更新订单项状态
+                            orderItemService.updateOrderItemStatus(orderItem);
                             //更新订单状态，标记甲方测量已经完成
                             orderService.updateOrderStatus(order);
                         } catch (RuntimeException re) {
@@ -241,10 +246,8 @@ public class OrderController {
         T_Design t_design = new T_Design();
         t_design.setId(design_id);
         t_design.setName(name);
-        t_design.setStatus("进行中");
         t_design.setTs(ts);
         t_design.setDesigner(designer);
-        //t_design.setUrl();
 
 
         OrderItem orderItem = new OrderItem();
@@ -343,6 +346,80 @@ public class OrderController {
                         T_Design t_design = designService.findDesignById(design_id);
                         t_design.setUrl(targetPath);
                         designService.updateDesign(t_design);
+                    } catch (IOException ex) {
+                        System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.getMessage());
+                        System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.toString());
+                    }
+                }
+
+            }
+
+        }
+
+        return "orders";
+    }
+
+    @RequestMapping(value = "/uploadContract", method = RequestMethod.POST)
+    public String uploadContractFile(@RequestParam("contract_file") MultipartFile contractFile,
+                                     @RequestParam(value = "contract_user_id") String user_id,
+                                     @RequestParam(value = "contract_order_id") String order_id,
+                                     @RequestParam(value = "contract_type") String contract_type,
+                                     @RequestParam(value = "contract_name") String contract_name,
+                                    HttpServletRequest request) {
+        CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());
+
+        Properties prop = null;
+        try {
+            prop = PropertiesLoaderUtils.loadAllProperties("conf/blueHouse.properties");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String img_address = prop.getProperty("img_address");
+
+        if(multipartResolver.isMultipart(request))
+        {
+            //将request变成多部分request
+            MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;
+            //获取multiRequest 中所有的文件名
+            Iterator iter=multiRequest.getFileNames();
+
+            while(iter.hasNext())
+            {
+                //一次遍历所有文件
+                MultipartFile file=multiRequest.getFile(iter.next().toString());
+                if(file!=null)
+                {
+                    String contract_id = request.getParameter("contract_id");
+                    String targetPath = contract_id + ".jpeg";
+                    System.out.println("==========Target file path:" + targetPath);
+                    String writePath = img_address + "contracts/" + targetPath;
+                    File targetFile = new File(writePath);
+                    //上传
+                    try {
+                        file.transferTo(targetFile);
+
+                        T_Contract t_contract = contractService.findContractById(contract_id);
+                        t_contract.setName(contract_name);
+                        t_contract.setUrl(targetPath);
+                        contractService.updateContract(t_contract);
+
+                        OrderItem orderItem = orderItemService.findOrderItemBy2Id(order_id, contract_id);
+                        orderItem.setStatus("1");
+
+                        Order order = orderService.findOrderById(order_id);
+                        if (contract_type.equals("设计合同")) {
+                            order.setStatus("11");
+                        } else if (contract_type.equals("施工合同")) {
+                            order.setStatus("41");
+                        }
+                        try {
+                            //更新订单项状态
+                            orderItemService.updateOrderItemStatus(orderItem);
+                            //更新订单状态，标记甲方测量已经完成
+                            orderService.updateOrderStatus(order);
+                        } catch (RuntimeException re) {
+                            System.out.println("Run time exception updating order's status:" + re.toString());
+                        }
                     } catch (IOException ex) {
                         System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.getMessage());
                         System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.toString());

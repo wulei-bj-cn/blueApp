@@ -11,7 +11,6 @@ public class T_Disclaim {
     private String url;
     private Timestamp ts;
     private String crew;
-    private String status;
 
     public String getId() { return this.id; }
     public void setId(String id) { this.id = id; }
@@ -27,9 +26,6 @@ public class T_Disclaim {
 
     public String getCrew() { return this.crew; }
     public void setCrew(String crew) { this.crew = crew; }
-
-    public String getStatus() { return this.status; }
-    public void setStatus(String status) { this.status = status; }
 
 }
 

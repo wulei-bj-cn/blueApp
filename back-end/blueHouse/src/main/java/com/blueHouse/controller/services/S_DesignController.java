@@ -79,7 +79,6 @@ public class S_DesignController {
         t_design.setName(design_name);
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         t_design.setTs(ts);
-        t_design.setStatus("进行中");
         //要保证有唯一的Design id，这里通过MD5结合固定字符串"mea"的方法来大概率保证id唯一。
         String design_id = "des" + md5Service.encodeByMD5(design_name + ts);
         t_design.setId(design_id);
@@ -90,6 +89,7 @@ public class S_DesignController {
         orderItem.setItem_id(design_id);
         orderItem.setItem_class("designs");
         orderItem.setStart_time(ts);
+        orderItem.setStatus("0");
         try {
             //更新Design表，向Design表中插入相关记录。
             designService.insertDesign(t_design);

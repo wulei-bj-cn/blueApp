@@ -79,7 +79,6 @@ public class S_DisclaimController {
         t_disclaim.setName(disclaim_name);
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         t_disclaim.setTs(ts);
-        t_disclaim.setStatus("进行中");
         //要保证有唯一的Disclaim id，这里通过MD5结合固定字符串"mea"的方法来大概率保证id唯一。
         String disclaim_id = "dis" + md5Service.encodeByMD5(disclaim_name + ts);
         t_disclaim.setId(disclaim_id);
@@ -90,6 +89,7 @@ public class S_DisclaimController {
         orderItem.setItem_id(disclaim_id);
         orderItem.setItem_class("disclaims");
         orderItem.setStart_time(ts);
+        orderItem.setStatus("0");
         try {
             //更新Disclaim表，向Disclaim表中插入相关记录。
             disclaimService.insertDisclaim(t_disclaim);

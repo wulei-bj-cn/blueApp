@@ -13,7 +13,6 @@ public class T_Project {
     private String category;
     private int enabled;
     private Timestamp ts;
-    private String status;
 
     public String getId() { return this.id; }
     public void setId(String id) { this.id = id; }
@@ -33,7 +32,5 @@ public class T_Project {
     public Timestamp getTs() { return this.ts; }
     public void setTs(Timestamp ts) { this.ts = ts; }
 
-    public String getStatus() { return this.status; }
-    public void setStatus(String status) { this.status = status; }
 }
 

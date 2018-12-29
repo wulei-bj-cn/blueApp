@@ -111,7 +111,6 @@ public class DesignController  {
         newDesign.setName(name);
         newDesign.setTs(tstime);
         newDesign.setUrl(url);
-        newDesign.setStatus(status);
         newDesign.setDesigner(designer);
 
         designService.updateDesign(newDesign);
@@ -206,7 +205,6 @@ public class DesignController  {
         newDesign.setName(name);
         newDesign.setTs(tstime);
         newDesign.setUrl(url);
-        newDesign.setStatus(status);
         newDesign.setDesigner(designer);
 
         designService.insertDesign(newDesign);

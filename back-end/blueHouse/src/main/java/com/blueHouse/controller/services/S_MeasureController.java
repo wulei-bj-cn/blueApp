@@ -74,6 +74,7 @@ public class S_MeasureController {
         orderItem.setItem_id(measure_id);
         orderItem.setItem_class("measures");
         orderItem.setStart_time(ts);
+        orderItem.setStatus("0");
         try {
             //更新Measure表，向Measure表中插入相关记录。
             measureService.insertMeasure(t_measure);
@@ -97,7 +98,6 @@ public class S_MeasureController {
     @RequestMapping(value = "/confirmMeasure", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> confirmMeasure(
-            @RequestParam(value = "user_id") String user_id,
             @RequestParam(value = "order_id") String order_id,
             HttpServletRequest req
     ) {
@@ -109,9 +109,7 @@ public class S_MeasureController {
         int error_type = 1;
 
         //更新订单状态，标记测量已经完成，用户已经确认
-        Order order = new Order();
-        order.setUser_id(user_id);
-        order.setId(order_id);
+        Order order = orderService.findOrderById(order_id);
         order.setStatus("02");
 
         try {

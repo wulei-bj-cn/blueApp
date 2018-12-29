@@ -110,7 +110,6 @@ public class SolutionController {
         newSolution.setCover(cover);
         newSolution.setTs(ts);
         newSolution.setUrl(url);
-        newSolution.setStatus(status);
 
         solutionService.updateSolution(newSolution);
 
@@ -130,7 +129,6 @@ public class SolutionController {
         newSolution.setId(solutionId);
         newSolution.setName(name);
         newSolution.setTs(ts);
-        newSolution.setStatus(status);
 
         solutionService.insertSolution(newSolution);
 

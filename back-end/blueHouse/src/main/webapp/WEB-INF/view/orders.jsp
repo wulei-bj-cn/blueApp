@@ -277,31 +277,31 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label for="design_contr_name">名称</label>
-                                                                    <input type="text" class="form-control" id="design_contr_name" placeholder="请输入名称">
+                                                                    <label for="contract_name">名称</label>
+                                                                    <input type="text" class="form-control" id="contract_name" name="contract_name" placeholder="请输入名称">
                                                                 </div>
                                                                 <br>
                                                                 <div class="form-group">
                                                                     <label>合同类型</label>
                                                                     <br>
                                                                     <label class="radio-inline">
-                                                                        <input type="radio"  value="设计合同" name="design_contr_type" id="design_contr_type_option1" checked>设计合同
+                                                                        <input type="radio"  value="设计合同" name="contract_type" id="contract_type_option1" checked>设计合同
                                                                     </label>
                                                                     <br>
                                                                     <label class="radio-inline">
-                                                                        <input type="radio"  value="设计合同-补充" name="design_contr_type" id="design_contr_type_option2">设计合同-补充
+                                                                        <input type="radio"  value="设计合同-补充" name="contract_type" id="contract_type_option2">设计合同-补充
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="design_contr_file">上传设计合同截图</label>
+                                                                    <label for="contract_file">上传设计合同截图</label>
                                                                     &nbsp;
-                                                                    <input type="file" name="design_contr_file" id="design_contr_file" />
+                                                                    <input type="file" name="contract_file" id="contract_file" />
                                                                     &nbsp;
-                                                                    <input type="text" id="design_contr_order_id" name="design_contr_order_id" value="${orderItem.order}" hidden="true"/>
+                                                                    <input type="text" id="contract_order_id" name="contract_order_id" value="${orderItem.order}" hidden="true"/>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-outline-danger" data-dismiss="modal">确定</button>
+                                                                <button type="submit" class="btn btn-outline-danger">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -337,7 +337,7 @@
                                                         </c:if>
                                                         <div id="design_contr_${orderItem.order}_${designContract.id}" class="col-md-8 container tab-pane ${design_contr_tab_state}">
                                                             <div><h5>${designContract.name}</h5></div>
-                                                            <img src="<%=request.getContextPath() %>/resources/img/contracts/${designContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_con_${orderItem.order}_${designContract.id}">
+                                                            <img src="/img/measures/${designContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_con_${orderItem.order}_${designContract.id}">
                                                             <div class="modal fade" id="design_con_${orderItem.order}_${designContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
@@ -346,7 +346,7 @@
 
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <img src="<%=request.getContextPath() %>/resources/img/contracts/${designContract.url}" alt="" style="width:100%;">
+                                                                            <img src="/img/measures/${designContract.url}" alt="" style="width:100%;">
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
