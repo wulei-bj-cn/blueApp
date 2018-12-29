@@ -38,7 +38,7 @@ public class S_MeasureController {
 
     @RequestMapping(value = "/insertMeasure", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> getMeasureByCategory(
+    public Map<String, Object> insertMeasure(
             @RequestParam(value = "user_id") String user_id,
             @RequestParam(value = "address") String address,
             HttpServletRequest req
@@ -64,7 +64,7 @@ public class S_MeasureController {
         Order order = new Order();
         order.setUser_id(user_id);
         order.setStart_time(ts);
-        order.setStatus("预约测量中");
+        order.setStatus("00");
         String order_id = "ord" + md5Service.encodeByMD5(user_id + measure_id);
         order.setId(order_id);
 
@@ -79,11 +79,44 @@ public class S_MeasureController {
             measureService.insertMeasure(t_measure);
             //由于预约测量是整个订单流程的第一环节，所以需要创建订单
             orderService.insertOrder(order);
-            //预约测量是订单的第一步，插入订单项后，需要更新订单的状态到0 。
-            order.setStatus("0");
-            orderService.updateOrderStatus(order);
             //根据订单id和测量id，将该测量项加入order item表
             orderItemService.insertOrderItem(orderItem);
+        } catch (RuntimeException re) {
+            returnStatus = false;
+        }
+
+        map.put("status", returnStatus);
+        map.put("message", message);
+        map.put("code", httpCode);
+        map.put("error_type", error_type);
+        map.put("data", "");
+
+        return map;
+    }
+
+    @RequestMapping(value = "/confirmMeasure", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> confirmMeasure(
+            @RequestParam(value = "user_id") String user_id,
+            @RequestParam(value = "order_id") String order_id,
+            HttpServletRequest req
+    ) {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        boolean returnStatus = true;
+        String message = "";
+        int httpCode = 200;
+        int error_type = 1;
+
+        //更新订单状态，标记测量已经完成，用户已经确认
+        Order order = new Order();
+        order.setUser_id(user_id);
+        order.setId(order_id);
+        order.setStatus("02");
+
+        try {
+            //更新订单状态，标记测量已经完成，用户已经确认
+            orderService.updateOrderStatus(order);
         } catch (RuntimeException re) {
             returnStatus = false;
         }
