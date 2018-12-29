@@ -207,6 +207,7 @@
                                                                     <input type="file" name="measure_file" id="measure_file" />
                                                                     &nbsp;
                                                                     <input type="text" id="measure_order_id" name="measure_order_id" value="${orderItem.order}" hidden="true"/>
+                                                                    <input type="text" id="measure_user_id" name="measure_user_id" value="${orderItem.user}" hidden="true"/>
                                                                     <input type="text" id="measure_id" name="measure_id" value="${measure.id}" hidden="true"/>
                                                                 </div>
                                                             </div>

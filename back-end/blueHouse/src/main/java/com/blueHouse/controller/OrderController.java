@@ -42,6 +42,7 @@ public class OrderController {
     MD5Service md5Service = (MD5Service) applicationContext.getBean("md5Service");
     OrderItemService orderItemService = (OrderItemService) applicationContext.getBean("orderItemService");
     UserService userService = (UserService) applicationContext.getBean("userService");
+    OrderService orderService = (OrderService) applicationContext.getBean("orderService");
 
     @Resource
     private OMService omService;
@@ -166,7 +167,10 @@ public class OrderController {
 
 
     @RequestMapping(value = "/uploadMeasure", method = RequestMethod.POST)
-    public String uploadMeasureFile(@RequestParam("measure_file") MultipartFile measureFile, HttpServletRequest request) {
+    public String uploadMeasureFile(@RequestParam("measure_file") MultipartFile measureFile,
+                                    @RequestParam(value = "measure_user_id") String user_id,
+                                    @RequestParam(value = "measure_order_id") String order_id,
+                                    HttpServletRequest request) {
         CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());
 
         Properties prop = null;
@@ -202,6 +206,17 @@ public class OrderController {
                         T_Measure t_measure = measureService.findMeasureById(measure_id);
                         t_measure.setUrl(targetPath);
                         measureService.updateMeasure(t_measure);
+
+                        Order order = new Order();
+                        order.setUser_id(user_id);
+                        order.setId(order_id);
+                        order.setStatus("01");
+                        try {
+                            //更新订单状态，标记甲方测量已经完成
+                            orderService.updateOrderStatus(order);
+                        } catch (RuntimeException re) {
+                            System.out.println("Run time exception updating order's status:" + re.toString());
+                        }
                     } catch (IOException ex) {
                         System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.getMessage());
                         System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.toString());
