@@ -9,8 +9,8 @@ public class T_Contract {
     private String id;
     private String name;
     private String url;
-    private Timestamp ts;
     private String type;
+    private Timestamp ts;
 
     public String getId() { return this.id; }
     public void setId(String id) { this.id = id; }

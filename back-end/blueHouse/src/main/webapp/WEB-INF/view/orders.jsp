@@ -261,7 +261,7 @@
                                 </div>
                                 <div id="panel2_${orderItem.order}" class="container tab-pane fade"><br>
                                     <c:choose>
-                                        <c:when test="${designContracts == null}">
+                                        <c:when test="${designContracts == null || designContracts.get(0).url == null}">
                                             <p>目前还没有对设计合同进行管理，点击<span class="badge badge-danger">新建设计合同</span>添加合同记录。</p>
                                             <br>
                                             <div class="col-md-3">
@@ -298,6 +298,8 @@
                                                                     <input type="file" name="contract_file" id="contract_file" />
                                                                     &nbsp;
                                                                     <input type="text" id="contract_order_id" name="contract_order_id" value="${orderItem.order}" hidden="true"/>
+                                                                    <input type="text" id="contract_user_id" name="contract_user_id" value="${orderItem.user}" hidden="true"/>
+                                                                    <input type="text" id="contract_id" name="contract_id" value="${designContracts.get(0).id}" hidden="true"/>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">

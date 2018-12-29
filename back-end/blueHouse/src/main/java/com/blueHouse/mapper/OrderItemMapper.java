@@ -10,7 +10,7 @@ import java.util.List;
 public interface OrderItemMapper {
 
     List<OrderItem> findOrderItemByOrderId(String order_id);
-    OrderItem findOrderItemBy2Id(String order_id, String item_id);
+    OrderItem findOrderItemBy2Id(OrderItem orderItem);
     void insertOrderItem(OrderItem orderItem);
     void updateOrderItemStatus(OrderItem orderItem);
     void updateOrderItemEndTime(OrderItem orderItem);

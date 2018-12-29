@@ -17,7 +17,7 @@ public class OrderItemServiceImpl implements  OrderItemService{
 
     public List<OrderItem> findOrderItemByOrderId(String order_id) { return orderItemMapper.findOrderItemByOrderId(order_id); }
 
-    public OrderItem findOrderItemBy2Id(String order_id, String item_id) { return orderItemMapper.findOrderItemBy2Id(order_id, item_id); }
+    public OrderItem findOrderItemBy2Id(OrderItem orderItem) { return orderItemMapper.findOrderItemBy2Id(orderItem); }
 
     public void insertOrderItem(OrderItem orderItem) { orderItemMapper.insertOrderItem(orderItem); }
 

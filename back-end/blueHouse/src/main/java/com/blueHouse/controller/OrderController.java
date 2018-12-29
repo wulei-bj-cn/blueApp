@@ -209,7 +209,10 @@ public class OrderController {
                         t_measure.setUrl(targetPath);
                         measureService.updateMeasure(t_measure);
 
-                        OrderItem orderItem = orderItemService.findOrderItemBy2Id(order_id, measure_id);
+                        OrderItem orderItem = new OrderItem();
+                        orderItem.setOrder_id(order_id);
+                        orderItem.setItem_id(measure_id);
+                        orderItem = orderItemService.findOrderItemBy2Id(orderItem);
                         orderItem.setStatus("1");
 
                         Order order = orderService.findOrderById(order_id);
@@ -399,11 +402,16 @@ public class OrderController {
                         file.transferTo(targetFile);
 
                         T_Contract t_contract = contractService.findContractById(contract_id);
+                        System.out.println("=========Contact ID:" + contract_id);
+                        System.out.println("=========Contact object:" + t_contract);
                         t_contract.setName(contract_name);
                         t_contract.setUrl(targetPath);
                         contractService.updateContract(t_contract);
 
-                        OrderItem orderItem = orderItemService.findOrderItemBy2Id(order_id, contract_id);
+                        OrderItem orderItem = new OrderItem();
+                        orderItem.setOrder_id(order_id);
+                        orderItem.setItem_id(contract_id);
+                        orderItem = orderItemService.findOrderItemBy2Id(orderItem);
                         orderItem.setStatus("1");
 
                         Order order = orderService.findOrderById(order_id);

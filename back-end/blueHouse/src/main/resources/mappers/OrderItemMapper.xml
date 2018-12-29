@@ -7,7 +7,7 @@
     <select id="findOrderItemByOrderId" parameterType="String" resultType="com.blueHouse.pojo.orders.OrderItem">
         select order_id, item_id, item_class, start_time, end_time, status from t_order_items where order_id = #{order_id}
     </select>
-    <select id="findOrderItemBy2Id" parameterType="String" resultType="com.blueHouse.pojo.orders.OrderItem">
+    <select id="findOrderItemBy2Id" parameterType="com.blueHouse.pojo.orders.OrderItem" resultType="com.blueHouse.pojo.orders.OrderItem">
         select order_id, item_id, item_class, start_time, end_time, status from t_order_items where order_id = #{order_id} AND item_id = #{item_id}
     </select>
     <insert id="insertOrderItem" parameterType="com.blueHouse.pojo.orders.OrderItem">
