@@ -267,7 +267,7 @@
                                             <div class="col-md-3">
                                                 <button type="button" class="btn btn-block btn-outline-danger" data-toggle="modal" data-target="#new_design_contr_modal_${orderItem.order}">新建设计合同</button>
                                             </div>
-                                            <form>
+                                            <form class="form-inline mt-2 mt-md-0" action="/order/uploadContract" method="post" enctype="multipart/form-data">
                                                 <div class="modal fade" id="new_design_contr_modal_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
