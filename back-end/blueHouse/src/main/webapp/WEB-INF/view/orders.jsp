@@ -328,7 +328,7 @@
                                                         </c:choose>
                                                     </c:forEach>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="#" data-toggle="tab" role="tab">上传设计合同</a>
+                                                        <a class="nav-link" href="#" data-toggle="tab" role="tab">上传补充合同</a>
                                                     </li>
                                                 </ul>
                                                 <div class="tab-content">
@@ -339,7 +339,7 @@
                                                         </c:if>
                                                         <div id="design_contr_${orderItem.order}_${designContract.id}" class="col-md-8 container tab-pane ${design_contr_tab_state}">
                                                             <div><h5>${designContract.name}</h5></div>
-                                                            <img src="/img/measures/${designContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_con_${orderItem.order}_${designContract.id}">
+                                                            <img src="/img/contracts/${designContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_con_${orderItem.order}_${designContract.id}">
                                                             <div class="modal fade" id="design_con_${orderItem.order}_${designContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
@@ -348,7 +348,7 @@
 
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <img src="/img/measures/${designContract.url}" alt="" style="width:100%;">
+                                                                            <img src="/img/contracts/${designContract.url}" alt="" style="width:100%;">
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
