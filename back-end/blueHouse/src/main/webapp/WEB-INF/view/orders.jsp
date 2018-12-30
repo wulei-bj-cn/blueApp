@@ -311,8 +311,8 @@
                                                                     &nbsp;
                                                                     <input type="file" name="contract_file" id="contract_file" />
                                                                     &nbsp;
-                                                                    <input type="text" id="contract_order_id" name="contract_order_id" value="${orderItem.order}" hidden="true"/>
-                                                                    <input type="text" id="contract_user_id" name="contract_user_id" value="${orderItem.user}" hidden="true"/>
+                                                                    <input type="text" id="contract_order_id" name="contract_order_id" value="${orderItem.order.id}" hidden="true"/>
+                                                                    <input type="text" id="contract_user_id" name="contract_user_id" value="${orderItem.user.id}" hidden="true"/>
                                                                     <input type="text" id="contract_id" name="contract_id" value="${firstDesignContract.id}" hidden="true"/>
                                                                 </div>
                                                             </div>
@@ -399,8 +399,8 @@
                                                                                     &nbsp;
                                                                                     <input type="file" name="contract_file" id="contract_file" />
                                                                                     &nbsp;
-                                                                                    <input type="text" id="contract_order_id" name="contract_order_id" value="${orderItem.order}" hidden="true"/>
-                                                                                    <input type="text" id="contract_user_id" name="contract_user_id" value="${orderItem.user}" hidden="true"/>
+                                                                                    <input type="text" id="contract_order_id" name="contract_order_id" value="${orderItem.order.id}" hidden="true"/>
+                                                                                    <input type="text" id="contract_user_id" name="contract_user_id" value="${orderItem.user.id}" hidden="true"/>
                                                                                     <input type="text" id="contract_id" name="contract_id" value="${designContract.id}" hidden="true"/>
                                                                                 </div>
                                                                             </div>
