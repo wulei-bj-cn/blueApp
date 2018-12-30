@@ -92,7 +92,7 @@
                         .filter((Contract contract) -> contract.getType().startsWith("设计"))
                         .collect(Collectors.toList());
 
-                Contract firstDesignContract = (designContracts.size() == 0)? null:
+                Contract firstDesignContract = (designContracts == null || designContracts.size() == 0)? null:
                         designContracts
                         .stream()
                         .filter((Contract contract) -> contract.getType().equals("设计合同"))
@@ -106,7 +106,7 @@
                         .filter((Contract contract) -> contract.getType().startsWith("施工"))
                         .collect(Collectors.toList());
 
-                Contract firstProjectContract = (projectContracts.size() == 0)? null:
+                Contract firstProjectContract = (projectContracts == null || projectContracts.size() == 0)? null:
                         projectContracts
                                 .stream()
                                 .filter((Contract contract) -> contract.getType().equals("施工合同"))
@@ -313,7 +313,7 @@
                                                                     &nbsp;
                                                                     <input type="text" id="contract_order_id" name="contract_order_id" value="${orderItem.order}" hidden="true"/>
                                                                     <input type="text" id="contract_user_id" name="contract_user_id" value="${orderItem.user}" hidden="true"/>
-                                                                    <input type="text" id="contract_id" name="contract_id" value="${designContracts.get(0).id}" hidden="true"/>
+                                                                    <input type="text" id="contract_id" name="contract_id" value="${firstDesignContract.id}" hidden="true"/>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -348,26 +348,66 @@
                                                         <c:if test="${designContract.type == '设计合同'}">
                                                             <c:set var="design_contr_tab_state" scope="session" value="active"/>
                                                         </c:if>
-                                                        <div id="design_contr_${orderItem.order}_${designContract.id}" class="col-md-8 container tab-pane ${design_contr_tab_state}">
-                                                            <div><h5>${designContract.name}</h5></div>
-                                                            <img src="/img/contracts/${designContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_con_${orderItem.order}_${designContract.id}">
-                                                            <div class="modal fade" id="design_con_${orderItem.order}_${designContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                        <c:if test="${designContract.url != null}">
+                                                            <div id="design_contr_${orderItem.order}_${designContract.id}" class="col-md-8 container tab-pane ${design_contr_tab_state}">
+                                                                <div><h5>${designContract.name}</h5></div>
+                                                                <img src="/img/contracts/${designContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#design_con_${orderItem.order}_${designContract.id}">
+                                                                <div class="modal fade" id="design_con_${orderItem.order}_${designContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <img src="/img/contracts/${designContract.url}" alt="" style="width:100%;">
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <img src="/img/contracts/${designContract.url}" alt="" style="width:100%;">
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </c:if>
+                                                        <c:if test="${designContract.url == null}">
+                                                            <form class="form-inline mt-2 mt-md-0" action="/order/uploadContract" method="post" enctype="multipart/form-data">
+                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <span class="badge badge-danger float-left">添加补充合同</span>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="form-group">
+                                                                                <label for="contract_name">名称</label>
+                                                                                <input type="text" class="form-control" id="contract_name" name="contract_name" placeholder="请输入名称">
+                                                                            </div>
+                                                                            <br>
+                                                                            <div class="form-group">
+                                                                                <label>合同类型</label>
+                                                                                <br>
+                                                                                <label class="radio-inline">
+                                                                                    <input type="radio"  value="设计合同-补充" name="contract_type" id="contract_type_option2" checked>设计合同-补充
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="contract_file">上传补充设计合同截图</label>
+                                                                                &nbsp;
+                                                                                <input type="file" name="contract_file" id="contract_file" />
+                                                                                &nbsp;
+                                                                                <input type="text" id="contract_order_id" name="contract_order_id" value="${orderItem.order}" hidden="true"/>
+                                                                                <input type="text" id="contract_user_id" name="contract_user_id" value="${orderItem.user}" hidden="true"/>
+                                                                                <input type="text" id="contract_id" name="contract_id" value="${designContracts.id}" hidden="true"/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="submit" class="btn btn-outline-danger">确定</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </c:if>
                                                     </c:forEach>
                                                 </div>
                                             </div>

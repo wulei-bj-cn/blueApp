@@ -419,6 +419,10 @@ public class OrderController {
                             order.setStatus("11");
                         } else if (contract_type.equals("施工合同")) {
                             order.setStatus("41");
+                        } else if (contract_type.equals("设计合同-补充")) {
+                            order.setStatus("110");
+                        } else if (contract_type.equals("施工合同-补充")) {
+                            order.setStatus("410");
                         }
                         try {
                             //更新订单项状态
