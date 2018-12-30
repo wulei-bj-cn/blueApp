@@ -412,6 +412,8 @@ public class OrderController {
                         orderItem.setOrder_id(order_id);
                         orderItem.setItem_id(contract_id);
                         orderItem = orderItemService.findOrderItemBy2Id(orderItem);
+                        System.out.println("=========Order ID:" + order_id);
+                        System.out.println("=========OrderItem object:" + orderItem);
                         orderItem.setStatus("1");
 
                         Order order = orderService.findOrderById(order_id);
