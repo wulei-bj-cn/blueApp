@@ -92,6 +92,12 @@
                         .filter((Contract contract) -> contract.getType().startsWith("设计"))
                         .collect(Collectors.toList());
 
+                Contract firstDesignContract = (designContracts.size() == 0)? null:
+                        designContracts
+                        .stream()
+                        .filter((Contract contract) -> contract.getType().equals("设计合同"))
+                        .collect(Collectors.toList()).get(0);
+
                 List<Design> designs = (orderItem.getDesigns().size() == 0)? null: orderItem.getDesigns();
 
                 List<Contract> projectContracts = (contracts.size() == 0)? null :
@@ -99,6 +105,12 @@
                         .stream()
                         .filter((Contract contract) -> contract.getType().startsWith("施工"))
                         .collect(Collectors.toList());
+
+                Contract firstProjectContract = (projectContracts.size() == 0)? null:
+                        projectContracts
+                                .stream()
+                                .filter((Contract contract) -> contract.getType().equals("施工合同"))
+                                .collect(Collectors.toList()).get(0);
 
                 Disclaim disclaim = (orderItem.getDisclaim().size() == 0)? null : orderItem.getDisclaim().get(0);
 
@@ -128,6 +140,8 @@
                 pageContext.setAttribute("pojoUser", pojoUser);
                 pageContext.setAttribute("order", order);
                 pageContext.setAttribute("orderStatusMap", orderStatusMap);
+                pageContext.setAttribute("firstDesignContract", firstDesignContract);
+                pageContext.setAttribute("firstProjectContract", firstProjectContract);
             %>
             <div class="card">
                 <div class="card-header">
@@ -261,7 +275,7 @@
                                 </div>
                                 <div id="panel2_${orderItem.order}" class="container tab-pane fade"><br>
                                     <c:choose>
-                                        <c:when test="${designContracts == null || designContracts.get(0).url == null}">
+                                        <c:when test="${firstDesignContract == null || firstDesignContract.url == null}">
                                             <p>目前还没有对设计合同进行管理，点击<span class="badge badge-danger">新建设计合同</span>添加合同记录。</p>
                                             <br>
                                             <div class="col-md-3">
@@ -327,9 +341,6 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </c:forEach>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#" data-toggle="tab" role="tab">上传补充合同</a>
-                                                    </li>
                                                 </ul>
                                                 <div class="tab-content">
                                                     <c:forEach var="designContract" items="${designContracts}">
