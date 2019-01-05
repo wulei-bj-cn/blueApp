@@ -164,6 +164,11 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#panel3a_${orderItem.order}" role="tab">
+                                        <h6 class="text-success">确认定金</h6>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#panel3_${orderItem.order}" role="tab">
                                         <h6 class="text-info">设计方案</h6>
                                     </a>
@@ -418,6 +423,12 @@
                                             </div>
                                         </c:otherwise>
                                     </c:choose>
+                                </div>
+                                <div id="panel3a_${orderItem.order}" class="container tab-pane fade"><br>
+                                    <form class="form-inline mt-2 mt-md-0" action="/cash/confirmCash" method="get">
+                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">确认收到设计方案定金</button>
+                                        <input type="text" id="cash_order_id" name="cash_order_id" value="${order.id}" hidden="true"/>
+                                    </form>
                                 </div>
                                 <div id="panel3_${orderItem.order}" class="container tab-pane fade"><br>
                                     <c:choose>
