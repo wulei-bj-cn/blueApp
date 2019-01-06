@@ -439,7 +439,7 @@
                                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">确认收到设计方案定金</button>
                                             <input type="text" id="cash_order_id" name="cash_order_id" value="${order.id}" hidden="true"/>
                                             <input type="text" id="cash_user_id" name="cash_user_id" value="${orderItem.user.id}" hidden="true"/>
-                                            <input type="text" id="cash_type" name="cash_type" value="设计方案定金" hidden="true"/>
+                                            <input type="text" id="cash_type" name="cash_type" value="DesignCash" hidden="true"/>
                                         </c:if>
                                     </form>
                                 </div>
@@ -760,7 +760,7 @@
                                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">确认收到施工方案定金</button>
                                             <input type="text" id="cash_order_id" name="cash_order_id" value="${order.id}" hidden="true"/>
                                             <input type="text" id="cash_user_id" name="cash_user_id" value="${orderItem.user.id}" hidden="true"/>
-                                            <input type="text" id="cash_type" name="cash_type" value="施工方案定金" hidden="true"/>
+                                            <input type="text" id="cash_type" name="cash_type" value="ProjectCash" hidden="true"/>
                                         </c:if>
                                     </form>
                                 </div>

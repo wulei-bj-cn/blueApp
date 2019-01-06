@@ -43,9 +43,9 @@ public class S_CashController {
 
         //更新订单状态，标记正在申请提交定金
         Order order = orderService.findOrderById(order_id);
-        if(cash_type == "设计方案定金") {
+        if(cash_type == "DesignCash") {
             order.setStatus("20");
-        } else if (cash_type == "施工方案定金") {
+        } else if (cash_type == "ProjectCash") {
             order.setStatus("50");
         }
 
