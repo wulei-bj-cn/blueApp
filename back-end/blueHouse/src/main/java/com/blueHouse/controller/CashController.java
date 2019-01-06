@@ -46,6 +46,7 @@ public class CashController {
                 modelMap.put("permissionCode", false);
             }
 
+            System.out.println("=====Cash type: " + cash_type);
             //更新订单状态，标记正在确认提交定金
             Order order = orderService.findOrderById(order_id);
             if(cash_type == "设计方案定金") {
