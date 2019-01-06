@@ -165,7 +165,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#panel3a_${orderItem.order}" role="tab">
-                                        <h6 class="text-success">确认定金</h6>
+                                        <h6 class="text-success">设计方案定金</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -174,13 +174,18 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel4_${orderItem.order}" role="tab">
-                                        <h6 class="text-secondary">施工交底</h6>
+                                    <a class="nav-link" data-toggle="tab" href="#panel5_${orderItem.order}" role="tab">
+                                        <h6 class="text-success">施工合同</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel5_${orderItem.order}" role="tab">
-                                        <h6 class="text-success">施工合同</h6>
+                                    <a class="nav-link" data-toggle="tab" href="#panel5a_${orderItem.order}" role="tab">
+                                        <h6 class="text-success">施工方案定金</h6>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#panel4_${orderItem.order}" role="tab">
+                                        <h6 class="text-secondary">施工交底</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -599,6 +604,166 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
+                                <div id="panel5_${orderItem.order}" class="container tab-pane fade"><br>
+                                    <c:choose>
+                                        <c:when test="${firstProjectContract == null || firstProjectContract.url == null}">
+                                            <p>目前还没有对施工合同进行管理，点击<span class="badge badge-success">新建施工合同</span>添加合同记录。</p>
+                                            <br>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-block btn-outline-success" data-toggle="modal" data-target="#new_project_contr_modal_${orderItem.order}">新建施工合同</button>
+                                            </div>
+                                            <form class="form-inline mt-2 mt-md-0" action="/order/uploadContract" method="post" enctype="multipart/form-data">
+                                                <div class="modal fade" id="new_project_contr_modal_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <span class="badge badge-success float-left">新建施工合同</span>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="contract_name">名称</label>
+                                                                    <input type="text" class="form-control" id="contract_name" name="contract_name" placeholder="请输入名称">
+                                                                </div>
+                                                                <br>
+                                                                <div class="form-group">
+                                                                    <label>合同类型</label>
+                                                                    <br>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio"  value="施工合同" name="contract_type" id="contract_type_option1" checked>施工合同
+                                                                    </label>
+                                                                    <br>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio"  value="施工合同-补充" name="contract_type" id="contract_type_option2">施工合同-补充
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="contract_file">上传施工合同截图</label>
+                                                                    &nbsp;
+                                                                    <input type="file" name="contract_file" id="contract_file" />
+                                                                    &nbsp;
+                                                                    <input type="text" id="contract_order_id" name="contract_order_id" value="${orderItem.order.id}" hidden="true"/>
+                                                                    <input type="text" id="contract_user_id" name="contract_user_id" value="${orderItem.user.id}" hidden="true"/>
+                                                                    <input type="text" id="contract_id" name="contract_id" value="${firstProjectContract.id}" hidden="true"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-outline-success">确定</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="row">
+                                                <ul class="nav flex-column nav-justified" role="tablist">
+                                                    <c:forEach var="projectContract" items="${projectContracts}">
+                                                        <c:choose>
+                                                            <c:when test="${projectContract.type == '施工合同'}">
+                                                                <li class="nav-item active">
+                                                                    <a class="nav-link active" href="#project_contr_${orderItem.order}_${projectContract.id}" data-toggle="tab" role="tab">施工合同</a>
+                                                                </li>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#project_contr_${orderItem.order}_${projectContract.id}" data-toggle="tab" role="tab">补充合同</a>
+                                                                </li>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:forEach>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <c:forEach var="projectContract" items="${projectContracts}">
+                                                        <c:set var="project_contr_tab_state" scope="session" value="fade"/>
+                                                        <c:if test="${projectContract.type == '施工合同'}">
+                                                            <c:set var="project_contr_tab_state" scope="session" value="active"/>
+                                                        </c:if>
+
+                                                        <div id="project_contr_${orderItem.order}_${projectContract.id}" class="col-md-8 container tab-pane ${project_contr_tab_state}">
+                                                            <c:if test="${projectContract.url != null}">
+                                                                <div><h5>${projectContract.name}</h5></div>
+                                                                <img src="/img/contracts/${projectContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#project_con_${orderItem.order}_${projectContract.id}">
+                                                                <div class="modal fade" id="project_con_${orderItem.order}_${projectContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <img src="/img/contracts/${projectContract.url}" alt="" style="width:100%;">
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </c:if>
+                                                            <c:if test="${projectContract.url == null}">
+                                                                <form class="form-inline mt-2 mt-md-0" action="/order/uploadContract" method="post" enctype="multipart/form-data">
+                                                                    <div class="modal-dialog modal-lg" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <span class="badge badge-success float-left">新建施工合同</span>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="form-group">
+                                                                                    <label for="contract_name">名称</label>
+                                                                                    <input type="text" class="form-control" id="contract_name" name="contract_name" placeholder="请输入名称">
+                                                                                </div>
+                                                                                <br>
+                                                                                <div class="form-group">
+                                                                                    <label>合同类型</label>
+                                                                                    <br>
+                                                                                    <label class="radio-inline">
+                                                                                        <input type="radio"  value="施工合同" name="contract_type" id="contract_type_option1">施工合同
+                                                                                    </label>
+                                                                                    <br>
+                                                                                    <label class="radio-inline">
+                                                                                        <input type="radio"  value="施工合同-补充" name="contract_type" id="contract_type_option2" checked>施工合同-补充
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="contract_file">上传施工合同截图</label>
+                                                                                    &nbsp;
+                                                                                    <input type="file" name="contract_file" id="contract_file" />
+                                                                                    &nbsp;
+                                                                                    <input type="text" id="contract_order_id" name="contract_order_id" value="${orderItem.order.id}" hidden="true"/>
+                                                                                    <input type="text" id="contract_user_id" name="contract_user_id" value="${orderItem.user.id}" hidden="true"/>
+                                                                                    <input type="text" id="contract_id" name="contract_id" value="${projectContract.id}" hidden="true"/>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="submit" class="btn btn-outline-success">确定</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </c:if>
+                                                        </div>
+
+                                                    </c:forEach>
+                                                </div>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                                <div id="panel5a_${orderItem.order}" class="container tab-pane fade"><br>
+                                    <form class="form-inline mt-2 mt-md-0" action="/cash/confirmCash" method="get">
+                                        <c:if test="${order.status >= '21'}">
+                                            <p><span class="badge badge-success">已确认收到施工方案定金</span></p>
+                                            <p><span class="badge badge-warning">如有疑义，请尽快联系超级管理员！</span></p>
+                                        </c:if>
+                                        <c:if test="${order.status < '21'}">
+                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">确认收到施工方案定金</button>
+                                            <input type="text" id="cash_order_id" name="cash_order_id" value="${order.id}" hidden="true"/>
+                                            <input type="text" id="cash_user_id" name="cash_user_id" value="${orderItem.user.id}" hidden="true"/>
+                                            <input type="text" id="cash_type" name="cash_type" value="施工方案定金" hidden="true"/>
+                                        </c:if>
+                                    </form>
+                                </div>
                                 <div id="panel4_${orderItem.order}" class="container tab-pane fade"><br>
                                     <c:choose>
                                         <c:when test="${disclaim == null}">
@@ -672,108 +837,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
-                                <div id="panel5_${orderItem.order}" class="container tab-pane fade"><br>
-                                    <c:choose>
-                                        <c:when test="${projectContracts == null}">
-                                            <p>目前还没有对施工合同进行管理，点击<span class="badge badge-success">新建施工合同</span>添加合同记录。</p>
-                                            <br>
-                                            <div class="col-md-3">
-                                                <button type="button" class="btn btn-block btn-outline-success" data-toggle="modal" data-target="#new_project_contr_modal_${orderItem.order}">新建施工合同</button>
-                                            </div>
-                                            <form>
-                                                <div class="modal fade" id="new_project_contr_modal_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                                    <div class="modal-dialog modal-lg" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <span class="badge badge-success float-left">新建施工合同</span>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <label for="project_contr_name">名称</label>
-                                                                    <input type="text" class="form-control" id="project_contr_name" placeholder="请输入名称">
-                                                                </div>
-                                                                <br>
-                                                                <div class="form-group">
-                                                                    <label>合同类型</label>
-                                                                    <br>
-                                                                    <label class="radio-inline">
-                                                                        <input type="radio"  value="施工合同" name="project_contr_type" id="project_contr_type_option1" checked>施工合同
-                                                                    </label>
-                                                                    <br>
-                                                                    <label class="radio-inline">
-                                                                        <input type="radio"  value="施工合同-补充" name="project_contr_type" id="project_contr_type_option2">施工合同-补充
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="project_contr_file">上传施工合同截图</label>
-                                                                    &nbsp;
-                                                                    <input type="file" name="project_contr_file" id="project_contr_file" />
-                                                                    &nbsp;
-                                                                    <input type="text" id="project_contr_order_id" name="project_contr_order_id" value="${orderItem.order}" hidden="true"/>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-outline-success" data-dismiss="modal">确定</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <div class="row">
-                                                <ul class="nav flex-column nav-justified" role="tablist">
-                                                    <c:forEach var="projectContract" items="${projectContracts}">
-                                                        <c:choose>
-                                                            <c:when test="${projectContract.type == '施工合同'}">
-                                                                <li class="nav-item active">
-                                                                    <a class="nav-link active" href="#project_${orderItem.order}_${projectContract.id}" data-toggle="tab" role="tab">施工合同</a>
-                                                                </li>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#project_${orderItem.order}_${projectContract.id}" data-toggle="tab" role="tab">补充合同</a>
-                                                                </li>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:forEach>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#" data-toggle="tab" role="tab">上传施工合同</a>
-                                                    </li>
-                                                </ul>
-                                                <div class="tab-content">
-                                                    <c:forEach var="projectContract" items="${projectContracts}">
-                                                        <c:set var="project_contr_tab_state" scope="session" value="fade"/>
-                                                        <c:if test="${projectContract.type == '施工合同'}">
-                                                            <c:set var="project_contr_tab_state" scope="session" value="active"/>
-                                                        </c:if>
-                                                        <div id="project_${orderItem.order}_${projectContract.id}" class="col-md-8 container tab-pane ${project_contr_tab_state}">
-                                                            <div><h5>${projectContract.name}</h5></div>
-                                                            <img src="<%=request.getContextPath() %>/resources/img/contracts/${projectContract.url}" class="rounded" width="670" height="295" data-toggle="modal" data-target="#project_con_${orderItem.order}_${projectContract.id}">
-                                                            <div class="modal fade" id="project_con_${orderItem.order}_${projectContract.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <img src="<%=request.getContextPath() %>/resources/img/contracts/${projectContract.url}" alt="" style="width:100%;">
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </c:forEach>
                                                 </div>
                                             </div>
                                         </c:otherwise>

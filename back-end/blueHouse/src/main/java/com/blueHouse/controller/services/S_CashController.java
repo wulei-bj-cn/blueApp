@@ -43,7 +43,11 @@ public class S_CashController {
 
         //更新订单状态，标记正在申请提交定金
         Order order = orderService.findOrderById(order_id);
-        order.setStatus("20");
+        if(cash_type == "设计方案定金") {
+            order.setStatus("20");
+        } else if (cash_type == "施工方案定金") {
+            order.setStatus("50");
+        }
 
         try {
             //更新订单状态，标记正在申请提交定金
