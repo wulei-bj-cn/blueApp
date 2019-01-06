@@ -243,6 +243,7 @@ public class OrderController {
         String name = request.getParameter("design_name");
         String designer = request.getParameter("designer");
         String order_id = request.getParameter("design_order_id");
+        String details = request.getParameter("design_details");
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         String design_id = "des" + md5Service.encodeByMD5(designer + name + ts);
 
@@ -251,6 +252,7 @@ public class OrderController {
         t_design.setName(name);
         t_design.setTs(ts);
         t_design.setDesigner(designer);
+        t_design.setDesigner(details);
 
 
         OrderItem orderItem = new OrderItem();

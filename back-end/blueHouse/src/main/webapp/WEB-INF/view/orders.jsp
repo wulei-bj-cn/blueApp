@@ -464,7 +464,16 @@
                                                                 <div class="form-group">
                                                                     <label for="designer">设计师</label>
                                                                     &nbsp;
-                                                                    <input type="text" class="form-control" id="designer" name="designer" placeholder="请输入设计师名字">
+                                                                    <select class="form-control select" id="designer" name="designer" placeholder="请选择设计师姓名">
+                                                                        <option value="adm1">小旗</option>
+                                                                        <option value="adm2">秦阳</option>
+                                                                        <option value="adm3">Kevin老师</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="designer">设计明细</label>
+                                                                    &nbsp;
+                                                                    <textarea name="design_details" id="design_details" cols="30" rows="10" class="form-control" placeholder="设计方案明细"></textarea>
                                                                 </div>
                                                                 <br>
                                                                 <div class="form-group">
