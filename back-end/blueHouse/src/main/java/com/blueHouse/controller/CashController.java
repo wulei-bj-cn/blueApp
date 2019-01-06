@@ -50,9 +50,9 @@ public class CashController {
             System.out.println("=====Order id: " + order_id);
             //更新订单状态，标记正在确认提交定金
             Order order = orderService.findOrderById(order_id);
-            if(cash_type == "DesignCash") {
+            if(cash_type.equals("DesignCash")) {
                 order.setStatus("21");
-            } else if (cash_type == "ProjectCash") {
+            } else if (cash_type.equals("ProjectCash")) {
                 order.setStatus("51");
             }
 
