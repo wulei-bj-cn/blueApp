@@ -433,14 +433,23 @@ public class OrderController {
                         orderItem.setStatus("1");
 
                         Order order = orderService.findOrderById(order_id);
+                        String currentStatus = order.getStatus();
                         if (contract_type.equals("设计合同")) {
                             order.setStatus("11");
                         } else if (contract_type.equals("施工合同")) {
                             order.setStatus("41");
                         } else if (contract_type.equals("设计合同-补充")) {
-                            order.setStatus("111");
+                            String newStatus = "1110";
+                            if (currentStatus.startsWith("110")) {
+                                newStatus = String.valueOf(Integer.parseInt(currentStatus) + 10);
+                            }
+                            order.setStatus(newStatus);
                         } else if (contract_type.equals("施工合同-补充")) {
-                            order.setStatus("411");
+                            String newStatus = "4110";
+                            if (currentStatus.startsWith("410")) {
+                                newStatus = String.valueOf(Integer.parseInt(currentStatus) + 10);
+                            }
+                            order.setStatus(newStatus);
                         }
                         try {
                             //更新订单项状态

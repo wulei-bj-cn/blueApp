@@ -93,9 +93,26 @@ public class S_ContractController {
         orderItem.setStart_time(ts);
         orderItem.setStatus("0");
 
-        //更新订单状态，标记正在申请设计合同 - 也就是请求甲方出具设计方案
+        //更新订单状态，标记正在申请设计合同 - 也就是请求甲方出具设计方案, 需要根据合同的类型，来决定订单的状态。
         Order order = orderService.findOrderById(order_id);
-        order.setStatus("10");
+        String currentStatus = order.getStatus();
+        if (contract_type.equals("设计合同")) {
+            order.setStatus("10");
+        } else if (contract_type.equals("施工合同")) {
+            order.setStatus("40");
+        } else if (contract_type.equals("设计合同-补充")) {
+            String newStatus = "1100";
+            if (currentStatus.startsWith("111")) {
+                newStatus = String.valueOf(Integer.parseInt(currentStatus) - 10 + 1);
+            }
+            order.setStatus(newStatus);
+        } else if (contract_type.equals("施工合同-补充")) {
+            String newStatus = "4100";
+            if (currentStatus.startsWith("411")) {
+                newStatus = String.valueOf(Integer.parseInt(currentStatus) - 10 + 1);
+            }
+            order.setStatus(newStatus);
+        }
 
         try {
             //更新Contract表，向Contract表中插入相关记录。
@@ -122,6 +139,7 @@ public class S_ContractController {
     @ResponseBody
     public Map<String, Object> confirmContract(
             @RequestParam(value = "order_id") String order_id,
+            @RequestParam(value = "contract_type") String contract_type,
             HttpServletRequest req
     ) {
 
@@ -133,7 +151,24 @@ public class S_ContractController {
 
         //更新订单状态，标记合同已经完成，用户已经确认
         Order order = orderService.findOrderById(order_id);
-        order.setStatus("12");
+        String currentStatus = order.getStatus();
+        if (contract_type.equals("设计合同")) {
+            order.setStatus("12");
+        } else if (contract_type.equals("施工合同")) {
+            order.setStatus("42");
+        } else if (contract_type.equals("设计合同-补充")) {
+            String newStatus = "1120";
+            if (currentStatus.startsWith("111")) {
+                newStatus = String.valueOf(Integer.parseInt(currentStatus) + 10);
+            }
+            order.setStatus(newStatus);
+        } else if (contract_type.equals("施工合同-补充")) {
+            String newStatus = "4120";
+            if (currentStatus.startsWith("411")) {
+                newStatus = String.valueOf(Integer.parseInt(currentStatus) + 10);
+            }
+            order.setStatus(newStatus);
+        }
 
         try {
             //更新订单状态，标记合同已经完成，用户已经确认
