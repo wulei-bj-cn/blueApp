@@ -426,10 +426,16 @@
                                 </div>
                                 <div id="panel3a_${orderItem.order}" class="container tab-pane fade"><br>
                                     <form class="form-inline mt-2 mt-md-0" action="/cash/confirmCash" method="get">
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">确认收到设计方案定金</button>
-                                        <input type="text" id="cash_order_id" name="cash_order_id" value="${order.id}" hidden="true"/>
-                                        <input type="text" id="cash_user_id" name="cash_user_id" value="${orderItem.user.id}" hidden="true"/>
-                                        <input type="text" id="cash_type" name="cash_type" value="设计方案定金" hidden="true"/>
+                                        <c:if test="${order.status >= '21'}">
+                                            <p><span class="badge badge-success">已确认收到设计方案定金</span></p>
+                                            <p><span class="badge badge-warning">如有疑义，请尽快联系超级管理员！</span></p>
+                                        </c:if>
+                                        <c:if test="${order.status < '21'}">
+                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">确认收到设计方案定金</button>
+                                            <input type="text" id="cash_order_id" name="cash_order_id" value="${order.id}" hidden="true"/>
+                                            <input type="text" id="cash_user_id" name="cash_user_id" value="${orderItem.user.id}" hidden="true"/>
+                                            <input type="text" id="cash_type" name="cash_type" value="设计方案定金" hidden="true"/>
+                                        </c:if>
                                     </form>
                                 </div>
                                 <div id="panel3_${orderItem.order}" class="container tab-pane fade"><br>

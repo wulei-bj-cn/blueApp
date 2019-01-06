@@ -258,9 +258,7 @@ public class OrderController {
         orderItem.setItem_id(design_id);
         orderItem.setItem_class("designs");
         orderItem.setStart_time(ts);
-
-        orderItemService.insertOrderItem(orderItem);
-
+        orderItem.setStatus("1");
 
         CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());
 
@@ -298,6 +296,22 @@ public class OrderController {
                         //T_Design t_design = designService.findDesignById(design_id);
                         t_design.setUrl(targetPath);
                         designService.insertDesign(t_design);
+
+                        Order order = orderService.findOrderById(order_id);
+                        String currentStatus = order.getStatus();
+                        String newStatus = "310";
+                        if (currentStatus.startsWith("3")) {
+                            newStatus = String.valueOf(Integer.parseInt(currentStatus) + 1);
+                        }
+                        order.setStatus(newStatus);
+                        try {
+                            //更新订单项状态
+                            orderItemService.insertOrderItem(orderItem);
+                            //更新订单状态，标记甲方测量已经完成
+                            orderService.updateOrderStatus(order);
+                        } catch (RuntimeException re) {
+                            System.out.println("Run time exception updating order's status:" + re.toString());
+                        }
                     } catch (IOException ex) {
                         System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.getMessage());
                         System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.toString());
