@@ -114,4 +114,37 @@ public class S_DesignController {
         return map;
     }
 
+    @RequestMapping(value = "/confirmDesign", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> confirmDesign(
+            @RequestParam(value = "user_id") String user_id,
+            @RequestParam(value = "order_id") String order_id,
+            HttpServletRequest req
+    ) {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        boolean returnStatus = true;
+        String message = "";
+        int httpCode = 200;
+        int error_type = 1;
+
+        Order order = orderService.findOrderById(order_id);
+        order.setStatus("32");
+
+        try {
+            //用户确认最终的设计方案
+            orderService.updateOrderStatus(order);
+        } catch (RuntimeException re) {
+            returnStatus = false;
+        }
+
+        map.put("status", returnStatus);
+        map.put("message", message);
+        map.put("code", httpCode);
+        map.put("error_type", error_type);
+        map.put("data", "");
+
+        return map;
+    }
+
 }
