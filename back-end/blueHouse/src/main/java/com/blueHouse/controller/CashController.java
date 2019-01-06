@@ -47,6 +47,7 @@ public class CashController {
             }
 
             System.out.println("=====Cash type: " + cash_type);
+            System.out.println("=====Order id: " + order_id);
             //更新订单状态，标记正在确认提交定金
             Order order = orderService.findOrderById(order_id);
             if(cash_type == "DesignCash") {
@@ -58,6 +59,7 @@ public class CashController {
             try {
                 //更新订单状态，标记正在确认提交定金
                 orderService.updateOrderStatus(order);
+                System.out.println("===== Order update done: " + order_id);
             } catch (RuntimeException re) {
                 System.out.println(re.toString());
             }
