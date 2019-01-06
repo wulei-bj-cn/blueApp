@@ -14,6 +14,7 @@ public class Design {
     private Timestamp ts;
     private String designer;
     private String status;
+    private String details;
 
     public String getUser_id() { return this.user_id; }
     public void setUser_id() { this.user_id = user_id; }
@@ -38,5 +39,8 @@ public class Design {
 
     public String getStatus() { return this.status; }
     public void setStatus(String status) { this.status = status; }
+
+    public String getDetails() { return this.details; }
+    public void setDetails(String details) { this.details = details; }
 }
 

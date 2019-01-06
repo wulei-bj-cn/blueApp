@@ -31,7 +31,7 @@
         WHERE o.id = #{order_id} AND o.user_id = #{user_id};
     </select>
     <select id="findDesign" resultType="com.blueHouse.pojo.orders.Design">
-        SELECT o.user_id AS user_id, o.id AS order_id, d.id AS id, d.name AS name, d.url AS url, d.ts AS ts, d.designer AS designer, oi.status AS status
+        SELECT o.user_id AS user_id, o.id AS order_id, d.id AS id, d.name AS name, d.url AS url, d.ts AS ts, d.designer AS designer, oi.status AS status, d.details as details
         FROM t_orders AS o INNER JOIN t_order_items AS oi ON o.id = oi.order_id
         INNER JOIN t_designs AS d ON oi.item_id = d.id
         WHERE o.id = #{order_id} AND o.user_id = #{user_id};

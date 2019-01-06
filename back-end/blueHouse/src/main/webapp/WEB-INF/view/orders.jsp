@@ -565,6 +565,12 @@
                                                                     <p><label>设计师:</label> ${design.designer}</p>
                                                                     <p><label>出版时间</label>: ${design.ts}</p>
                                                                     <p><label>设计状态</label>: ${design.status}</p>
+                                                                    <c:if test="${design.details == null}">
+                                                                        <p><label>设计明细</label>:明细为空</p>
+                                                                    </c:if>
+                                                                    <c:if test="${design.details != null}">
+                                                                        <p><label>设计明细</label>:${design.details}</p>
+                                                                    </c:if>
                                                                     <button type="button" class="btn btn-lg btn-block btn-outline-info">更新</button>
                                                                 </div>
                                                                 <div class="col-md-8">
