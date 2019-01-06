@@ -252,7 +252,7 @@ public class OrderController {
         t_design.setName(name);
         t_design.setTs(ts);
         t_design.setDesigner(designer);
-        t_design.setDesigner(details);
+        t_design.setDetails(details);
 
 
         OrderItem orderItem = new OrderItem();

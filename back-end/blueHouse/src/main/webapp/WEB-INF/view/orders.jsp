@@ -481,7 +481,7 @@
                                                                     &nbsp;
                                                                     <input type="file" name="design_file" id="design_file" />
                                                                     &nbsp;
-                                                                    <input type="text" id="design_order_id" name="design_order_id" value="${orderItem.order}" hidden="true"/>
+                                                                    <input type="text" id="design_order_id" name="design_order_id" value="${orderItem.order.id}" hidden="true"/>
 
                                                                 </div>
                                                             </div>
@@ -494,6 +494,59 @@
                                             </form>
                                         </c:when>
                                         <c:otherwise>
+                                            <div class="container row">
+                                                <p>点击<span class="badge badge-info">添加补充方案</span>添加设计方案记录。</p>
+                                                <br>
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#new_design_modal_${orderItem.order}">添加补充方案</button>
+                                                </div>
+                                                <form class="form-inline mt-2 mt-md-0" action="/order/insertDesign" method="post" enctype="multipart/form-data">
+                                                    <div class="modal fade" id="new_design_modal_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <span class="badge badge-info float-left">添加补充方案</span>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="design_name">名称</label>
+                                                                        &nbsp;
+                                                                        <input type="text" class="form-control" id="design_name" name="design_name" placeholder="请输入名称">
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="form-group">
+                                                                        <label for="designer">设计师</label>
+                                                                        &nbsp;
+                                                                        <select class="form-control select" id="designer" name="designer" placeholder="请选择设计师姓名">
+                                                                            <option value="adm1">小旗</option>
+                                                                            <option value="adm2">秦阳</option>
+                                                                            <option value="adm3">Kevin老师</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="designer">设计明细</label>
+                                                                        &nbsp;
+                                                                        <textarea name="design_details" id="design_details" cols="30" rows="10" class="form-control" placeholder="设计方案明细"></textarea>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="form-group">
+                                                                        <label for="design_file">上传设计方案截图</label>
+                                                                        &nbsp;
+                                                                        <input type="file" name="design_file" id="design_file" />
+                                                                        &nbsp;
+                                                                        <input type="text" id="design_order_id" name="design_order_id" value="${orderItem.order.id}" hidden="true"/>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-outline-info">确定</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
                                             <div class="card-deck mb-1">
                                                 <div class="card mb-12">
                                                     <c:forEach var="design_index" begin="0" end="${designs.size() - 1}" step="1">
