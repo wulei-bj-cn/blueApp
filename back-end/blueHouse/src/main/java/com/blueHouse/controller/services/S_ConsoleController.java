@@ -4,13 +4,13 @@ package com.blueHouse.controller.services;
  * Created by wulei on 27/07/2018.
  */
 
+import com.alibaba.fastjson.JSONObject;
 import com.blueHouse.pojo.Article;
 import com.blueHouse.pojo.browse.T_Activity;
 import com.blueHouse.pojo.browse.T_Solution;
 import com.blueHouse.service.ActivityService;
 import com.blueHouse.service.ArticleService;
 import com.blueHouse.service.SolutionService;
-import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
