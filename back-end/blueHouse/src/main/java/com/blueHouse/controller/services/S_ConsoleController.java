@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/measureService")
+@RequestMapping("/home")
 public class S_ConsoleController {
 
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
@@ -32,7 +32,7 @@ public class S_ConsoleController {
     SolutionService solutionService = (SolutionService) applicationContext.getBean("solutionService");
     ArticleService articleService = (ArticleService) applicationContext.getBean("articleService");
 
-    @RequestMapping(value = "/insertMeasure", method = RequestMethod.GET)
+    @RequestMapping(value = "/homePage", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> insertMeasure(
             HttpServletRequest req
