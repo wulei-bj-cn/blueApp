@@ -193,6 +193,11 @@
                                         <h6 class="text-warning">施工项目</h6>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#panel7_${orderItem.order}" role="tab">
+                                        <h6 class="text-success">完成订单</h6>
+                                    </a>
+                                </li>
                             </ul>
                             <br>
                             <div class="tab-content">
@@ -930,6 +935,22 @@
                                             </table>
                                         </c:otherwise>
                                     </c:choose>
+                                </div>
+                                <div id="panel7_${orderItem.order}" class="container tab-pane fade"><br>
+                                    <form class="form-inline mt-2 mt-md-0" action="/cash/finishOrder" method="get">
+                                        <c:if test="${order.status == '81'}">
+                                            <p><span class="badge badge-success">已确认收到尾款</span></p>
+                                            <p><span class="badge badge-warning">如有疑义，请尽快联系超级管理员！</span></p>
+                                        </c:if>
+                                        <c:if test="${order.status == '82'}">
+                                            <p><span class="badge badge-success">用户已确认所有环节结束，订单完成！</span></p>
+                                        </c:if>
+                                        <c:if test="${order.status < '81'}">
+                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">确认收到尾款</button>
+                                            <input type="text" id="cash_order_id" name="cash_order_id" value="${order.id}" hidden="true"/>
+                                            <input type="text" id="cash_user_id" name="cash_user_id" value="${orderItem.user.id}" hidden="true"/>
+                                        </c:if>
+                                    </form>
                                 </div>
                             </div>
                         </blockquote>

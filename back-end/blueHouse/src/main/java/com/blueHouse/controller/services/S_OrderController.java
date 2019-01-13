@@ -7,6 +7,7 @@ package com.blueHouse.controller.services;
 import com.blueHouse.pojo.orders.*;
 import com.blueHouse.pojo.services.OrderData;
 import com.blueHouse.service.OMService;
+import com.blueHouse.service.OrderService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import java.util.Map;
 public class S_OrderController {
 
     ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/ApplicationContext.xml");
+    OrderService orderService = (OrderService) applicationContext.getBean("orderService");
 
     @RequestMapping(value = "/getOrderByUser", method = RequestMethod.GET)
     @ResponseBody
@@ -138,6 +140,72 @@ public class S_OrderController {
         map.put("code", httpCode);
         map.put("error_type", error_type);
         map.put("data", contracts);
+
+        return map;
+    }
+
+    @RequestMapping(value = "/requestFinishOrder", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> requestFinishOrder(
+            @RequestParam(value = "user_id") String user_id,
+            @RequestParam(value = "order_id") String order_id,
+            HttpServletRequest req
+    ) {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        boolean returnStatus = true;
+        String message = "";
+        int httpCode = 200;
+        int error_type = 1;
+
+        Order order = orderService.findOrderById(order_id);
+        order.setStatus("80");
+
+        try {
+            //用户提交尾款，请求完成订单。
+            orderService.updateOrderStatus(order);
+        } catch (RuntimeException re) {
+            returnStatus = false;
+        }
+
+        map.put("status", returnStatus);
+        map.put("message", message);
+        map.put("code", httpCode);
+        map.put("error_type", error_type);
+        map.put("data", "");
+
+        return map;
+    }
+
+    @RequestMapping(value = "/finishOrder", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> finishOrder(
+            @RequestParam(value = "order_id") String order_id,
+            HttpServletRequest req
+    ) {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        boolean returnStatus = true;
+        String message = "";
+        int httpCode = 200;
+        int error_type = 1;
+
+        //更新订单状态，标记测量已经完成，用户已经确认
+        Order order = orderService.findOrderById(order_id);
+        order.setStatus("82");
+
+        try {
+            //更新订单状态，标记测量已经完成，用户已经确认
+            orderService.updateOrderStatus(order);
+        } catch (RuntimeException re) {
+            returnStatus = false;
+        }
+
+        map.put("status", returnStatus);
+        map.put("message", message);
+        map.put("code", httpCode);
+        map.put("error_type", error_type);
+        map.put("data", "");
 
         return map;
     }

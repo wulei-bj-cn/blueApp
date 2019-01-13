@@ -32,7 +32,7 @@ public class CashController {
     private int PAGEPERMISSIONCODE = 2;
 
     @RequestMapping(value = "/confirmCash", method = RequestMethod.GET)
-    public String searchUsers(@RequestParam(value = "cash_user_id") String user_id,
+    public String confirmCash(@RequestParam(value = "cash_user_id") String user_id,
                               @RequestParam(value = "cash_order_id") String order_id,
                               @RequestParam(value = "cash_type") String cash_type,
                               HttpServletRequest req, ModelMap modelMap) {
@@ -69,5 +69,36 @@ public class CashController {
         return "orders";
     }
 
+    @RequestMapping(value = "/finishOrder", method = RequestMethod.GET)
+    public String finishOrder(@RequestParam(value = "cash_user_id") String user_id,
+                              @RequestParam(value = "cash_order_id") String order_id,
+                              HttpServletRequest req, ModelMap modelMap) {
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("user");
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if (loginStatus != null && loginStatus.equals("1")) {
+            if (loginService.permissionCheck(user, PAGEPERMISSIONCODE)) {
+                modelMap.put("permissionCode", true);
+            } else {
+                modelMap.put("permissionCode", false);
+            }
+
+            System.out.println("=====Order id: " + order_id);
+            //更新订单状态，标记正在确认提交定金
+            Order order = orderService.findOrderById(order_id);
+            order.setStatus("81");
+
+            try {
+                //更新订单状态，标记正在确认提交定金
+                orderService.updateOrderStatus(order);
+                System.out.println("===== Order update done: " + order_id);
+            } catch (RuntimeException re) {
+                System.out.println(re.toString());
+            }
+        } else {
+            return "redirect: /login/logins";
+        }
+        return "orders";
+    }
 
 }
