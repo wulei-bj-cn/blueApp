@@ -165,7 +165,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#panel3a_${orderItem.order}" role="tab">
-                                        <h6 class="text-success">设计方案定金</h6>
+                                        <h6 class="text-success">设计定金</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -180,7 +180,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#panel5a_${orderItem.order}" role="tab">
-                                        <h6 class="text-success">施工方案定金</h6>
+                                        <h6 class="text-success">施工定金</h6>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -777,7 +777,7 @@
                                             <div class="col-md-3">
                                                 <button type="button" class="btn btn-block btn-outline-secondary" data-toggle="modal" data-target="#new_disclaim_modal_${orderItem.order}">新建施工交底</button>
                                             </div>
-                                            <form>
+                                            <form class="form-inline mt-2 mt-md-0" action="/order/uploadDisclaim" method="post" enctype="multipart/form-data">
                                                 <div class="modal fade" id="new_disclaim_modal_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
@@ -803,7 +803,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-outline-secondary">确定</button>
+                                                                <button type="submit" class="btn btn-outline-secondary">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
