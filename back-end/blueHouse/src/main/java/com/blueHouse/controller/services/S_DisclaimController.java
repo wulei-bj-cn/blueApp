@@ -75,7 +75,7 @@ public class S_DisclaimController {
 
         //生产新的Disclaim对象，并对其赋值，尤其是ID
         T_Disclaim t_disclaim = new T_Disclaim();
-        String disclaim_name = "for user " + user_id + " for order " + order_id;
+        String disclaim_name = "施工交底 for user " + user_id + " for order " + order_id;
         t_disclaim.setName(disclaim_name);
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         t_disclaim.setTs(ts);
@@ -90,17 +90,52 @@ public class S_DisclaimController {
         orderItem.setItem_class("disclaims");
         orderItem.setStart_time(ts);
         orderItem.setStatus("0");
+
+        Order order = orderService.findOrderById(order_id);
+        order.setId(order_id);
+        order.setUser_id(user_id);
+        order.setStatus("60");
+
         try {
             //更新Disclaim表，向Disclaim表中插入相关记录。
             disclaimService.insertDisclaim(t_disclaim);
             //施工交底已经完成，需要更新订单状态到6。
-            Order order = new Order();
-            order.setId(order_id);
-            order.setUser_id(user_id);
-            order.setStatus("6");
             orderService.updateOrderStatus(order);
             //根据订单id和disclaim id，将该测量项加入order item表
             orderItemService.insertOrderItem(orderItem);
+        } catch (RuntimeException re) {
+            returnStatus = false;
+        }
+
+        map.put("status", returnStatus);
+        map.put("message", message);
+        map.put("code", httpCode);
+        map.put("error_type", error_type);
+        map.put("data", "");
+
+        return map;
+    }
+
+    @RequestMapping(value = "/confirmDisclaim", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> confirmDisclaim(
+            @RequestParam(value = "order_id") String order_id,
+            HttpServletRequest req
+    ) {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        boolean returnStatus = true;
+        String message = "";
+        int httpCode = 200;
+        int error_type = 1;
+
+        //更新订单状态，标记测量已经完成，用户已经确认
+        Order order = orderService.findOrderById(order_id);
+        order.setStatus("62");
+
+        try {
+            //更新订单状态，标记测量已经完成，用户已经确认
+            orderService.updateOrderStatus(order);
         } catch (RuntimeException re) {
             returnStatus = false;
         }
