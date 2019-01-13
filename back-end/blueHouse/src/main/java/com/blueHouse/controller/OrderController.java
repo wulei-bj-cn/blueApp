@@ -7,6 +7,7 @@ package com.blueHouse.controller;
 import com.blueHouse.pojo.User;
 import com.blueHouse.pojo.browse.T_Contract;
 import com.blueHouse.pojo.browse.T_Design;
+import com.blueHouse.pojo.browse.T_Disclaim;
 import com.blueHouse.pojo.browse.T_Measure;
 import com.blueHouse.pojo.orders.*;
 import com.blueHouse.service.*;
@@ -45,6 +46,7 @@ public class OrderController {
     UserService userService = (UserService) applicationContext.getBean("userService");
     OrderService orderService = (OrderService) applicationContext.getBean("orderService");
     ContractService contractService = (ContractService) applicationContext.getBean("contractService");
+    DisclaimService disclaimService = (DisclaimService) applicationContext.getBean("disclaimService");
 
     @Resource
     private OMService omService;
@@ -451,6 +453,76 @@ public class OrderController {
                             }
                             order.setStatus(newStatus);
                         }
+                        try {
+                            //更新订单项状态
+                            orderItemService.updateOrderItemStatus(orderItem);
+                            //更新订单状态，标记甲方测量已经完成
+                            orderService.updateOrderStatus(order);
+                        } catch (RuntimeException re) {
+                            System.out.println("Run time exception updating order's status:" + re.toString());
+                        }
+                    } catch (IOException ex) {
+                        System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.getMessage());
+                        System.out.println("IO exception detected when uploading Blue House MEASURE files! ERROR: " + ex.toString());
+                    }
+                }
+
+            }
+
+        }
+
+        return "orders";
+    }
+
+    @RequestMapping(value = "/uploadDisclaim", method = RequestMethod.POST)
+    public String uploadDisclaimFile(@RequestParam("disclaim_file") MultipartFile disclaimFile,
+                                    @RequestParam(value = "disclaim_user_id") String user_id,
+                                    @RequestParam(value = "disclaim_order_id") String order_id,
+                                    HttpServletRequest request) {
+        CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(request.getSession().getServletContext());
+
+        Properties prop = null;
+        try {
+            prop = PropertiesLoaderUtils.loadAllProperties("conf/blueHouse.properties");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String img_address = prop.getProperty("img_address");
+
+        if(multipartResolver.isMultipart(request))
+        {
+            //将request变成多部分request
+            MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;
+            //获取multiRequest 中所有的文件名
+            Iterator iter=multiRequest.getFileNames();
+
+            while(iter.hasNext())
+            {
+                //一次遍历所有文件
+                MultipartFile file=multiRequest.getFile(iter.next().toString());
+                if(file!=null)
+                {
+                    String disclaim_id = request.getParameter("disclaim_id");
+                    String targetPath = disclaim_id + ".jpeg";
+                    System.out.println("==========Target file path:" + targetPath);
+                    String writePath = img_address + "disclaims/" + targetPath;
+                    File targetFile = new File(writePath);
+                    //上传
+                    try {
+                        file.transferTo(targetFile);
+
+                        T_Disclaim t_disclaim = disclaimService.findDisclaimById(disclaim_id);
+                        t_disclaim.setUrl(targetPath);
+                        disclaimService.updateDisclaim(t_disclaim);
+
+                        OrderItem orderItem = new OrderItem();
+                        orderItem.setOrder_id(order_id);
+                        orderItem.setItem_id(disclaim_id);
+                        orderItem = orderItemService.findOrderItemBy2Id(orderItem);
+                        orderItem.setStatus("1");
+
+                        Order order = orderService.findOrderById(order_id);
+                        order.setStatus("61");
                         try {
                             //更新订单项状态
                             orderItemService.updateOrderItemStatus(orderItem);

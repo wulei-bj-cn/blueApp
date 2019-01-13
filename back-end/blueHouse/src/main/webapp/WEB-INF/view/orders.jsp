@@ -766,7 +766,7 @@
                                 </div>
                                 <div id="panel4_${orderItem.order}" class="container tab-pane fade"><br>
                                     <c:choose>
-                                        <c:when test="${disclaim == null}">
+                                        <c:when test="${disclaim == null || disclaim.url == null}">
                                             <p>目前还没有对施工交底进行管理，点击<span class="badge badge-secondary">新建施工交底</span>添加交底记录。</p>
                                             <br>
                                             <div class="col-md-3">
@@ -788,15 +788,17 @@
                                                                 </div>
                                                                 <br>
                                                                 <div class="form-group">
-                                                                    <label for="disclaim_file">上传施工交底截图</label>
+                                                                    <label for="measure_file">上传施工交底截图</label>
                                                                     &nbsp;
                                                                     <input type="file" name="disclaim_file" id="disclaim_file" />
                                                                     &nbsp;
-                                                                    <input type="text" id="disclaim_order_id" name="disclaim_order_id" value="${orderItem.order}" hidden="true"/>
+                                                                    <input type="text" id="disclaim_order_id" name="disclaim_order_id" value="${orderItem.order.id}" hidden="true"/>
+                                                                    <input type="text" id="disclaim_user_id" name="disclaim_user_id" value="${orderItem.user.id}" hidden="true"/>
+                                                                    <input type="text" id="disclaim_id" name="disclaim_id" value="${disclaim.id}" hidden="true"/>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">确定</button>
+                                                                <button type="button" class="btn btn-outline-secondary">确定</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -817,7 +819,7 @@
                                                                 <button type="button" class="btn btn-lg btn-block btn-outline-info">更新</button>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <img src="<%=request.getContextPath() %>/resources/img/disclaims/${disclaim.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#disclaim_${orderItem.order}">
+                                                                <img src="/img/disclaims/${disclaim.url}" class="rounded" width="640" height="300" data-toggle="modal" data-target="#disclaim_${orderItem.order}">
                                                                 <div class="modal fade" id="disclaim_${orderItem.order}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
@@ -826,7 +828,7 @@
 
                                                                             </div>
                                                                             <div class="modal-body">
-                                                                                <img src="<%=request.getContextPath() %>/resources/img/disclaims/${disclaim.url}" alt="" style="width:100%;">
+                                                                                <img src="/img/disclaims/${disclaim.url}" alt="" style="width:100%;">
                                                                             </div>
                                                                             <div class="modal-footer">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
