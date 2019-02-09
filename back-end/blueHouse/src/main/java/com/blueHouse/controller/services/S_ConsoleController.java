@@ -11,11 +11,13 @@ import com.blueHouse.pojo.browse.T_Solution;
 import com.blueHouse.service.ActivityService;
 import com.blueHouse.service.ArticleService;
 import com.blueHouse.service.SolutionService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +37,8 @@ public class S_ConsoleController {
     @RequestMapping(value = "/homePage", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> insertMeasure(
+            @RequestParam(value = "page", required = false) int page,
+            @RequestParam(value = "size", required = false) int size,
             HttpServletRequest req
     ) {
 
@@ -47,6 +51,7 @@ public class S_ConsoleController {
         JSONObject jsonObject = new JSONObject();
         JSONObject designsJson = new JSONObject();
 
+        PageHelper.startPage(page, size);
         List<T_Activity> activities = activityService.findAllActivity();
 
         List<T_Solution> solutions1 = solutionService.findSolutionByCategory("⽓派中式");
