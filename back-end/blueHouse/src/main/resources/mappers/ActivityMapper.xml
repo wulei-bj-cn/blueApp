@@ -5,19 +5,19 @@
 
 <mapper namespace="com.blueHouse.mapper.ActivityMapper">
     <select id="findActivityById" parameterType="String" resultType="com.blueHouse.pojo.browse.T_Activity">
-        select id, des , url ,start_time, end_time from t_activities where id = #{id}
+        select id, des , url , act_type, target_url, active_id, start_time, end_time from t_activities where id = #{id}
     </select>
     <select id="findActivityByPartialName" parameterType="String" resultType="com.blueHouse.pojo.browse.T_Activity">
-        select  id, des , url ,start_time, end_time from t_activities  where des LIKE  CONCAT(CONCAT('%',#{name},'%'))
+        select  id, des , url , act_type, target_url, active_id, start_time, end_time from t_activities  where des LIKE  CONCAT(CONCAT('%',#{name},'%'))
     </select>
     <select id="findAllActivity" resultType="com.blueHouse.pojo.browse.T_Activity">
-        select id, des , url ,start_time, end_time  from t_activities
+        select id, des , url , act_type, target_url, active_id, start_time, end_time  from t_activities
     </select>
     <insert id="insertActivity" parameterType="com.blueHouse.pojo.browse.T_Activity">
-        insert into t_activities (id, des , url ,start_time, end_time ) values(#{id},#{des} ,#{url} , #{start_time}, #{end_time})
+        insert into t_activities (id, des , url , act_type, target_url, active_id, start_time, end_time ) values(#{id},#{des} ,#{url} , #{act_type}, #{target_url}, #{active_id}, #{start_time}, #{end_time})
     </insert>
     <update id="updateActivity" parameterType="com.blueHouse.pojo.browse.T_Activity">
-        update t_activities set des = #{des},end_time = #{end_time}, url = #{url} , start_time = #{start_time} where id = #{id}
+        update t_activities set des = #{des},end_time = #{end_time}, url = #{url} , act_type = #{act_type}, target_url = #{target_url}, active_id = #{active_id}, start_time = #{start_time} where id = #{id}
     </update>
     <delete id="deleteActivity" parameterType="com.blueHouse.pojo.browse.T_Activity">
         DELETE FROM t_activities where id = #{id}
