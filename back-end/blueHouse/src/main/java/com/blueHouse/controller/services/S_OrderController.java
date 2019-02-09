@@ -8,6 +8,7 @@ import com.blueHouse.pojo.orders.*;
 import com.blueHouse.pojo.services.OrderData;
 import com.blueHouse.service.OMService;
 import com.blueHouse.service.OrderService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,7 @@ public class S_OrderController {
         int error_type = 1;
 
         OMService omService = (OMService) applicationContext.getBean("omService");
+        PageHelper.startPage(page, size);
         List<Order> orders = omService.findOrderByUser(user_id);
         List<OrderData> orderData = new ArrayList();
         for (Order order: orders) {
@@ -107,6 +109,7 @@ public class S_OrderController {
         int error_type = 1;
 
         OMService omService = (OMService) applicationContext.getBean("omService");
+        PageHelper.startPage(page, size);
         List<Design> designs = omService.findDesign(user_id, order_id);
 
         map.put("status", returnStatus);

@@ -6,6 +6,7 @@ package com.blueHouse.controller.services;
 
 import com.blueHouse.pojo.Brand;
 import com.blueHouse.service.BrandService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,7 @@ public class S_BrandController {
         int error_type = 1;
 
         BrandService brandService = (BrandService) applicationContext.getBean("brandService");
+        PageHelper.startPage(page, size);
         List<Brand> brands = brandService.findAllBrands();
 
         map.put("status", returnStatus);

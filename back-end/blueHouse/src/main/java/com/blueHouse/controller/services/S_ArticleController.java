@@ -6,6 +6,7 @@ package com.blueHouse.controller.services;
 
 import com.blueHouse.pojo.Article;
 import com.blueHouse.service.ArticleService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,7 @@ public class S_ArticleController {
         int error_type = 1;
 
         ArticleService articleService = (ArticleService) applicationContext.getBean("articleService");
+        PageHelper.startPage(page, size);
         List<Article> articles = articleService.findAllArticles();
 
         map.put("status", returnStatus);

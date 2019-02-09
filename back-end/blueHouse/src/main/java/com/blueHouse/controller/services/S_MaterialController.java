@@ -6,6 +6,7 @@ package com.blueHouse.controller.services;
 
 import com.blueHouse.pojo.browse.T_Material;
 import com.blueHouse.service.MaterialService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,7 @@ public class S_MaterialController {
         int error_type = 1;
 
         MaterialService materialService = (MaterialService) applicationContext.getBean("materialService");
+        PageHelper.startPage(page, size);
         List<T_Material> materials = materialService.findMaterialByCategory(category);
 
         map.put("status", returnStatus);
@@ -68,6 +70,7 @@ public class S_MaterialController {
         int error_type = 1;
 
         MaterialService materialService = (MaterialService) applicationContext.getBean("materialService");
+        PageHelper.startPage(page, size);
         List<T_Material> materials = materialService.findMaterialByBrand(brand);
 
         map.put("status", returnStatus);
@@ -95,6 +98,7 @@ public class S_MaterialController {
         int error_type = 1;
 
         MaterialService materialService = (MaterialService) applicationContext.getBean("materialService");
+        PageHelper.startPage(page, size);
         List<T_Material> materials = materialService.findMaterialByPartialName(name);
 
         map.put("status", returnStatus);
@@ -121,6 +125,7 @@ public class S_MaterialController {
         int error_type = 1;
 
         MaterialService materialService = (MaterialService) applicationContext.getBean("materialService");
+        PageHelper.startPage(page, size);
         List<T_Material> materials = materialService.findAllMaterials();
 
         map.put("status", returnStatus);
