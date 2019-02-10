@@ -41,6 +41,7 @@ public class S_MeasureController {
     public Map<String, Object> insertMeasure(
             @RequestParam(value = "user_id") String user_id,
             @RequestParam(value = "address") String address,
+            @RequestParam(value = "phone") String phone,
             HttpServletRequest req
     ) {
 
@@ -65,6 +66,7 @@ public class S_MeasureController {
         order.setUser_id(user_id);
         order.setStart_time(ts);
         order.setStatus("00");
+        order.setUser_phone(phone);
         String order_id = "ord" + md5Service.encodeByMD5(user_id + measure_id);
         order.setId(order_id);
 

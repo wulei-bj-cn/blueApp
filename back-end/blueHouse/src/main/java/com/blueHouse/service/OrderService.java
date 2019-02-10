@@ -14,5 +14,6 @@ public interface OrderService {
     List<Order> findOrderByUserName(String name);
     void insertOrder(Order order);
     void updateOrder(Order order);
+    void updateOrderPhone(Order order);
     void updateOrderStatus(Order order);
 }

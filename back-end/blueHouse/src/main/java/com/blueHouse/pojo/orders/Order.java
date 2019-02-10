@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 public class Order {
     private String user_id;
     private String id;
+    private String user_phone;
     private Timestamp start_time;
     private Timestamp end_time;
     private String status;
@@ -26,6 +27,9 @@ public class Order {
 
     public String getStatus() { return this.status; }
     public void setStatus(String status) { this.status = status; }
+
+    public String getUser_phone() { return this.user_phone; }
+    public void setUser_phone(String user_phone) { this.user_phone = user_phone; }
 
  }
 
