@@ -49,7 +49,7 @@ public class S_ConsoleController {
 
     @RequestMapping(value = "/homePage", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> insertMeasure(
+    public Map<String, Object> homePage(
             HttpServletRequest req
     ) {
 

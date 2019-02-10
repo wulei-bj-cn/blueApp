@@ -12,6 +12,7 @@ public class T_Solution {
     private String url;
     private Timestamp ts;
     private String designer;
+    private String category;
 
     public String getId() { return this.id; }
     public void setId(String id) { this.id = id; }
@@ -29,7 +30,10 @@ public class T_Solution {
     public void setTs(Timestamp ts) { this.ts = ts; }
 
     public String getDesigner() { return this.designer; }
-    public void setDesigner() { this.designer = designer; }
+    public void setDesigner(String designer) { this.designer = designer; }
+
+    public String getCategory() { return this.category; }
+    public void setCategory(String category) { this.category = category; }
 
 }
 
